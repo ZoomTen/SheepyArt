@@ -68,18 +68,18 @@ class User(db.Model):
 
 class Art(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(128), unique=True, nullable=False)
+    title = db.Column(db.String(128), nullable=False)
     # image is a static image link
-    image = db.Column(db.String(128), unique=True, nullable=False)
-    # thumbnail is a static image link
-    thumbnail = db.Column(db.String(128), unique=True, nullable=False)
+    image = db.Column(db.String(128), nullable=False, default='art.jpg')
+    # thumbnail is a static image link, default='default.jpg'
+    thumbnail = db.Column(db.String(128), nullable=False, default='thumb.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    favorites = db.Column(db.Integer, unique=True, nullable=False)
-    views = db.Column(db.Integer, unique=True, nullable=False)
-    pubdate = db.Column(db.DateTime, unique=True, nullable=False, default=datetime.utcnow)
-    description = db.Column(db.Text, unique=True, nullable=False)
-    tags = db.Column(db.String(256), unique=True, nullable=False)
-    category = db.Column(db.Integer, nullable=False)
+    favorites = db.Column(db.Integer, nullable=False, default=0)
+    views = db.Column(db.Integer, nullable=False, default=0)
+    pubdate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    description = db.Column(db.Text, nullable=False, default='')
+    tags = db.Column(db.String(256), nullable=False, default='')
+    category = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
         return f"Art('{self.title}', '{self.image}', '{self.category}', '{self.favorites}', '{self.views}', '{self.pubdate}')"
