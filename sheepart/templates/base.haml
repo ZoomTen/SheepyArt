@@ -32,11 +32,16 @@
             Password:
           %input#password.darker(type="password" name="password")
           %input#login-button(type="submit" value="Login")
-          …or hey, why not <a href="#">register</a>!
+          …or hey, why not <a href="/register">register</a>!
           %span#lost-pw
             <!--%a(href="#") << Lost my password lol-->
 
-    %main
+    .contains
+    ; FIXME: Add styling to flashed messages.
+      -with messages = get_flashed_messages()
+        -if messages
+          -for message in messages
+            %h3 << {{ message }}
       -block contents
 
     %footer

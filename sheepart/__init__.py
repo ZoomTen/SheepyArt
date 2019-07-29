@@ -4,6 +4,9 @@ from flask import Flask
 # database
 from flask_sqlalchemy import SQLAlchemy
 
+# password crypt
+from flask_bcrypt import Bcrypt
+
 # haml support
 from werkzeug import ImmutableDict
 
@@ -16,6 +19,7 @@ import json
 # App definitions and routes
 from sheepart.app.routes.browse import browse
 from sheepart.app.routes.search import search
+from sheepart.app.routes.register import register
 
 
 
@@ -28,7 +32,7 @@ db_file = conf["db_file"]
 
 # ------------------------- Control -------------------------
 class Hamlisk(Flask):
-    "Flask, but with HAML"
+    "Flask, but with HAMLish"
     jinja_options = ImmutableDict(
         extensions=['jinja2.ext.autoescape',
                     'jinja2.ext.with_',
@@ -72,3 +76,4 @@ def quack_all():
 # Register all routes
 app.register_blueprint(browse)
 app.register_blueprint(search)
+app.register_blueprint(register)

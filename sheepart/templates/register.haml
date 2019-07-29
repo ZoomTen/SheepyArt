@@ -1,0 +1,76 @@
+-extends 'base.haml'
+
+-block contents
+  .main-heading
+    %h2 << Register for {{site_name}}
+  -if mode == 'success'
+    %p << {{ debug }}
+  -elif mode == 'wtf'
+    %form(action="/register", method="post")
+      {{ form.csrf_token }}
+      %fieldset
+        %legend << User Details
+        {{ form.username.label }}
+        {{ form.username }}
+
+        {{ form.password.label }}
+        {{ form.password }}
+      %fieldset
+        %legend << Personal Details
+        {{ form.dob.label }}
+        {{ form.dob }}
+      %fieldset
+        {{ form.agree_tos }}
+        {{ form.agree_tos.label }}
+      {{ form.submit }}
+  -else
+    %main#register
+      %form(action="/register", method="post")
+        %fieldset
+          %legend << User Details
+          %label(for="username") << Username
+          %input#username(type="text", name="username")
+
+          %label(for="password1") << Password
+          %input#password1(type="password", name="password1")
+
+          %label(for="password2") << Confirm password
+          %input#password2(type="password", name="password2")
+
+          %label(for="dispname") << Display name
+          %input#dispname(type="text", name="dispname")
+
+          %label(for="email1") << Email
+          %input#email1(type="text", name="email1")
+
+          %label(for="email2") << Confirm email
+          %input#email2(type="text", name="email2")
+
+        %fieldset
+          %legend << Personal Details
+          %label(for="gender") << Gender
+          %select#gender(name="gender")
+            %option(value="2") << Male
+            %option(value="3") << Female
+            %option(value="1") << Other
+            %option(value="0" selected) << Non-identifying
+
+          %label(for="dob") << Date of Birth
+          %input#dob(type="date" name="dob" value="2000-01-01" min="1900-01-01" max="2001-01-01")
+
+          %label(for="country") << Country
+          %select#country(name="country")
+
+            %option(value="1") << United States
+            %option(value="2") << Canada
+            %option(value="20") << Egypt
+            %option(value="48") << Poland
+            %option(value="60") << Malaysia
+            %option(value="61") << Australia
+            %option(value="62") << Indonesia
+
+        %fieldset
+          %input#terms(type="checkbox", name="agreeterms")
+          %label(for="terms") << Agree to terms?
+
+        %input#reg-submit(type="submit")

@@ -11,6 +11,8 @@ python-dotenv = "*"
 flask-sqlalchemy = "*"
 hamlish-jinja = "*"
 flask-scss = "*"
+flask-bcrypt = "*"
+flask-wtf = "*"
 
 [requires]
 python_version = "3.7"

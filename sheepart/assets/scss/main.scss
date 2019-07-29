@@ -107,11 +107,15 @@ body{
   overflow-y: scroll;
 }
 
-main{
+.contains{
   width: $page-width;
   margin: auto;
+}
+
+main{
   background-color: map-get($light, 'bg');
   color: map-get($light, 'text');
+  padding:16px;
 }
 
 #main-nav{
