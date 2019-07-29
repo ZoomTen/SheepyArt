@@ -1,4 +1,6 @@
 {
+  "site_name": "SheepArt",
+  "tagline": "where nostalgia meets total ripoffs",
   "search_categories":{
     "all": "All Items",
     "forum": "Forums",
@@ -15,5 +17,7 @@
     "Meta": ["Contests", "Announcements"],
     "Journals": 0,
     "Scraps": 0
-  }
+  },
+  "db_file": "base.db",
+  "secret": "b1613a965683af63ca3f8673"
 }

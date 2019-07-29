@@ -1,7 +1,10 @@
 <!doctype html>
 %html(lang="en")
   %head
-    %title << RipART: where nostalgia meets total ripoffs
+    %title
+      {{ site_name }}
+      -if tagline|length
+        | : {{tagline}}
     %meta(charset="utf-8")
     %meta(content="width=device-width, initial-scale=1" name="viewport")
     %link(href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet")
@@ -9,7 +12,7 @@
   %body
     %nav#main-nav
       %a#heading-logo(href="/")
-        %h1 << RipART
+        %h1 << {{ site_name }}
       %form#search(method="get" action="/search")
         %input#s-text(type="text" name="q", accesskey="s" placeholder="Search..." value="{{ query }}")
         %select#s-cat(size="1" name="cat")

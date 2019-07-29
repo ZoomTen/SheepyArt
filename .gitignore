@@ -2,3 +2,4 @@ static/
 .env
 Pipfile.lock
 base.db
+__pycache__/
