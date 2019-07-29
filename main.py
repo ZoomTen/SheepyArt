@@ -54,15 +54,35 @@ with open("app/definitions.json","r") as def_files:
 # ------------------------- Model -------------------------
 db = SQLAlchemy(app)
 
-class Things(db.Model):
-    # FIXME: create the categories here, and maybe split the model onto a separate file?
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(256), nullable=False)
-    pubdate = db.Column(db.DateTime, default=datetime.utcnow)
+    username = db.Column(db.String(16), unique=True, nullable=False)
+    email = db.Column(db.String(128), unique=True, nullable=False)
+    # avatar is a static image link
+    avatar = db.Column(db.String(128), nullable=False, default='default.jpg')
+    password = db.Column(db.String(60), nullable=False)
+    art = db.relationship('Art', backref='by', lazy=True)
 
     def __repr__(self):
-        return 'Task %r (%s)' % self.id, self.cont
+        return f"User('{self.username}', '{self.email}', '{self.avatar}')"
 
+class Art(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128), unique=True, nullable=False)
+    # image is a static image link
+    image = db.Column(db.String(128), unique=True, nullable=False)
+    # thumbnail is a static image link
+    thumbnail = db.Column(db.String(128), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    favorites = db.Column(db.Integer, unique=True, nullable=False)
+    views = db.Column(db.Integer, unique=True, nullable=False)
+    pubdate = db.Column(db.DateTime, unique=True, nullable=False, default=datetime.utcnow)
+    description = db.Column(db.Text, unique=True, nullable=False)
+    tags = db.Column(db.String(256), unique=True, nullable=False)
+    category = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"Art('{self.title}', '{self.image}', '{self.category}', '{self.favorites}', '{self.views}', '{self.pubdate}')"
 
 # ------------------------- View: register endpoints -------------------------
 
