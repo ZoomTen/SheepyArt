@@ -1,0 +1,19 @@
+{
+  "search_categories":{
+    "all": "All Items",
+    "forum": "Forums",
+    "blog": "Blogs"
+  },
+  "categories":{
+    "Traditional": ["Sketches", "Comics", "Pieces", "Human", "Other"],
+    "Digital": ["Sketches", "Comics", "Pieces", "Human", "Other"],
+    "Photo": ["Analog", "Digital", "Manipulation"],
+    "Literature": ["Fiction", "Nonfiction"],
+    "Crafts": ["Wood", "Paper", "Metallic", "Other"],
+    "Designs": ["Apps", "Devices", "Print", "Other"],
+    "Refsheets": ["Anime/Manga", "DnD", "Furry", "Other"],
+    "Meta": ["Contests", "Announcements"],
+    "Journals": 0,
+    "Scraps": 0
+  }
+}

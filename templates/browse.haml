@@ -1,0 +1,115 @@
+-extends 'base.haml'
+
+-block contents
+  .main-heading
+    %h2 << Browse
+    %ul.tabbing
+      %li
+        %a(href="#") << New
+      %li.selected
+        %a(href="#") << Trending
+  #browse
+    %nav#browse-cats
+      ; FIXME: replace these categories with a loop over the database.
+      %ul
+        %li.selected
+          %a(href="#") << All Categories
+        %li
+          %a(href="#") << Traditional
+        %li
+          %a(href="#") << Digital
+        %li
+          %a(href="#") << Photo
+        %li
+          %a(href="#") << Literature
+        %li
+          %a(href="#") << Crafts
+        %li
+          %a(href="#") << App Designs
+        %li.has-divide
+          %a(href="#") << Refsheets
+        %li
+          %a(href="#") << Meta
+        %li
+          %a(href="#") << Scraps
+    #browse-main
+      ; FIXME: these cats.
+      .thumbs-container
+        .thumb-holder
+          .thumb-image
+            %img(height="150" src="https://placekitten.com/300/600")
+          .thumb-text
+            %span.title
+              %a(href="#") << Tesla Ref Sheet 2019
+            %span.author
+              by
+              %a(href="#") << Teslarossa
+            %span.cat
+              in
+              %a(href="#") << Refsheets
+        .thumb-holder
+          .thumb-image
+            %img(height="150" src="https://placekitten.com/500/600")
+          .thumb-text
+            %span.title
+              %a(href="#") << Iota
+            %span.author
+              by
+              %a(href="#") << SigmaAlphaThree
+            %span.cat
+              in
+              %a(href="#") << Digital/Human
+        .thumb-holder
+          .thumb-image
+            %img(height="150" src="https://placekitten.com/400/500")
+          .thumb-text
+            %span.title
+              %a(href="#") << OMAM | Rogues | 10
+            %span.author
+              by
+              %a(href="#") << KFG
+            %span.cat
+              in
+              %a(href="#") << Digital/Comics
+        .thumb-holder
+          .thumb-image
+            %img(height="150" src="https://placekitten.com/800/600")
+          .thumb-text
+            %span.title
+              %a(href="#") << Zy Pissing
+            %span.author
+              by
+              %a(href="#") << Zumipap
+            %span.cat
+              in
+              %a(href="#") << Digital/Pieces
+        .thumb-holder
+          .thumb-image
+            %img(height="150" src="https://placekitten.com/1920/1080")
+          .thumb-text
+            %span.title
+              %a(href="#") << Dash vs. Tobias (remake)
+            %span.author
+              by
+              %a(href="#") << Thesupernintendokid
+            %span.cat
+              in
+              %a(href="#") << Digital/Pieces
+        .thumb-holder
+          .thumb-image
+            %img(height="150" src="https://placekitten.com/654/466")
+          .thumb-text
+            %span.title
+              %a(href="#") << Now watch me WIP, watch me naenae
+            %span.author
+              by
+              %a(href="#") << Zumipap
+            %span.cat
+              in
+              %a(href="#") << Traditional/Sketches
+
+      .controls
+        %p
+          Previous Page
+        %p
+          %a(href="#") << Next Page
