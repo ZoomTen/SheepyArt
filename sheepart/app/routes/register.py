@@ -8,16 +8,18 @@ from flask import flash, redirect, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.fields.html5 import EmailField, DateField
-from wtforms.validators import InputRequired, Length, Email, EqualTo
+from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError
 from wtforms_components import DateRange
 
 # Date input functions
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
-# Database functions
+# Database entries
 from sheepart.sheepart import db
 from sheepart.app.models import User
+
+# Database functions
 from sqlalchemy.exc import IntegrityError
 from flask_bcrypt import Bcrypt
 hash = Bcrypt()
@@ -98,11 +100,21 @@ class RegistrationForm(FlaskForm):
 
     submit = SubmitField('Sign Up')
 
+    def validate_username(self, username):
+        if User.query.filter_by(username=username.data).first():
+            raise ValidationError('That username is already taken...')
+
+    def validate_email(self, email):
+        if User.query.filter_by(email=email.data).first():
+            raise ValidationError('That e-mail address is already taken... if you lost your password, please use the "Lost Password" link.')
+
 
 @register.route('/register', methods=['GET', 'POST'])
 def do_register():
     form = RegistrationForm()
 
+    # make sure of the methods
+    # run this if we're submitting stuff on the page
     if request.method == "POST":
         if form.validate_on_submit():
             # Add the new user data
@@ -115,34 +127,24 @@ def do_register():
                             country=int(form.country.data))
             db.session.add(new_user)
 
-            # Check for existing username and email, and throw us out
-            # if anything matches
+            # Catch some errors
             try:
                 db.session.commit()
             except IntegrityError as e:
                 db.session.rollback()
-                if 'UNIQUE constraint' in str(e.__cause__):
-                    # FIXME: find a better way to deal with handling IntegrityError
-                    user = User.query.filter_by(username=form.username.data).first()
-                    email = User.query.filter_by(email=form.email.data).first()
-                    if user is not None:
-                        flash('That username is already taken...', 'error')
-                    if email is not None:
-                        flash('That e-mail address is already taken... if you forgot your password, use the "Forgot Password" link!',
-                              'error')
-                else:
-                    flash(f'Registration failed: {e.__cause__}','error')
+                # FIXME: don't have debug stuff printing out
+                flash(f'Registration failed: {e.__cause__}','error')
                 return render_template("register.haml", form=form)
 
             # Registration success
             flash(f'Account created for {form.username.data}!', 'success')
             return redirect(url_for('login.do_login'))
-
         else:
-            # If we get other errors
+            # Print out all the errors on the page
             for field, errors in form.errors.items():
                 for err in errors:
                     flash(err, 'error')
             return render_template("register.haml", form=form)
+    # run this when we're only loading the regpage
     else:
         return render_template("register.haml", form=form)
