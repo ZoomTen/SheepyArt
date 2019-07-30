@@ -26,7 +26,9 @@
       .nav-container
         -if userauthed.username
           %span#isloggedin
-            Logged in as {{userauthed.username}}
+            Logged in as
+            %a(href="/user/{{userauthed.username}}")
+              {{userauthed.username}}
           %span#logout
             %a(href="/logout") << Logout
         -else
