@@ -1,3 +1,5 @@
+// FIXME: add a linter just so I can do away with color literals.
+
 @import 'main/normalize';
 
 // Standard box model stuff
@@ -26,78 +28,6 @@ $dark:(
 $search-roundness: 4px;
 $page-width: 90%;
 
-
-// Section heading
-.main-heading{
-  font-family: 'trebuchet ms', sans-serif;
-  margin:16px 0 0 0;
-  padding:16px 16px 0 0;
-  background: #B3C4B0;
-  color: #3B5A4A;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  h2{
-    margin: 0;
-    padding:0 16px;
-  }
-
-  ul.tabbing{
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-
-    li{
-      display: inline-block;
-      padding:8px 12px;
-      border-radius: 4px 4px 0 0;
-
-      &.selected{
-        background:#D6DED4;
-      }
-    }
-  }
-}
-
-// Thumbnails
-.thumbs-container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-.thumb-holder{
-  height: 300px;
-  margin-bottom: 5px;
-  text-align: center;
-  flex: 0 0 300px;
-}
-.thumb-text{
-  font-size:.8em;
-  %thumb-text-common{
-    display: block;
-    margin: 2px auto;
-  }
-  .title{
-    @extend %thumb-text-common;
-  }
-  .author{
-    @extend %thumb-text-common;
-    font-size:.8em;
-  }
-  .cat{
-    @extend %thumb-text-common;
-    font-size:.8em;
-    color: #738281;
-  }
-  a{
-    color: inherit;
-    text-decoration: none;
-  }
-  a:hover{
-    text-decoration: underline;
-  }
-}
 
 /* Main */
 
@@ -221,7 +151,114 @@ footer{
   }
 }
 
-// Browse
+// Section heading
+.main-heading{
+  font-family: 'trebuchet ms', sans-serif;
+  margin:16px 0 0 0;
+  padding:16px 16px 0 0;
+  background: #B3C4B0;
+  color: #3B5A4A;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2{
+    margin: 0;
+    padding:0 16px;
+  }
+
+  ul.tabbing{
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+
+    li{
+      display: inline-block;
+      padding:8px 12px;
+      border-radius: 4px 4px 0 0;
+
+      &.selected{
+        background:#D6DED4;
+      }
+    }
+  }
+}
+
+// Thumbnails
+.thumbs-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.thumb-holder{
+  height: 300px;
+  margin-bottom: 5px;
+  text-align: center;
+  flex: 0 0 300px;
+}
+.thumb-text{
+  font-size:.8em;
+  %thumb-text-common{
+    display: block;
+    margin: 2px auto;
+  }
+  .title{
+    @extend %thumb-text-common;
+  }
+  .author{
+    @extend %thumb-text-common;
+    font-size:.8em;
+  }
+  .cat{
+    @extend %thumb-text-common;
+    font-size:.8em;
+    color: #738281;
+  }
+  a{
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+}
+
+// Flash messages
+#system-messages{
+  list-style-type: none;
+  padding-left:0;
+
+  %msg-common{
+      margin:6px 0;
+      padding:8px;
+      border-radius: 4px;
+      box-shadow:0 3px 6px rgba(#000,.4);
+  }
+
+  li{
+    &.msg-error{
+      @extend %msg-common;
+      background: pink;
+    }
+    &.msg-warning{
+      @extend %msg-common;
+      background: yellow;
+    }
+    &.msg-info{
+      @extend %msg-common;
+      background: cyan;
+    }
+    &.msg-message{
+      @extend %msg-common;
+      background: white;
+    }
+    &.msg-success{
+      @extend %msg-common;
+      background: lime;
+    }
+  }
+}
+
 /* Browse UI */
 
 #browse{
@@ -262,4 +299,66 @@ footer{
   display: inline-block;
   padding:40px 10px;
   width: 100%;
+}
+
+/* Login and Register */
+
+#register, #login{
+  form{
+    font-size:.8em;
+    input[type="text"],
+    input[type="password"],
+    input[type="email"]{
+      height:1.7em;
+    }
+    legend{
+      font-size:1em;
+      padding:4px;
+    }
+    label{
+      display:inline-block;
+      text-align: right;
+      width:25%;
+      margin: 0 10px 10px 0;
+      font-weight: 800;
+    }
+    label[for="agree_tos"]{
+      margin:0 0 10px 10px;
+      width:auto;
+      text-align: left;
+    }
+    #agree_tos{
+      margin-left:25%;
+    }
+    fieldset{
+      background-color: rgba(#000,.05);
+      border:1px solid rgba(#000,.1);
+      margin-bottom:10px;
+      padding: 10px;
+    }
+    #username{
+      width:8em;
+    }
+    #dispname{
+      width:20em;
+    }
+    #password,
+    #confirm_password{
+      width:15em;
+    }
+    #email,
+    #confirm_email{
+      width:13em;
+    }
+    #submit{
+      // FIXME: Style the sign up button
+      background: green;
+      border:0;
+      border-radius: 5px;
+      color: #fff;
+      padding:6px 12px;
+      text-align: center;
+      margin-left:25%;
+    }
+  }
 }
