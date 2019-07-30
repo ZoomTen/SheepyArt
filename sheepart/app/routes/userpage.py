@@ -15,4 +15,4 @@ def view_userpage(username):
         actual_username = user.username
         return render_template("userpage.haml", username=escape(actual_username))
     else:
-        return render_template("userpage.haml", username="Not Found")
+        return render_template("userpage.haml")
