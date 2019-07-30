@@ -12,6 +12,9 @@ from wtforms_components import DateRange
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
+from sheepart.sheepart import db
+from sheepart.app.models import User
+
 register = Blueprint('register', __name__)
 
 class RegistrationForm(FlaskForm):

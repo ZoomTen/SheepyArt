@@ -1,8 +1,17 @@
 from datetime import datetime
-from sheepart import db
+from sheepart.sheepart import db
 # ------------------------- Model -------------------------
 
 class User(db.Model):
+    '''
+    Required fields:
+        username(String)
+        email(String)
+        password(String, hashed)
+        
+    Other fields:
+        art(db)
+    '''
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(16), unique=True, nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)

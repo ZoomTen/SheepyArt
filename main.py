@@ -1,4 +1,4 @@
-from sheepart import app, db, db_file
+from sheepart.sheepart import app, db, db_file
 
 
 # ------------------------- Run application -------------------------
