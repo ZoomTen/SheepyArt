@@ -13,6 +13,8 @@ hamlish-jinja = "*"
 flask-scss = "*"
 flask-bcrypt = "*"
 flask-wtf = "*"
+wtforms-components = "*"
+python-dateutil = "*"
 
 [requires]
 python_version = "3.7"
