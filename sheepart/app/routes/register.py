@@ -96,6 +96,13 @@ def do_register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
+        new_user = User(username=form.username.data,
+                        email=form.email.data,
+                        password='HASHED STRING HERE')
+
+        db.session.add(new_user)
+        db.session.commit()
+
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('browse.do_browse'))
 
