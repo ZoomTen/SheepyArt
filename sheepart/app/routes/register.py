@@ -20,6 +20,7 @@ from sheepart.sheepart import db
 from sheepart.app.models import User
 
 # Database functions
+from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from flask_bcrypt import Bcrypt
 hash = Bcrypt()
@@ -101,7 +102,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
-        if User.query.filter_by(username=username.data).first():
+        if User.query.filter(func.lower(User.username) == func.lower(username.data)).first():
             raise ValidationError('That username is already taken...')
 
     def validate_email(self, email):
