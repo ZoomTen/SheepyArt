@@ -130,7 +130,6 @@ def do_register():
                     if email is not None:
                         flash('That e-mail address is already taken... if you forgot your password, use the "Forgot Password" link!',
                               'error')
-                        message, info, error, warning
                 else:
                     flash(f'Registration failed: {e.__cause__}','error')
                 return render_template("register.haml", form=form)
