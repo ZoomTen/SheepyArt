@@ -11,6 +11,7 @@ from sheepart.app.routes.register import register
 from sheepart.app.routes.search import search
 from sheepart.app.routes.login import login, logout, SiteWideLoginForm
 from sheepart.app.routes.userpage import userpage
+from sheepart.app.routes.upload import upload
 
 # Load login data
 from flask_login import current_user
@@ -35,3 +36,4 @@ app.register_blueprint(register)
 app.register_blueprint(login)
 app.register_blueprint(logout)
 app.register_blueprint(userpage)
+app.register_blueprint(upload)

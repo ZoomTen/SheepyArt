@@ -16,6 +16,7 @@ flask-wtf = "*"
 wtforms-components = "*"
 python-dateutil = "*"
 flask-login = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7"

@@ -123,6 +123,8 @@ main{
     background-color: #40534A;
     color: map-get($dark, 'text');
     font-size: .8em;
+    display: flex;
+    justify-content: space-between;
   }
 
   input{
@@ -131,6 +133,17 @@ main{
 
   a{
     color: inherit;
+  }
+
+  // FIXME: consider using classes instead of name IDs
+  #userhud, #actionhud{
+    display: inline-block;
+    padding-left: 0;
+    list-style-type: none;
+
+    li{
+      display: inline-block;
+    }
   }
 }
 
@@ -225,6 +238,7 @@ footer{
 
 // Flash messages
 #system-messages{
+  // FIXME: make the colors a little nicer for system messages
   list-style-type: none;
   padding-left:0;
 
@@ -303,7 +317,8 @@ footer{
 
 /* Login and Register */
 
-#register, #login{
+//FIXME: Clean this up and convert the form IDs into common classes
+#register, #login, #upload{
   form{
     font-size:.8em;
     input[type="text"],

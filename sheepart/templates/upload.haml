@@ -1,0 +1,38 @@
+-extends 'base.haml'
+
+-block contents
+  .main-heading
+    %h2 << Upload some Art
+  %main#upload
+    %form(action="/upload", method="post" enctype="multipart/form-data")
+      {{ form.csrf_token }}
+      %fieldset
+        %legend << Meta
+        {{ form.title.label }}
+        {{ form.title }}
+        %br
+        {{ form.category.label }}
+        {{ form.category }}
+        %br
+        {{ form.tags.label }}
+        {{ form.tags }}
+
+      %fieldset
+        %legend << Content
+        {{ form.image.label }}
+        {{ form.image }}
+        %br
+        {{ form.description.label }}
+        {{ form.description }}
+        %br
+        {{ form.has_nsfw.label }}
+        {{ form.has_nsfw }}
+        %br
+        {{ form.license.label }}
+        {{ form.license }}
+
+      %fieldset
+        {{ form.agree_tos }}
+        {{ form.agree_tos.label }}
+
+      {{ form.submit }}

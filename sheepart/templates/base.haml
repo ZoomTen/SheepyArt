@@ -25,12 +25,22 @@
     %nav#user-nav
       .nav-container
         -if userauthed.username
-          %span#isloggedin
-            Logged in as
-            %a(href="/user/{{userauthed.username}}")
-              {{userauthed.username}}
-          %span#logout
-            %a(href="/logout") << Logout
+          %ul#userhud
+            %li
+              Logged in as
+              %a(href="/user/{{userauthed.username}}")
+                {{userauthed.username}}
+            %li
+            ; FIXME: Provide interfaces for user actions
+              Notifications
+            %li
+              Inbox
+          %ul#actionhud
+            %li
+              %a(href="/upload") << Upload
+            %li
+              %a(href="/logout") << Logout
+
         -else
           %form#login(method="post" action="/login")
             {{ globallogin.csrf_token }}
