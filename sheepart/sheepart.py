@@ -57,3 +57,5 @@ Scss(app)
 
 # Login manager
 logins = LoginManager(app)
+logins.login_view = 'login.do_login'
+logins.login_message_category = 'info'

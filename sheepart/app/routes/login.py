@@ -16,6 +16,7 @@ from wtforms_components import DateRange
 
 # User model
 from sheepart.app.models import User
+from sqlalchemy import func
 
 # Login functions
 from flask_login import login_user, current_user, logout_user
@@ -64,14 +65,20 @@ def do_login():
         if request.method == "POST":
             if form.validate_on_submit():
                 # FIXME: Add email input functionality
-                user = User.query.filter_by(username=form.username.data).first()
+                user = User.query.filter(func.lower(User.username) == func.lower(form.username.data)).first()
 
                 if user:
                     check_pw = hash.check_password_hash(user.password, form.password.data)
                     if check_pw:
                         login_user(user, remember=form.stay.data)
+
                         flash(f"Logged in as '{ form.username.data }'!", 'success')
-                        return redirect(url_for('browse.do_browse'))
+
+                        target = request.args.get('next')
+                        if target:
+                            return redirect(target)
+                        else:
+                            return redirect(url_for('browse.do_browse'))
                     else:
                         flash('Login failed, check your password!', 'error')
 
