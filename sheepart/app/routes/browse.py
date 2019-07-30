@@ -1,5 +1,5 @@
-from flask import Blueprint
-from flask import Response, render_template
+# Base
+from flask import Blueprint, render_template
 
 browse = Blueprint('browse', __name__)
 

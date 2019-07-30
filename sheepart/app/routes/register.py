@@ -1,23 +1,25 @@
-from flask import Blueprint
-from flask import render_template
+# Base
+from flask import Blueprint, render_template
 
-from flask import flash, redirect, url_for
+# Additional functions
+from flask import flash, redirect, url_for, request
 
+# Form functions
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.fields.html5 import EmailField, DateField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms_components import DateRange
 
+# Date input functions
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
+# Database functions
 from sheepart.sheepart import db
 from sheepart.app.models import User
-
 from sqlalchemy.exc import IntegrityError
 from flask_bcrypt import Bcrypt
-
 hash = Bcrypt()
 
 register = Blueprint('register', __name__)

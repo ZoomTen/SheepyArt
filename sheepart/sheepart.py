@@ -4,17 +4,22 @@
 
 from os import path
 
+# Base app
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+# Haml + Sass support
 from werkzeug import ImmutableDict
 from flask_scss import Scss
 
+# For the definition file
 import json
 
 # ------------------------- Definitions -------------------------
 
 with open(path.join("sheepart", "app", "definitions.json"),"r") as def_files:
+    # Load our JSON definition file as a dictionary that
+    # we can use
     conf = json.load(def_files)
 
 db_file = conf["db_file"]
@@ -27,9 +32,9 @@ class Hamlisk(Flask):
                     'jinja2.ext.with_',
                     'hamlish_jinja.HamlishExtension']
     )
-
     def __init__(self):
         Flask.__init__(self, __name__)
+
 
 app = Hamlisk()
 
