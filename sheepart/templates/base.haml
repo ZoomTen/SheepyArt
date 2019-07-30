@@ -37,11 +37,11 @@
             <!--%a(href="#") << Lost my password lol-->
 
     .contains
-    ; FIXME: Add styling to flashed messages.
-      -with messages = get_flashed_messages()
+      -with messages = get_flashed_messages(with_categories=true)
         -if messages
-          -for message in messages
-            %h3 << {{ message }}
+          %ul#system-messages
+            -for category, message in messages
+              %li(class="msg-{{category}}") << {{ message }}
       -block contents
 
     %footer
