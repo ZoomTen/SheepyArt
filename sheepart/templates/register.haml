@@ -11,19 +11,19 @@
         %legend << User Details
         {{ form.username.label }}
         {{ form.username }}
-
+        %br
         {{ form.dispname.label }}
         {{ form.dispname }}
-
+        %br
         {{ form.password.label }}
         {{ form.password }}
-
+        %br
         {{ form.confirm_password.label }}
         {{ form.confirm_password }}
-
+        %br
         {{ form.email.label }}
         {{ form.email }}
-
+        %br
         {{ form.confirm_email.label }}
         {{ form.confirm_email }}
 
@@ -31,15 +31,15 @@
         %legend << Personal Details
         {{ form.gender.label }}
         {{ form.gender }}
-
+        %br
         {{ form.dob.label }}
         {{ form.dob }}
-
+        %br
         {{ form.country.label }}
         {{ form.country }}
 
       %fieldset
-        {{ form.agree_tos.label }}
         {{ form.agree_tos }}
+        {{ form.agree_tos.label }}
 
       {{ form.submit }}

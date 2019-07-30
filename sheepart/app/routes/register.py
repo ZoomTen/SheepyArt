@@ -101,41 +101,48 @@ class RegistrationForm(FlaskForm):
 def do_register():
     form = RegistrationForm()
 
-    if form.validate_on_submit():
-        new_user = User(username=form.username.data,
-                        dispname=form.dispname.data,
-                        email=form.email.data,
-                        password=hash.generate_password_hash(form.password.data),
-                        dob=form.dob.data,
-                        gender=int(form.gender.data),
-                        country=int(form.country.data))
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # Add the new user data
+            new_user = User(username=form.username.data,
+                            dispname=form.dispname.data,
+                            email=form.email.data,
+                            password=hash.generate_password_hash(form.password.data),
+                            dob=form.dob.data,
+                            gender=int(form.gender.data),
+                            country=int(form.country.data))
+            db.session.add(new_user)
 
-        db.session.add(new_user)
+            # Check for existing username and email, and throw us out
+            # if anything matches
+            try:
+                db.session.commit()
+            except IntegrityError as e:
+                db.session.rollback()
+                if 'UNIQUE constraint' in str(e.__cause__):
+                    # FIXME: find a better way to deal with handling IntegrityError
+                    user = User.query.filter_by(username=form.username.data).first()
+                    email = User.query.filter_by(email=form.email.data).first()
+                    if user is not None:
+                        flash('That username is already taken...', 'error')
+                    if email is not None:
+                        flash('That e-mail address is already taken... if you forgot your password, use the "Forgot Password" link!',
+                              'error')
+                        message, info, error, warning
+                else:
+                    flash(f'Registration failed: {e.__cause__}','error')
+                return render_template("register.haml", form=form)
 
-        try:
-            db.session.commit()
-        except IntegrityError as e:
-            db.session.rollback()
-            if 'UNIQUE constraint' in str(e.__cause__):
-                # FIXME: find a better way to deal with handling IntegrityError
-                user = User.query.filter_by(username=form.username.data).first()
-                email = User.query.filter_by(email=form.email.data).first()
-                if user is not None:
-                    flash('That username is already taken...', 'error')
-                if email is not None:
-                    flash('That e-mail address is already taken... if you forgot your password, use the "Forgot Password" link!',
-                          'error')
-            else:
-                flash(f'Registration failed: {e.__cause__}','error')
+            # FIXME: Redirect to the login screen.
+            # Registration success
+            flash(f'Account created for {form.username.data}!', 'success')
+            return redirect(url_for('browse.do_browse'))
+
+        else:
+            # If we get other errors
+            for field, errors in form.errors.items():
+                for err in errors:
+                    flash(err, 'error')
             return render_template("register.haml", form=form)
-
-        # FIXME: Redirect to the user's profile page.
-        flash(f'Account created for {form.username.data}!', 'success')
-        return redirect(url_for('browse.do_browse'))
-
     else:
-        for field, errors in form.errors.items():
-            for err in errors:
-                flash(err, 'error')
-
         return render_template("register.haml", form=form)
