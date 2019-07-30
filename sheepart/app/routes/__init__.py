@@ -1,3 +1,7 @@
+'''
+    SheepArt route definitions
+'''
+
 from sheepart.sheepart import app, conf
 
 from sheepart.app.routes.browse import browse
