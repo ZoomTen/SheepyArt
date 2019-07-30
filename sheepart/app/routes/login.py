@@ -95,4 +95,5 @@ def do_login():
 @logout.route('/logout', methods=['GET', 'POST'])
 def do_logout():
     logout_user()
+    flash('You have been successfully logged out.', 'info')
     return redirect(url_for('browse.do_browse'))
