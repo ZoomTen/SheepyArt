@@ -55,6 +55,8 @@ class Art(db.Model):
     description = db.Column(db.Text, nullable=False, default='')
     tags = db.Column(db.String(256), nullable=False, default='')
     category = db.Column(db.Integer, nullable=False, default=0)
+    nsfw = db.Column(db.Integer, nullable=False, default=0)
+    license = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
         return f"Art('{self.title}', '{self.image}', '{self.category}', '{self.favorites}', '{self.views}', '{self.pubdate}')"
