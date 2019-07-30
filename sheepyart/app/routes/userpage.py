@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, escape, url_for
 
 # Database entries
-from sheepart.app.models import User
+from sheepyart.app.models import User
 from sqlalchemy import func
 
 userpage = Blueprint('userpage', __name__)

@@ -16,8 +16,8 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 # Database entries
-from sheepart.sheepart import db
-from sheepart.app.models import User
+from sheepyart.sheepyart import db
+from sheepyart.app.models import User
 
 # Database functions
 from sqlalchemy import func
@@ -28,7 +28,7 @@ hash = Bcrypt()
 register = Blueprint('register', __name__)
 
 class RegistrationForm(FlaskForm):
-    'Sheepart registration form object.'
+    'SheepyArt registration form object.'
 
     # User details
     username = StringField('Username',

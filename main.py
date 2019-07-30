@@ -1,4 +1,4 @@
-from sheepart.sheepart import app, db, db_file
+from sheepyart.sheepyart import app, db, db_file
 
 
 # ------------------------- Run application -------------------------

@@ -1,17 +1,17 @@
 '''
-    SheepArt route definitions
+    SheepyArt route definitions
 '''
 
 # Load global definitions
-from sheepart.sheepart import app, conf
+from sheepyart.sheepyart import app, conf
 
 # Load routes
-from sheepart.app.routes.browse import browse
-from sheepart.app.routes.register import register
-from sheepart.app.routes.search import search
-from sheepart.app.routes.login import login, logout, SiteWideLoginForm
-from sheepart.app.routes.userpage import userpage
-from sheepart.app.routes.upload import upload
+from sheepyart.app.routes.browse import browse
+from sheepyart.app.routes.register import register
+from sheepyart.app.routes.search import search
+from sheepyart.app.routes.login import login, logout, SiteWideLoginForm
+from sheepyart.app.routes.userpage import userpage
+from sheepyart.app.routes.upload import upload
 
 # Load login data
 from flask_login import current_user

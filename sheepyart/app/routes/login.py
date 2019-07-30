@@ -15,7 +15,7 @@ from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms_components import DateRange
 
 # User model
-from sheepart.app.models import User
+from sheepyart.app.models import User
 from sqlalchemy import func
 
 # Login functions
@@ -29,7 +29,7 @@ login = Blueprint('login', __name__)
 logout = Blueprint('logout', __name__)
 
 class SiteWideLoginForm(FlaskForm):
-    'Sheepart site-wide login form object. has no validation.'
+    'SheepyArt site-wide login form object. has no validation.'
 
     # User details
     username = StringField('Username')
@@ -39,7 +39,7 @@ class SiteWideLoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class LoginForm(FlaskForm):
-    'Sheepart login form object.'
+    'SheepyArt login form object.'
 
     # User details
     username = StringField('Username',

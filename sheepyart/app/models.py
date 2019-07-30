@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from sheepart.sheepart import db, logins
+from sheepyart.sheepyart import db, logins
 from flask_login import UserMixin
 
 # ------------------------- Interfacing -------------------------

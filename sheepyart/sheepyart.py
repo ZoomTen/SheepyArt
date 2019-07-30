@@ -1,5 +1,5 @@
 '''
-    SheepArt global object
+    SheepyArt global object
 '''
 
 from os import path
@@ -20,7 +20,7 @@ import json
 
 # ------------------------- Definitions -------------------------
 
-with open(path.join("sheepart", "app", "definitions.json"),"r") as def_files:
+with open(path.join("sheepyart", "app", "definitions.json"),"r") as def_files:
     # Load our JSON definition file as a dictionary that
     # we can use
     conf = json.load(def_files)

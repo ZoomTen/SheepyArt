@@ -14,8 +14,8 @@ from wtforms.validators import ValidationError
 from wtforms_components import DateRange
 
 # Database entries
-from sheepart.sheepart import db, app
-from sheepart.app.models import Art
+from sheepyart.sheepyart import db, app
+from sheepyart.app.models import Art
 
 # Database functions
 from sqlalchemy import func
@@ -31,7 +31,7 @@ from PIL import Image
 upload = Blueprint('upload', __name__)
 
 class UploadForm(FlaskForm):
-    'Sheepart upload form object.'
+    'SheepyArt upload form object.'
 
     # User details
     title = StringField('Art Title',

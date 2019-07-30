@@ -1,6 +1,7 @@
-# Untitled Classic-DeviantArt Clone
+# SheepyArt
 
-Flask practice app.
+Flask practice app, basically a classic DeviantArt ripoff
+(The VidLii of DeviantArt?)
 
 It's supposed to look like the 2008 layout, but even I don't remember
 what that looked like. It might end up looking like an amalgamation of
