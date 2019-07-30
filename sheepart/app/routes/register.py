@@ -139,12 +139,11 @@ def do_register():
             # Registration success
             flash(f'Account created for {form.username.data}!', 'success')
             return redirect(url_for('login.do_login'))
-        else:
-            # Print out all the errors on the page
-            for field, errors in form.errors.items():
-                for err in errors:
-                    flash(err, 'error')
-            return render_template("register.haml", form=form)
+        # If anything happens, print out all the errors on the page
+        for field, errors in form.errors.items():
+            for err in errors:
+                flash(err, 'error')
+        return render_template("register.haml", form=form)
     # run this when we're only loading the regpage
     else:
         return render_template("register.haml", form=form)

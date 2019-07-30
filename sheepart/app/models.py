@@ -1,8 +1,16 @@
 from datetime import datetime, date
-from sheepart.sheepart import db
+from sheepart.sheepart import db, logins
+from flask_login import UserMixin
+
+# ------------------------- Interfacing -------------------------
+
+@logins.user_loader
+def load_user(uid):
+    return User.query.get(int(uid))
+
 # ------------------------- Model -------------------------
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     '''
     Required fields:
         username(String, 16, unique)

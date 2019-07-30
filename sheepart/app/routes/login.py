@@ -1,5 +1,11 @@
+'''
+    Login route. This also handles logouts.
+'''
 # Base
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template
+
+# Additional functions
+from flask import flash, redirect, url_for, request
 
 # Form functions
 from flask_wtf import FlaskForm
@@ -8,7 +14,28 @@ from wtforms.fields.html5 import EmailField, DateField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms_components import DateRange
 
+# User model
+from sheepart.app.models import User
+
+# Login functions
+from flask_login import login_user, current_user, logout_user
+
+# Crypt functions
+from flask_bcrypt import Bcrypt
+hash = Bcrypt()
+
 login = Blueprint('login', __name__)
+logout = Blueprint('logout', __name__)
+
+class SiteWideLoginForm(FlaskForm):
+    'Sheepart site-wide login form object. has no validation.'
+
+    # User details
+    username = StringField('Username')
+
+    password = PasswordField('Password')
+
+    submit = SubmitField('Login')
 
 class LoginForm(FlaskForm):
     'Sheepart login form object.'
@@ -24,14 +51,41 @@ class LoginForm(FlaskForm):
                              [
                                  InputRequired('Enter a password'),
                              ])
-
+    stay = BooleanField('Remember this login')
     submit = SubmitField('Login')
 
 @login.route('/login', methods=['GET', 'POST'])
 def do_login():
     form = LoginForm()
 
-    if request.method == "POST":
-        return render_template("login.haml", form=form)
+    if current_user.is_authenticated:
+        return redirect(url_for('browse.do_browse'))
     else:
-        return render_template("login.haml", form=form)
+        if request.method == "POST":
+            if form.validate_on_submit():
+                # FIXME: Add email input functionality
+                user = User.query.filter_by(username=form.username.data).first()
+
+                if user:
+                    check_pw = hash.check_password_hash(user.password, form.password.data)
+                    if check_pw:
+                        login_user(user, remember=form.stay.data)
+                        flash(f"Logged in as '{ form.username.data }'!", 'success')
+                        return redirect(url_for('browse.do_browse'))
+                    else:
+                        flash('Login failed, check your password!', 'error')
+
+                else:
+                    flash('Login failed, check your username!', 'error')
+                return render_template("login.haml", form=form)
+            for field, errors in form.errors.items():
+                for err in errors:
+                    flash(err, 'error')
+            return render_template("login.haml", form=form)
+        else:
+            return render_template("login.haml", form=form)
+
+@logout.route('/logout', methods=['GET', 'POST'])
+def do_logout():
+    logout_user()
+    return redirect(url_for('browse.do_browse'))

@@ -8,6 +8,9 @@ from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+# Login support
+from flask_login import LoginManager
+
 # Haml + Sass support
 from werkzeug import ImmutableDict
 from flask_scss import Scss
@@ -51,3 +54,6 @@ db = SQLAlchemy(app)
 
 # Compile SCSS
 Scss(app)
+
+# Login manager
+logins = LoginManager(app)

@@ -15,6 +15,7 @@ flask-bcrypt = "*"
 flask-wtf = "*"
 wtforms-components = "*"
 python-dateutil = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.7"
