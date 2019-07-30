@@ -9,6 +9,7 @@ from sheepart.sheepart import app, conf
 from sheepart.app.routes.browse import browse
 from sheepart.app.routes.register import register
 from sheepart.app.routes.search import search
+from sheepart.app.routes.login import login
 
 
 # ------------------------- View: register endpoints -------------------------
@@ -26,3 +27,4 @@ def quack_all():
 app.register_blueprint(browse)
 app.register_blueprint(search)
 app.register_blueprint(register)
+app.register_blueprint(login)
