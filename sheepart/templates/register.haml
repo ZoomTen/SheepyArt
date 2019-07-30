@@ -4,6 +4,7 @@
   .main-heading
     %h2 << Register for {{site_name}}
   %main#register
+    ; FIXME: style the registration forms
     %form(action="/register", method="post")
       {{ form.csrf_token }}
       %fieldset

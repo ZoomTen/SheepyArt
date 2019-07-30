@@ -68,6 +68,7 @@ class RegistrationForm(FlaskForm):
                             )
                     ])
 
+    # FIXME: Expand countries
     country = SelectField('Country',
                           choices=[
                               ( '1', 'United States'),
