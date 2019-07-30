@@ -3,9 +3,12 @@
 -block contents
   -if username
     .main-heading
-      %h2 << {{ username }}
+      %h2
+        %img(src="{{ avatar }}" width=50 height=50)
+        {{ username }}
     %main#userpage
       ; FIXME: Populate this
+      ; FIXME: Add another table for user content
       %p
         Placeholder userpage content
   -else

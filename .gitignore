@@ -1,4 +1,5 @@
-static/
+static/css
+static/css/main
 .env
 Pipfile.lock
 base.db
