@@ -1,23 +1,33 @@
-from datetime import datetime
+from datetime import datetime, date
 from sheepart.sheepart import db
 # ------------------------- Model -------------------------
 
 class User(db.Model):
     '''
     Required fields:
-        username(String)
-        email(String)
-        password(String, hashed)
-        
+        username(String, 16, unique)
+        dispname(String, 64)
+        email(String, 128, unique)
+        password(String, 60, hashed)
+        dob(Date)
+        gender(Integer)
+        country(Integer)
+    Optional fields:
+        avatar(String, 128)
     Other fields:
-        art(db)
+        art(db, Art)
     '''
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(16), unique=True, nullable=False)
+    dispname = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+    dob = db.Column(db.Date, nullable=False)
+    # FIXME: Proper classification for gender and country?
+    gender = db.Column(db.Integer, nullable=False)
+    country = db.Column(db.Integer, nullable=False)
     # avatar is a static image link
     avatar = db.Column(db.String(128), nullable=False, default='default.jpg')
-    password = db.Column(db.String(60), nullable=False)
     art = db.relationship('Art', backref='by', lazy=True)
 
     def __repr__(self):

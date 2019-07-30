@@ -7,8 +7,6 @@ from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_bcrypt import Bcrypt
-
 from werkzeug import ImmutableDict
 from flask_scss import Scss
 
