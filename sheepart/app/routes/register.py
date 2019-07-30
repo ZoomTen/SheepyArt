@@ -135,10 +135,9 @@ def do_register():
                     flash(f'Registration failed: {e.__cause__}','error')
                 return render_template("register.haml", form=form)
 
-            # FIXME: Redirect to the login screen.
             # Registration success
             flash(f'Account created for {form.username.data}!', 'success')
-            return redirect(url_for('browse.do_browse'))
+            return redirect(url_for('login.do_login'))
 
         else:
             # If we get other errors
