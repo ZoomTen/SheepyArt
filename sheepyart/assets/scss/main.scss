@@ -334,8 +334,9 @@ footer{
       display:inline-block;
       text-align: right;
       width:25%;
-      margin: 0 10px 10px 0;
+      margin: 0 10px 20px 0;
       font-weight: 800;
+      vertical-align: top;
     }
     label[for="agree_tos"]{
       margin:0 0 10px 10px;
@@ -374,6 +375,39 @@ footer{
       padding:6px 12px;
       text-align: center;
       margin-left:25%;
+    }
+    #has_nsfw{
+      display: inline-block;
+      list-style-type: none;
+      padding-left: 0;
+
+      li{
+        display: inline-block;
+      }
+    }
+    #preview{
+      display: block;
+      margin: 12px auto;
+      border: 1px solid grey;
+      padding:5px;
+    }
+    #description{
+      width: 50%;
+      height: 18em;
+    }
+    #title{
+      font-weight: 700;
+    }
+    // FIXME: generalize these classes
+    #ui-license-about:checked + label + #license-explain {
+      max-height: 99em;
+      transition: max-height 1s ease-in-out;
+    }
+
+    #ui-license-about + label + #license-explain {
+      max-height: 0;
+      overflow-y: hidden;
+      transition: max-height 1s cubic-bezier(0,1,0,1);
     }
   }
 }

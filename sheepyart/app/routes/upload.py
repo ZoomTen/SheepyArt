@@ -52,7 +52,7 @@ class UploadForm(FlaskForm):
                                FileRequired('Please choose an image file'),
                                FileAllowed(['jpg', 'png', 'gif'])
                            ])
-    description = TextAreaField('Description')
+    description = TextAreaField('Description or Contents')
 
     has_nsfw = RadioField(label='Mature Content?',
                            validators=[

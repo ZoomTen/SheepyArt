@@ -19,6 +19,7 @@
 
       %fieldset
         %legend << Content
+        %img#preview(src="{{ url_for('static', filename='PlaceholderforArt.png')}}" height=200)
         {{ form.image.label }}
         {{ form.image }}
         %br
@@ -30,9 +31,60 @@
         %br
         {{ form.license.label }}
         {{ form.license }}
-
+        %input#ui-license-about.ui-toggle-button(type="checkbox")
+        %label(for="ui-license-about")
+          What's this?
+        #license-explain
+          %ul
+            %li
+              %strong << All rights reserved
+              means that your art is protected
+              by copyright, and that you reserve
+              (or hold) your copy rights on the piece.
+            %li
+              %strong << Creative Commons.
+              Anything that starts with
+              a "CC". But what do those other letters
+              mean? Here's a summary:
+              %ul
+                %li
+                  %strong << BY
+                  | - Attribution, as in, people who want
+                  to use your art must state "by" whom
+                  the art was made.
+                %li
+                  %strong << NC
+                  | - Non-Commercial. People who use your
+                  work must not use it for monetary gain
+                  or sell things based off it.
+                %li
+                  %strong << ND
+                  | - No Derivatives. People must not modify
+                  your work if they want to repost it.
+                %li
+                  %strong << SA
+                  | - Share-Alike. Any work that has this
+                  license must be reposted with the exact
+                  same license. For example, works licensed
+                  "CC BY-NC-SA" must be reposted with the
+                  "CC BY-NC-SA" license as well.
+            %li
+              %strong << Public Domain.
+              | - Basically anyone can use your work however
+              they want. Pick this if you're doing clipart
+              or similar works.
       %fieldset
         {{ form.agree_tos }}
         {{ form.agree_tos.label }}
 
       {{ form.submit }}
+  %script
+    | document.getElementById("image").onchange = function(){
+    |     var read = new FileReader();
+    |
+    |     read.onload = function(e){
+    |         document.getElementById("preview").src = e.target.result;
+    |     };
+    |
+    |     read.readAsDataURL(this.files[0]);
+    | }

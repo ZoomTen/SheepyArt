@@ -1,5 +1,7 @@
-static/css
-static/css/main
+sheepyart/static/css
+sheepyart/static/uploads
+sheepyart/static/thumbnail
+sheepyart/static/avatar
 .env
 Pipfile.lock
 base.db
