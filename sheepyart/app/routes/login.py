@@ -67,7 +67,7 @@ def do_login():
     else:
         if request.method == "POST":
             if form.validate_on_submit():
-                # FIXME: Add email input functionality
+                # FIXME: login: add email input functionality
                 user = User.query.filter(func.lower(User.username) == func.lower(form.username.data)).first()
 
                 if user:

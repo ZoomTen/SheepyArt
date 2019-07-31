@@ -8,7 +8,7 @@ from datetime import date
 
 # ------------------------- Run application -------------------------
 if __name__ == "__main__":
-    # FIXME: init: Figure out how to do this automatically.
+    # FIXME: init: figure out how to do this automatically.
 
     # create database if it doesn't exist
     from os import path
@@ -36,7 +36,7 @@ if __name__ == "__main__":
             parent_cat_id = parent_ids[category]
             db.session.add(Category(title=subcats, parent_id=parent_cat_id))
 
-    # COMBAK: init: test user upon database initialization
+    # COMBAK: init: remove the test user upon database initialization
     db.session.add(User(username="test",
                         dispname="Testy McTestinson",
                         email="abc@ismypasswo.rd",

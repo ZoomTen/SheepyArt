@@ -84,7 +84,7 @@ class RegistrationForm(FlaskForm):
                             )
                     ])
 
-    # FIXME: Expand countries
+    # FIXME: register: expand countries
     country = SelectField('Country',
                           choices=[
                               ( '1', 'United States'),
@@ -136,7 +136,7 @@ def do_register():
                 db.session.commit()
             except IntegrityError as e:
                 db.session.rollback()
-                # FIXME: don't have debug stuff printing out
+                # FIXME: register: don't have debug stuff printing out
                 flash(f'Registration failed: {e.__cause__}','error')
                 return render_template("register.haml", form=form)
 

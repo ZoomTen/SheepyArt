@@ -133,7 +133,7 @@ main {
     color: inherit;
   }
 
-  // FIXME: consider using classes instead of name IDs
+  // FIXME: styling+templates: consider using classes instead of name IDs
   #userhud, #actionhud {
     display: inline-block;
     padding-left: 0;
@@ -236,7 +236,7 @@ footer {
 
 // Flash messages
 #system-messages {
-  // FIXME: make the colors a little nicer for system messages
+  // FIXME: styling: make the colors a little nicer for system messages
   list-style-type: none;
   padding-left:0;
 
@@ -315,7 +315,7 @@ footer {
 
 /* Login and Register */
 
-//FIXME: Clean this up and convert the form IDs into common classes
+//FIXME: styling+templates: clean this up and convert the form IDs into common classes
 #register, #login, #upload {
   form {
     font-size:.8em;
@@ -365,7 +365,7 @@ footer {
       width:13em;
     }
     #submit {
-      // FIXME: Style the sign up button
+      // FIXME: styling: style the sign up button
       background: green;
       border:0;
       border-radius: 5px;
@@ -396,7 +396,7 @@ footer {
     #title {
       font-weight: 700;
     }
-    // FIXME: generalize these classes
+    // FIXME: styling+templates: generalize these classes
     #ui-license-about:checked + label + #license-explain {
       max-height: 99em;
       transition: max-height 1s ease-in-out;

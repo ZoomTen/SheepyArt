@@ -31,7 +31,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(128), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     dob = db.Column(db.Date, nullable=False)
-    # FIXME: Proper classification for gender and country?
+    # NOTE: model/user: have proper classification for gender and country?
     gender = db.Column(db.Integer, nullable=False)
     country = db.Column(db.Integer, nullable=False)
     # avatar is a static image link

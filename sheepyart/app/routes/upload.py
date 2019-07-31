@@ -25,7 +25,7 @@ import secrets
 from os import path
 
 # Thumbnailing
-# FIXME: Try using the imagemagick modules
+# FIXME: upload: try using the imagemagick modules
 from PIL import Image
 
 # Logging
@@ -54,7 +54,6 @@ class UploadForm(FlaskForm):
                            [
                                InputRequired('Please enter a title')
                            ])
-    # FIXME: Change category field to a combobox.
     category = SelectField('Category',
                            validators=[
                                InputRequired('Please enter a category')

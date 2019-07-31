@@ -4,6 +4,7 @@ from flask import render_template, request
 
 search = Blueprint('search', __name__)
 
+# FIXME: search: make this functional
 @search.route('/search', methods=['GET'])
 def do_search():
     query = request.args.get('q', '')
