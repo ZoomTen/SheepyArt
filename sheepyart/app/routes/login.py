@@ -72,7 +72,7 @@ def do_login():
                     if check_pw:
                         login_user(user, remember=form.stay.data)
 
-                        flash("Logged in as " + str(form.username.data) + "!", 'success')
+                        flash(f"Logged in as '{ form.username.data }'!", 'success')
 
                         target = request.args.get('next')
                         if target:
