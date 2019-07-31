@@ -120,15 +120,15 @@ def do_upload():
 
             if form.image.data:
                 image_file = upload_art_image(form.image.data)
-                #test_return += f"<p>Uploaded to: '{image_file[0]}'</p>"
-                #test_return += f"<p>Thumbnailed to: '{image_file[1]}'</p>"
+                test_return += f"<p>Uploaded to: '{image_file[0]}'</p>"
+                test_return += f"<p>Thumbnailed to: '{image_file[1]}'</p>"
 
-            # test_return += f"<p>Title: '{form.title.data}'</p>"
-            # test_return += f"<p>Category:'{form.category.data}'</p>"
-            # test_return += f"<p>Tags:'{form.tags.data}'"
-            # test_return += f"<p>File:'{form.image.data.filename}'</p>"
-            # test_return += f"<p>NSFW:'{form.has_nsfw.data}'</p>"
-            # test_return += f"<p>License:'{form.license.data}'</p>"
+            test_return += f"<p>Title: '{form.title.data}'</p>"
+            test_return += f"<p>Category:'{form.category.data}'</p>"
+            test_return += f"<p>Tags:'{form.tags.data}'"
+            test_return += f"<p>File:'{form.image.data.filename}'</p>"
+            test_return += f"<p>NSFW:'{form.has_nsfw.data}'</p>"
+            test_return += f"<p>License:'{form.license.data}'</p>"
 
             return test_return
         for field, errors in form.errors.items():
