@@ -23,4 +23,6 @@ PIL dependencies
   * ffi (`libffi-dev` in Debian and descendants)
 
 ## Run
-Run `pipenv install`, then `pipenv run python main.py`.
+  * Run `pipenv install`
+  * Then `pipenv run python make_db.py`.
+  * Then `pipenv run python main.py`.
