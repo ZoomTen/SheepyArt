@@ -39,7 +39,7 @@ class User(db.Model, UserMixin):
     art = db.relationship('Art', backref='by', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.avatar}')"
+        return 'User(' + str(self.username) + ', ' + str(self.email) + ', ' + str(self.avatar) +')'
 
 class Art(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -59,4 +59,4 @@ class Art(db.Model):
     license = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
-        return f"Art('{self.title}', '{self.image}', '{self.category}', '{self.favorites}', '{self.views}', '{self.pubdate}')"
+        return 'Art(' + str(self.title) + ', ' + str(self.image) + ', ' + str(self.category) + ', ' + str(self.favorites) + ', ' + str(self.views) + ', ' + str(self.pubdate) + ')'
