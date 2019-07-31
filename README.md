@@ -14,7 +14,7 @@ my commit history >_<
 
 ## What to install first
 Core dependencies
-  * Python 3.7 (for now)
+  * Python 3.7 (3.5 if using the `py35` branch)
   * Pipenv (make sure it's the Python 3 pipenv!)
 
 PIL dependencies
