@@ -1,6 +1,6 @@
 # Base
 from flask import Blueprint, render_template
-from flask import flash, request
+from flask import flash, request, redirect, url_for
 from flask_login import login_required, current_user
 
 # Form functions
@@ -15,7 +15,7 @@ from wtforms_components import DateRange
 
 # Database entries
 from sheepyart.sheepyart import db, app
-from sheepyart.app.models import Art
+from sheepyart.app.models import Art, Category
 
 # Database functions
 from sqlalchemy import func
@@ -33,6 +33,19 @@ from sheepyart.sheepyart import app
 
 upload = Blueprint('upload', __name__)
 
+upload_categories = Category.query.filter(Category.parent_id != None)
+
+categories_list = []
+
+try:
+    for cat in upload_categories:
+        cur_id = cat.id
+        par_id = cat.parent_id
+        par = Category.query.filter(Category.id == par_id and Category.parent_id == None).first()
+        categories_list.append( (str(cur_id), f"{par.title}/{cat.title}") )
+except:
+    pass
+
 class UploadForm(FlaskForm):
     'SheepyArt upload form object.'
 
@@ -42,10 +55,11 @@ class UploadForm(FlaskForm):
                                InputRequired('Please enter a title')
                            ])
     # FIXME: Change category field to a combobox.
-    category = StringField('Category',
-                           [
+    category = SelectField('Category',
+                           validators=[
                                InputRequired('Please enter a category')
-                           ])
+                           ],
+                           choices=categories_list)
     tags = StringField('Tags',
                            [
                                InputRequired('Please enter some tags')
@@ -107,7 +121,7 @@ def upload_art_image(form_art):
         rgb.thumbnail(thumbsize, Image.ANTIALIAS)
         rgb.save(thumbpath)
 
-    return (finalpath, thumbpath)
+    return (new_name, thumb_name)
 
 
 @upload.route('/upload', methods=['GET', 'POST'])
@@ -117,28 +131,39 @@ def do_upload():
 
     if request.method == "POST":
         if form.validate_on_submit():
-            # FIXME: don't use a test return
-            # FIXME: Add to the art database
             by = (current_user.username, current_user.id)
-
-            test_return = '<h1>Test</h1>'
 
             if form.image.data:
                 image_file = upload_art_image(form.image.data)
-                test_return += f"<p>Uploaded to: '{image_file[0]}'</p>"
-                test_return += f"<p>Thumbnailed to: '{image_file[1]}'</p>"
+                uploaded_art = Art(title=form.title.data,
+                                   image=image_file[0],
+                                   thumbnail=image_file[1],
+                                   user_id=by[1],
+                                   description=form.description.data,
+                                   tags=form.tags.data,
+                                   category=int(form.category.data),
+                                   nsfw=int(form.has_nsfw.data),
+                                   license=int(form.license.data)
+                                   )
+            else:
+                uploaded_art = Art(title=form.title.data,
+                                   user_id=by[1],
+                                   description=form.description.data,
+                                   tags=form.tags.data,
+                                   category=int(form.category.data),
+                                   nsfw=int(form.has_nsfw.data),
+                                   license=int(form.license.data)
+                                   )
 
-            test_return += f"<p>Title: '{form.title.data}'</p>"
-            test_return += f"<p>Category:'{form.category.data}'</p>"
-            test_return += f"<p>Tags:'{form.tags.data}'"
-            test_return += f"<p>File:'{form.image.data.filename}'</p>"
-            test_return += f"<p>NSFW:'{form.has_nsfw.data}'</p>"
-            test_return += f"<p>License:'{form.license.data}'</p>"
+            db.session.add(uploaded_art)
+            db.session.commit()
 
             # LOG: Image upload
             app.logger.info(f"User '{by[0]}' (ID: '{by[1]}') uploaded '{form.title.data}', assigned ID (insert ID)")
 
-            return test_return
+            flash('Your art has been uploaded!', 'success')
+            # FIXME: upload: redirect to art page
+            return redirect(url_for('browse.do_browse'))
 
         for field, errors in form.errors.items():
             for err in errors:
