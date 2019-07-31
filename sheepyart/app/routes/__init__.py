@@ -12,6 +12,7 @@ from sheepyart.app.routes.search import search
 from sheepyart.app.routes.login import login, logout, SiteWideLoginForm
 from sheepyart.app.routes.userpage import userpage
 from sheepyart.app.routes.upload import upload
+from sheepyart.app.routes.art import art
 
 # Load login data
 from flask_login import current_user
@@ -37,3 +38,4 @@ app.register_blueprint(login)
 app.register_blueprint(logout)
 app.register_blueprint(userpage)
 app.register_blueprint(upload)
+app.register_blueprint(art)
