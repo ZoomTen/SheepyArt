@@ -11,6 +11,17 @@ Currently watching a dozen or so Flask tutorials,
 including Corey Schafer's series - you'll see once you go into
 my commit history >_<
 
+## Features
+  * Basic user authentication (login/logout)
+  * Basic file upload
+  * Database
+  * Basic configuration through `definitions.json`
+
+## Oddities
+  * Importing global objects need to be done from `sheepyart.sheepyart`
+  * Database located at `sheepyart/base.db`, definitions file located at `sheepyart/app/definitions.json`
+  * Logs located at rootdir/`sheepyart.log`
+
 
 ## What to install first
 Core dependencies
