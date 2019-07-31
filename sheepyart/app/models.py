@@ -42,6 +42,22 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}', '{self.avatar}')"
 
 class Art(db.Model):
+    '''
+    Required fields:
+        title(String, 128)
+    Optional fields:
+        image(String, 128)      -> relative to static/uploads/
+        thumbnail(String, 128)  -> relative to static/thumbnail/
+        user_id(Integer)
+        favorites(Integer)      -> requires user login to favorite
+        views(Integer)          -> should be updated every time the page is viewed BY unique IDs
+        pubdate(DateTime)
+        description(Text)       -> indexable
+        tags(String, 256)       -> space separated
+        category(Integer)       -> must point to a valid category
+        nsfw(Integer)           -> must be between 0:none, 1:mild, 2:explicit
+        license(Integer)
+    '''
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     # image is a static image link
