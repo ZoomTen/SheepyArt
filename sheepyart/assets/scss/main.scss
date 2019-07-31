@@ -1,16 +1,14 @@
-// FIXME: add a linter just so I can do away with color literals.
-
 @import 'main/normalize';
 
 // Standard box model stuff
 
-html{
+html {
   box-sizing: border-box;
 }
 
 *,
 *::before,
-*::after{
+*::after {
   box-sizing: inherit;
 }
 
@@ -31,24 +29,24 @@ $page-width: 90%;
 
 /* Main */
 
-body{
+body {
   background-color: #728776;
   font-family: Verdana, sans-serif;
   overflow-y: scroll;
 }
 
-.contains{
+.contains {
   width: $page-width;
   margin: auto;
 }
 
-main{
+main {
   background-color: map-get($light, 'bg');
   color: map-get($light, 'text');
   padding:16px;
 }
 
-#main-nav{
+#main-nav {
   background-color: #4B5F54;
   color: map-get($dark, 'text');
 
@@ -58,41 +56,41 @@ main{
   flex-wrap: wrap;
   padding:3em 10% 0 10%;
 
-  > *{
+  > * {
     margin:0 16px;
   }
   // Logo
-  #heading-logo{
+  #heading-logo {
     color: map-get($dark, 'text');
     font-family: "trebuchet ms", sans-serif;
   }
 
   // Search elements
-  #search{
+  #search {
     display: inline-block;
     box-shadow: 0 2px 4px rgba(#000,.3);
     border-radius: $search-roundness;
   }
-  %s-common{
+  %s-common {
     float: left;
     padding: 4px 8px;
     font-size: .75em;
     height:2em;
   }
-  #s-text{ // Textbox
+  #s-text { // Textbox
     @extend %s-common;
     border-radius: $search-roundness 0 0 $search-roundness;
     border:1px solid #000;
     background-color: #f0f0f0;
     color: #222;
   }
-  #s-cat{ // Category selection
+  #s-cat { // Category selection
     @extend %s-common;
     border:1px solid #000;
     background-color: map-get($dark, 'bg');
     color: map-get($dark, 'text');
   }
-  #s-button{ // Button
+  #s-button { // Button
     @extend %s-common;
     border-radius: 0 $search-roundness $search-roundness 0;
     border:1px solid #000;
@@ -102,21 +100,21 @@ main{
   }
 
   // Menu
-  #main-menu{
+  #main-menu {
     padding-left: 0;
     list-style-type: none;
-    li{
+    li {
       display: inline-block;
     }
   }
 }
 
-#user-nav{
+#user-nav {
   position: absolute;
   top:0;
   width:100%;
 
-  .nav-container{
+  .nav-container {
     width: 80%;
     margin: auto;
     padding:4px;
@@ -127,27 +125,27 @@ main{
     justify-content: space-between;
   }
 
-  input{
+  input {
     border-radius: $search-roundness;
   }
 
-  a{
+  a {
     color: inherit;
   }
 
   // FIXME: consider using classes instead of name IDs
-  #userhud, #actionhud{
+  #userhud, #actionhud {
     display: inline-block;
     padding-left: 0;
     list-style-type: none;
 
-    li{
+    li {
       display: inline-block;
     }
   }
 }
 
-footer{
+footer {
   background-color: #4D625D;
   color: map-get($dark, 'text');
   width: $page-width;
@@ -155,17 +153,17 @@ footer{
   font-size: .8em;
   padding: 10px;
 
-  a{
+  a {
     color: inherit;
   }
 
-  #copyright{
+  #copyright {
     text-align: center;
   }
 }
 
 // Section heading
-.main-heading{
+.main-heading {
   font-family: 'trebuchet ms', sans-serif;
   margin:16px 0 0 0;
   padding:16px 16px 0 0;
@@ -175,22 +173,22 @@ footer{
   align-items: center;
   justify-content: space-between;
 
-  h2{
+  h2 {
     margin: 0;
     padding:0 16px;
   }
 
-  ul.tabbing{
+  ul.tabbing {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
 
-    li{
+    li {
       display: inline-block;
       padding:8px 12px;
       border-radius: 4px 4px 0 0;
 
-      &.selected{
+      &.selected {
         background:#D6DED4;
       }
     }
@@ -198,75 +196,75 @@ footer{
 }
 
 // Thumbnails
-.thumbs-container{
+.thumbs-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.thumb-holder{
+.thumb-holder {
   height: 300px;
   margin-bottom: 5px;
   text-align: center;
   flex: 0 0 300px;
 }
-.thumb-text{
+.thumb-text {
   font-size:.8em;
-  %thumb-text-common{
+  %thumb-text-common {
     display: block;
     margin: 2px auto;
   }
-  .title{
+  .title {
     @extend %thumb-text-common;
   }
-  .author{
+  .author {
     @extend %thumb-text-common;
     font-size:.8em;
   }
-  .cat{
+  .cat {
     @extend %thumb-text-common;
     font-size:.8em;
     color: #738281;
   }
-  a{
+  a {
     color: inherit;
     text-decoration: none;
   }
-  a:hover{
+  a:hover {
     text-decoration: underline;
   }
 }
 
 // Flash messages
-#system-messages{
+#system-messages {
   // FIXME: make the colors a little nicer for system messages
   list-style-type: none;
   padding-left:0;
 
-  %msg-common{
+  %msg-common {
       margin:6px 0;
       padding:8px;
       border-radius: 4px;
       box-shadow:0 3px 6px rgba(#000,.4);
   }
 
-  li{
-    &.msg-error{
+  li {
+    &.msg-error {
       @extend %msg-common;
       background: pink;
     }
-    &.msg-warning{
+    &.msg-warning {
       @extend %msg-common;
       background: yellow;
     }
-    &.msg-info{
+    &.msg-info {
       @extend %msg-common;
       background: cyan;
     }
-    &.msg-message{
+    &.msg-message {
       @extend %msg-common;
       background: white;
     }
-    &.msg-success{
+    &.msg-success {
       @extend %msg-common;
       background: lime;
     }
@@ -275,10 +273,10 @@ footer{
 
 /* Browse UI */
 
-#browse{
+#browse {
   display: flex;
 }
-#browse-cats{
+#browse-cats {
   display: inline-block;
   width:12em;
   vertical-align: top;
@@ -286,22 +284,22 @@ footer{
   border-right:1px solid #9FB1A3;
   font-size:.8em;
   line-height:1.8;
-  ul{
+  ul {
     padding-left:0;
     list-style-type: none;
-    li{
+    li {
       padding-left:8px;
-      &:hover{
+      &:hover {
         background-color: #bfcabf;
       }
-      &.selected{
+      &.selected {
         font-weight: 700;
         color: #fff;
         background-color: #498091;
         padding-left:4px;
       }
     }
-    a{
+    a {
       color: inherit;
       text-decoration: none;
       width:100%;
@@ -309,7 +307,7 @@ footer{
     }
   }
 }
-#browse-main{
+#browse-main {
   display: inline-block;
   padding:40px 10px;
   width: 100%;
@@ -318,19 +316,19 @@ footer{
 /* Login and Register */
 
 //FIXME: Clean this up and convert the form IDs into common classes
-#register, #login, #upload{
-  form{
+#register, #login, #upload {
+  form {
     font-size:.8em;
     input[type="text"],
     input[type="password"],
-    input[type="email"]{
+    input[type="email"] {
       height:1.7em;
     }
-    legend{
+    legend {
       font-size:1em;
       padding:4px;
     }
-    label{
+    label {
       display:inline-block;
       text-align: right;
       width:25%;
@@ -338,35 +336,35 @@ footer{
       font-weight: 800;
       vertical-align: top;
     }
-    label[for="agree_tos"]{
+    label[for="agree_tos"] {
       margin:0 0 10px 10px;
       width:auto;
       text-align: left;
     }
-    #agree_tos{
+    #agree_tos {
       margin-left:25%;
     }
-    fieldset{
+    fieldset {
       background-color: rgba(#000,.05);
       border:1px solid rgba(#000,.1);
       margin-bottom:10px;
       padding: 10px;
     }
-    #username{
+    #username {
       width:8em;
     }
-    #dispname{
+    #dispname {
       width:20em;
     }
     #password,
-    #confirm_password{
+    #confirm_password {
       width:15em;
     }
     #email,
-    #confirm_email{
+    #confirm_email {
       width:13em;
     }
-    #submit{
+    #submit {
       // FIXME: Style the sign up button
       background: green;
       border:0;
@@ -376,26 +374,26 @@ footer{
       text-align: center;
       margin-left:25%;
     }
-    #has_nsfw{
+    #has_nsfw {
       display: inline-block;
       list-style-type: none;
       padding-left: 0;
 
-      li{
+      li {
         display: inline-block;
       }
     }
-    #preview{
+    #preview {
       display: block;
       margin: 12px auto;
       border: 1px solid grey;
       padding:5px;
     }
-    #description{
+    #description {
       width: 50%;
       height: 18em;
     }
-    #title{
+    #title {
       font-weight: 700;
     }
     // FIXME: generalize these classes
@@ -407,7 +405,7 @@ footer{
     #ui-license-about + label + #license-explain {
       max-height: 0;
       overflow-y: hidden;
-      transition: max-height 1s cubic-bezier(0,1,0,1);
+      transition: max-height 1s cubic-bezier(0, 1, 0, 1);
     }
   }
 }
