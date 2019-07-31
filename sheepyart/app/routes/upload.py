@@ -122,12 +122,12 @@ def do_upload():
                 test_return += '<p>Uploaded to: ' + image_file[0] + '</p>'
                 test_return += '<p>Thumbnailed to: ' + image_file[1] + '</p>'
 
-             test_return += '<p>Title: ' + form.title.data + '</p>'
-             test_return += '<p>Category:' + form.category.data + '</p>'
-             test_return += '<p>Tags:' + form.tags.data + '</p>'
-             test_return += '<p>File:' + form.image.data.filename + '</p>'
-             test_return += '<p>NSFW:' + form.has_nsfw.data + '</p>'
-             test_return += '<p>License:' + form.license.data + '</p>'
+            test_return += '<p>Title: ' + form.title.data + '</p>'
+            test_return += '<p>Category:' + form.category.data + '</p>'
+            test_return += '<p>Tags:' + form.tags.data + '</p>'
+            test_return += '<p>File:' + form.image.data.filename + '</p>'
+            test_return += '<p>NSFW:' + form.has_nsfw.data + '</p>'
+            test_return += '<p>License:' + form.license.data + '</p>'
 
             return test_return
         for field, errors in form.errors.items():
