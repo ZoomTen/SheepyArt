@@ -21,8 +21,7 @@ from sheepyart.app.models import Art
 from sqlalchemy import func
 
 # Image functions
-import secrets
-from os import path
+from os import path, urandom
 
 # Thumbnailing
 # FIXME: Try using the imagemagick modules
@@ -86,7 +85,7 @@ class UploadForm(FlaskForm):
     submit = SubmitField('Submit Art')
 
 def upload_art_image(form_art):
-    hex = secrets.token_hex(8)
+    hex = urandom(8).hex()
     name, ext = path.splitext(form_art.filename)
 
     new_name = hex + ext
@@ -120,15 +119,15 @@ def do_upload():
 
             if form.image.data:
                 image_file = upload_art_image(form.image.data)
-                #test_return += f"<p>Uploaded to: '{image_file[0]}'</p>"
-                #test_return += f"<p>Thumbnailed to: '{image_file[1]}'</p>"
+                test_return += '<p>Uploaded to: ' + image_file[0] + '</p>'
+                test_return += '<p>Thumbnailed to: ' + image_file[1] + '</p>'
 
-            # test_return += f"<p>Title: '{form.title.data}'</p>"
-            # test_return += f"<p>Category:'{form.category.data}'</p>"
-            # test_return += f"<p>Tags:'{form.tags.data}'"
-            # test_return += f"<p>File:'{form.image.data.filename}'</p>"
-            # test_return += f"<p>NSFW:'{form.has_nsfw.data}'</p>"
-            # test_return += f"<p>License:'{form.license.data}'</p>"
+             test_return += '<p>Title: ' + form.title.data + '</p>'
+             test_return += '<p>Category:' + form.category.data + '</p>'
+             test_return += '<p>Tags:' + form.tags.data + '</p>'
+             test_return += '<p>File:' + form.image.data.filename + '</p>'
+             test_return += '<p>NSFW:' + form.has_nsfw.data + '</p>'
+             test_return += '<p>License:' + form.license.data + '</p>'
 
             return test_return
         for field, errors in form.errors.items():
