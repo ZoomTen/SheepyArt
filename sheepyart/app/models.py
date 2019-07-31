@@ -60,3 +60,17 @@ class Art(db.Model):
 
     def __repr__(self):
         return f"Art('{self.title}', '{self.image}', '{self.category}', '{self.favorites}', '{self.views}', '{self.pubdate}')"
+
+class Category(db.Model):
+    '''
+    Required fields:
+        title(String, 128)
+    Optional fields:
+        parent_id(Integer, nullable)
+    '''
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128), nullable=False)
+    parent_id = db.Column(db.Integer, nullable=True)
+
+    def __repr__(self):
+        return f"Category('{self.title}', '{self.parent_id}')"

@@ -7,3 +7,4 @@ from sheepyart.app import routes
 # FIXME: Maybe put these models onto their own directory
 from sheepyart.app.models import User
 from sheepyart.app.models import Art
+from sheepyart.app.models import Category

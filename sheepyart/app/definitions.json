@@ -15,8 +15,8 @@
     "Designs": ["Apps", "Devices", "Print", "Other"],
     "Refsheets": ["Anime/Manga", "DnD", "Furry", "Other"],
     "Meta": ["Contests", "Announcements"],
-    "Journals": 0,
-    "Scraps": 0
+    "Journals": [],
+    "Scraps": []
   },
   "db_file": "base.db",
   "secret": "b1613a965683af63ca3f8673"
