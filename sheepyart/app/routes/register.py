@@ -134,11 +134,11 @@ def do_register():
             except IntegrityError as e:
                 db.session.rollback()
                 # FIXME: don't have debug stuff printing out
-                flash(f'Registration failed: {e.__cause__}','error')
+                flash("Registration failed: " + str(e.__cause__), 'error')
                 return render_template("register.haml", form=form)
 
             # Registration success
-            flash(f'Account created for {form.username.data}!', 'success')
+            flash("Account created for " + str(form.username.data) + "!", 'success')
             return redirect(url_for('login.do_login'))
         # If anything happens, print out all the errors on the page
         for field, errors in form.errors.items():
