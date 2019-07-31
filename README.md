@@ -11,7 +11,16 @@ Currently watching a dozen or so Flask tutorials,
 including Corey Schafer's series - you'll see once you go into
 my commit history >_<
 
-## Run
-You're gonna need `pipenv` for this. And Python 3.
 
+## What to install first
+Core dependencies
+  * Python 3.7 (for now)
+  * Pipenv (make sure it's the Python 3 pipenv!)
+
+PIL dependencies
+  * libjpeg (`libjpeg-dev` in Debian and descendants)
+  * zlib (`zlib1g-dev` in Debian and descendants)
+  * ffi (`libffi-dev` in Debian and descendants)
+
+## Run
 Run `pipenv install`, then `pipenv run python main.py`.
