@@ -25,6 +25,9 @@ from sqlalchemy.exc import IntegrityError
 from flask_bcrypt import Bcrypt
 hash = Bcrypt()
 
+# Logging
+from sheepyart.sheepyart import app
+
 register = Blueprint('register', __name__)
 
 class RegistrationForm(FlaskForm):
@@ -137,9 +140,13 @@ def do_register():
                 flash(f'Registration failed: {e.__cause__}','error')
                 return render_template("register.haml", form=form)
 
+            # LOG: User registration
+            app.logger.info(f"User '{new_user.username}' successfully registered as ID '{new_user.id}'")
+
             # Registration success
             flash(f'Account created for {form.username.data}!', 'success')
             return redirect(url_for('login.do_login'))
+
         # If anything happens, print out all the errors on the page
         for field, errors in form.errors.items():
             for err in errors:

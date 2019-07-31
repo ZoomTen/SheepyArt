@@ -25,6 +25,9 @@ from flask_login import login_user, current_user, logout_user
 from flask_bcrypt import Bcrypt
 hash = Bcrypt()
 
+# Logging
+from sheepyart.sheepyart import app
+
 login = Blueprint('login', __name__)
 logout = Blueprint('logout', __name__)
 
@@ -72,6 +75,9 @@ def do_login():
                     if check_pw:
                         login_user(user, remember=form.stay.data)
 
+                        # LOG: User log in.
+                        app.logger.info(f"User '{user.username}' (ID:'{user.id}') has logged in.")
+
                         flash(f"Logged in as '{ form.username.data }'!", 'success')
 
                         target = request.args.get('next')
@@ -85,15 +91,22 @@ def do_login():
                 else:
                     flash('Login failed, check your username!', 'error')
                 return render_template("login.haml", form=form)
+
             for field, errors in form.errors.items():
                 for err in errors:
                     flash(err, 'error')
             return render_template("login.haml", form=form)
+
         else:
             return render_template("login.haml", form=form)
 
 @logout.route('/logout', methods=['GET', 'POST'])
 def do_logout():
+    logout_uname = (current_user.username, current_user.id)
     logout_user()
+
+    # LOG: User log out.
+    app.logger.info(f"User '{logout_uname[0]}' (ID:'{logout_uname[1]}') has logged out.")
+
     flash('You have been successfully logged out.', 'info')
     return redirect(url_for('browse.do_browse'))

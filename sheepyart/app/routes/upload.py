@@ -28,6 +28,9 @@ from os import path
 # FIXME: Try using the imagemagick modules
 from PIL import Image
 
+# Logging
+from sheepyart.sheepyart import app
+
 upload = Blueprint('upload', __name__)
 
 class UploadForm(FlaskForm):
@@ -116,6 +119,8 @@ def do_upload():
         if form.validate_on_submit():
             # FIXME: don't use a test return
             # FIXME: Add to the art database
+            by = (current_user.username, current_user.id)
+
             test_return = '<h1>Test</h1>'
 
             if form.image.data:
@@ -130,7 +135,11 @@ def do_upload():
             test_return += f"<p>NSFW:'{form.has_nsfw.data}'</p>"
             test_return += f"<p>License:'{form.license.data}'</p>"
 
+            # LOG: Image upload
+            app.logger.info(f"User '{by[0]}' (ID: '{by[1]}') uploaded '{form.title.data}', assigned ID (insert ID)")
+
             return test_return
+
         for field, errors in form.errors.items():
             for err in errors:
                 flash(err, 'error')
