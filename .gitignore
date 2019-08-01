@@ -6,4 +6,4 @@ sheepyart/static/avatar
 Pipfile.lock
 base.db
 __pycache__/
-sheepyart.log
+sheepyart.log*

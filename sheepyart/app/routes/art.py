@@ -24,7 +24,7 @@ def view_art(art_id):
 
     if art_view:
         by = art_view.by
-        cat = Category.query.get(art_view.category)
+
         published = dt.strftime(art_view.pubdate, '%B %-d, %Y (UTC)')
 
         # NOTE: upload: this can use markdown. also provide a preview.
@@ -36,8 +36,10 @@ def view_art(art_id):
                                           'static', 'uploads', art_view.image)
                                 )
 
+        cat = Category.query.get(art_view.category)
         if cat.parent_id is not None:
             par_cat = Category.query.get(cat.parent_id)
+
             return render_template('art.haml', art=art_view, by=by,
                                    published=published, filesize=filesize,
                                    description=description,

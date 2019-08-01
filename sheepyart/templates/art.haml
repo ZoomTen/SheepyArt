@@ -15,31 +15,39 @@
         Category:
         -for i in cat:
           -if cat.index(i) == cat|length-1
-            {{ i.title }}
+            ; child category
+            ; XXX: template/art: implement category linking
+            %a(href="#") << {{ i.title }}
           -else
-            {{ i.title }}
+            ; root category
+            %a(href="#") << {{ i.title }}
             |/
 
     %main#artpage
       %aside
+        %strong << Image
         %ul
           %li
             %a(href="{{ url_for('static', filename='uploads/'+art.image) }}")
               Full View
-          ; FIXME: template/art: implement favorites and sharing
-          %li << Add to Favorites
-          %li << Share
+          ; XXX: template/art: implement favorites and sharing
+          ; %li << Add to Favorites
+          ; %li << Share
+
         -if user == art.by
+          ; XXX: template/art: implement art editing and deleting. can use upload forms for that.
+          %strong << Edit
           %ul
-            %li << Edit Art
-            %li << Delete Art
+            %li << Edit Art (non-functional)
+            %li << Delete Art (non-functional)
         -else
+          %strong << More
           %ul
-            %li << More from {{by.username|e}}
+            ; XXX: template/art: "more from" will link to the gallery page, needs implementing.
+            ; %li << More from {{by.username|e}}
             %li
-              %a(href="/user/{{ by.username }}")
+              %a(href="/user/{{ by.username|e }}")
                 See {{by.username|e}}'s profile
-            %li << See {{by.username|e}}'s prints
 
       %section#mainart
         ; TODO: template/art: bigger thumbnails. related: upload.
@@ -55,31 +63,31 @@
           %p
             %strong << Details
             %ul
-              ; FIXME: template/art: make functions for filesize, resolution, etc.
+              ; FIXME: art: make functions for filesize, resolution, etc.
               %li << Submitted: {{ published }}
               %li << Filesize: {{ filesize }} bytes
               %li << Resolution: ???x???
-              %li << Comments: ???
-              %li << Favorites: {{ art.favorites }}
-              %li << In <strong>???</strong> collections
-          %p
-            %strong << Views
-            %ul
-              %li << Total: {{ art.views }}
-              %li << Today: ???
-              %li << This week: ???
+              ; %li << Comments: ???
+              ; %li << Favorites: {{ art.favorites }}
+              ; %li << In <strong>???</strong> collections
+          ; %p
+          ;   %strong << Views
+          ;   %ul
+          ;     %li << Total: {{ art.views }}
+          ;     %li << Today: ???
+          ;     %li << This week: ???
           %p
             %strong << Other (TESTING)
             %ul
               %li << Tags: {{ art.tags|e }}
               %li << NSFW Rating: {{ art.nsfw }}
               %li << License: {{ art.license }}
-          %p
-            %strong << Embed Code<br>
-            %input(value="> code here")
-            %br
-            %strong << Thumbnail Link<br>
-            %input(value="> thumbnail link here")
+          ; %p
+          ;   %strong << Embed Code<br>
+          ;   %input(value="> code here")
+          ;   %br
+          ;   %strong << Thumbnail Link<br>
+          ;   %input(value="> thumbnail link here")
 
   -else
     .main-heading
