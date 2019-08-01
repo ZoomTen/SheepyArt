@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
         country(Integer)
     Optional fields:
         avatar(String, 128)
+        joindate(Date)
     Other fields:
         art(db, Art)
     '''
@@ -31,6 +32,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(128), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     dob = db.Column(db.Date, nullable=False)
+    joindate = db.Column(db.Date, nullable=False, default=datetime.utcnow)
     # NOTE: model/user: should we need a table for genders and countries?
     gender = db.Column(db.Integer, nullable=False)
     country = db.Column(db.Integer, nullable=False)
