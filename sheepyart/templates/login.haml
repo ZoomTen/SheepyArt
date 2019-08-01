@@ -3,7 +3,7 @@
 -block contents
   .main-heading
     %h2#heading << Login
-  %main#login
+  %main#login.ui-common-form
     %form(action="/login", method="post")
       {{ form.csrf_token }}
       {{ form.username.label }}
@@ -12,4 +12,4 @@
       {{ form.password.label }}
       {{ form.password }}
       %br
-      {{ form.submit }}
+      {{ form.submit(class_="ui-action-button") }}

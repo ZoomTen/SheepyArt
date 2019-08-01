@@ -9,33 +9,38 @@
     %meta(content="width=device-width, initial-scale=1" name="viewport")
     %link(href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet")
     -block head
+
   %body
     %nav#main-nav
       %a#heading-logo(href="/")
         %h1 << {{ site_name }}
+
       %form#search(method="get" action="/search")
         %input#s-text(type="text" name="q", accesskey="s" placeholder="Search..." value="{{ query|e }}")
         %select#s-cat(size="1" name="cat")
           -for cat in search_categories
             %option(value="{{cat}}") << {{search_categories[cat]}}
         %input#s-button(type="submit"  value="Go")
+
       %ul#main-menu
-        %li << Browse
-        %li << Chat
+        ; XXX: base: browse and chat links
+        ;%li << Browse
+        ;%li << Chat
+
     %nav#user-nav
       .nav-container
         -if userauthed.username
-          %ul#userhud
+          %ul#userhud.is-menu
             %li
               Logged in as
               %a(href="/user/{{userauthed.username}}")
                 {{userauthed.username|e}}
-            %li
-            ; FIXME: template/base: provide interfaces for user actions
-              Notifications
-            %li
-              Inbox
-          %ul#actionhud
+            ; XXX: template/base: provide interfaces for user actions
+            ;%li
+            ;  Notifications
+            ;%li
+            ;  Inbox
+          %ul#actionhud.is-menu
             %li
               %a(href="/upload") << Upload
             %li
@@ -48,10 +53,10 @@
             {{ globallogin.username }}
             {{ globallogin.password.label }}
             {{ globallogin.password }}
-            {{ globallogin.submit }}
+            {{ globallogin.submit(class_="ui-action-button") }}
             …or hey, why not <a href="/register">register</a>!
             %span#lost-pw
-              <!--%a(href="#") << Lost my password lol-->
+              ;%a(href="#") << Lost my password lol
 
     .contains
       -with messages = get_flashed_messages(with_categories=true)

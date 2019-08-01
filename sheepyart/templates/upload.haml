@@ -3,7 +3,7 @@
 -block contents
   .main-heading
     %h2#heading << Upload some Art
-  %main#upload
+  %main#upload.ui-common-form
     %form(action="/upload", method="post" enctype="multipart/form-data")
       {{ form.csrf_token }}
       %fieldset
@@ -31,10 +31,10 @@
         %br
         {{ form.license.label }}
         {{ form.license }}
-        %input#ui-license-about.ui-toggle-button(type="checkbox")
-        %label(for="ui-license-about")
+        %input#license-about.ui-expand-button(type="checkbox", hidden)
+        %label(for="license-about")
           What's this?
-        #license-explain
+        .ui-expand-target#license-explain
           %ul
             %li
               %strong << All rights reserved
@@ -77,8 +77,9 @@
         {{ form.agree_tos }}
         {{ form.agree_tos.label }}
 
-      {{ form.submit }}
+      {{ form.submit(class_="ui-action-button") }}
   %script
+    ; FIXME: template/upload: Handle "no file cases"
     | document.getElementById("image").onchange = function(){
     |     var read = new FileReader();
     |

@@ -1,36 +1,30 @@
 @import 'main/normalize';
-
 // Standard box model stuff
-
 html {
   box-sizing: border-box;
 }
 
 *,
-*::before,
-*::after {
+*::after,
+*::before {
   box-sizing: inherit;
 }
-
 // Variables
-$light:(
-  'bg': #D6DED4,
-  'text': #233231
-);
+$theme-color: #728776;
 
-$dark:(
-  'bg': #35433E,
-  'text': #D8E4CC
-);
+// bootstrap colors
+$msg-system-pink: #DC3545;
+$msg-system-yellow: #FFC107;
+$msg-system-cyan: #17A2B8;
+$msg-system-white: #F8F9FA;
+$msg-system-lime: #28A745;
 
 $search-roundness: 4px;
+$page-roundness: 6px;
 $page-width: 90%;
-
-
 /* Main */
-
 body {
-  background-color: #728776;
+  background-color: $theme-color;
   font-family: Verdana, sans-serif;
   overflow-y: scroll;
 }
@@ -41,68 +35,91 @@ body {
 }
 
 main {
-  background-color: map-get($light, 'bg');
-  color: map-get($light, 'text');
-  padding:16px;
+  background: adjust-color($theme-color, $lightness:38%, $saturation:2%);
+  color: adjust-color($theme-color, $lightness:-35%, $saturation:5%);
+  padding: 16px;
+}
+
+.contains > main{
+  border:1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
+  border-top: none;
 }
 
 #main-nav {
-  background-color: #4B5F54;
-  color: map-get($dark, 'text');
-
+  background-color: adjust-color($theme-color, $lightness:-15%, $saturation:2%);
+  background-image: linear-gradient(to bottom,
+                    adjust-color($theme-color, $lightness:-15%, $saturation:2%) 60%,
+                    adjust-color($theme-color, $lightness:-20%, $saturation:6%));
+  color: adjust-color($theme-color, $lightness:35%, $saturation:2%);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding:3em 10% 0 10%;
+  padding: 3em 10% 0;
 
   > * {
-    margin:0 16px;
+    margin: 0 16px;
   }
   // Logo
   #heading-logo {
-    color: map-get($dark, 'text');
+    color: adjust-color($theme-color, $lightness:40%, $saturation:2%);
     font-family: "trebuchet ms", sans-serif;
+    text-shadow:2px 2px 2px rgba(#000,.4);
   }
-
   // Search elements
   #search {
-    display: inline-block;
+    display: flex;
     box-shadow: 0 2px 4px rgba(#000,.3);
     border-radius: $search-roundness;
+    width:60%;
   }
+
   %s-common {
     float: left;
     padding: 4px 8px;
-    font-size: .75em;
-    height:2em;
-  }
-  #s-text { // Textbox
-    @extend %s-common;
-    border-radius: $search-roundness 0 0 $search-roundness;
-    border:1px solid #000;
-    background-color: #f0f0f0;
-    color: #222;
-  }
-  #s-cat { // Category selection
-    @extend %s-common;
-    border:1px solid #000;
-    background-color: map-get($dark, 'bg');
-    color: map-get($dark, 'text');
-  }
-  #s-button { // Button
-    @extend %s-common;
-    border-radius: 0 $search-roundness $search-roundness 0;
-    border:1px solid #000;
-    font-weight: 700;
-    background-color: #41de59;
-    color: #222;
+    font-size: 0.75em;
+    height: 2.1em;
   }
 
+  #s-text {
+    // Textbox
+    @extend %s-common;
+    border-radius: $search-roundness 0 0 $search-roundness;
+    border: 1px solid #000;
+    background-color: #f0f0f0;
+    color: #222;
+    flex:1 0 0;
+  }
+
+  #s-cat {
+    // Category selection
+    @extend %s-common;
+    border: 1px solid #000;
+    background-color: adjust-color($theme-color, $lightness:-25%, $saturation:15%);
+    background-image: linear-gradient(to bottom,
+                      adjust-color($theme-color, $lightness:-25%, $saturation:2%),
+                      adjust-color($theme-color, $lightness:-35%, $saturation:2%));
+    color: adjust-color($theme-color, $lightness:35%, $saturation:2%);
+  }
+
+  #s-button {
+    // Button
+    @extend %s-common;
+    border-radius: 0 $search-roundness $search-roundness 0;
+    border: 1px solid #000;
+    font-weight: 700;
+    background-color: adjust-color($theme-color, $lightness:10%, $saturation:20%);
+    background-image: linear-gradient(to bottom,
+                      adjust-color($theme-color, $lightness:10%, $saturation:20%),
+                      adjust-color($theme-color, $lightness:-10%, $saturation:20%));
+    box-shadow: inset 1px 1px 0 0 rgba(adjust-color($theme-color, $lightness:40%, $saturation:20%),.5);
+    color: #222;
+  }
   // Menu
   #main-menu {
     padding-left: 0;
     list-style-type: none;
+
     li {
       display: inline-block;
     }
@@ -111,18 +128,35 @@ main {
 
 #user-nav {
   position: absolute;
-  top:0;
-  width:100%;
+  top: 0;
+  width: 100%;
+
+  #username, #password{
+    background: #fff;
+    border: 0;
+    height:1.5em;
+    padding: 8px;
+  }
 
   .nav-container {
     width: 80%;
+    height:3em;
     margin: auto;
-    padding:4px;
-    background-color: #40534A;
-    color: map-get($dark, 'text');
-    font-size: .8em;
+    padding: 8px;
+    background-color: adjust-color($theme-color, $lightness:-25%, $saturation:10%);
+    color: adjust-color($theme-color, $lightness:35%, $saturation:2%);
+    font-size: 0.8em;
     display: flex;
     justify-content: space-between;
+    border-radius: 0 0 $search-roundness $search-roundness;
+
+    ul{
+      margin: 0;
+
+      li{
+        padding: 0 4px;
+      }
+    }
   }
 
   input {
@@ -133,25 +167,27 @@ main {
     color: inherit;
   }
 
-  // FIXME: styling+templates: consider using classes instead of name IDs
-  #userhud, #actionhud {
-    display: inline-block;
-    padding-left: 0;
-    list-style-type: none;
+}
 
-    li {
-      display: inline-block;
-    }
+ul.is-menu{
+  display: inline-block;
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+
+  li {
+    display: inline-block;
   }
 }
 
 footer {
-  background-color: #4D625D;
-  color: map-get($dark, 'text');
+  background-color: adjust-color($theme-color, $lightness:-15%, $saturation:2%);
+  color: adjust-color($theme-color, $lightness:35%, $saturation:2%);
   width: $page-width;
   margin: auto;
-  font-size: .8em;
+  font-size: 0.8em;
   padding: 10px;
+  border-radius: 0 0 $page-roundness $page-roundness;
 
   a {
     color: inherit;
@@ -162,23 +198,44 @@ footer {
   }
 }
 
+section > .thumbs-container{
+  border:1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
+  border-top:none;
+}
 // Section heading
 .main-heading {
   font-family: 'trebuchet ms', sans-serif;
-  margin:16px 0 0 0;
-  padding:16px 16px 0 0;
-  background: #B3C4B0;
-  color: #3B5A4A;
+  margin: 16px 0 0;
+  padding: 16px 16px 0 16px;
+  background: adjust-color($theme-color, $lightness:25%, $saturation:2%);
+  background-image: linear-gradient(to bottom,
+                    adjust-color($theme-color, $lightness:30%, $saturation:2%),
+                    adjust-color($theme-color, $lightness:18%, $saturation:8%));
+  color: adjust-color($theme-color, $lightness:-25%, $saturation:2%);
   display: block;
+  border-radius: $page-roundness $page-roundness 0 0;
+  border:1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
 
-  #heading {
+  > h2 {
     margin: 0;
-    padding:0 16px;
+    padding: 8px 16px;
     display: inline-block;
   }
 
-  #by{
-    display:inline-block;
+  #by {
+    display: inline-block;
+  }
+
+  p{
+    margin: 0;
+  }
+
+  #category{
+    padding-bottom:16px;
+
+    a{
+      color:inherit;
+    }
   }
 }
 
@@ -186,208 +243,213 @@ footer {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-
-  #heading {
-    margin: 0;
-    padding:0 16px;
-  }
+  border-bottom: none;
 
   #tabbing {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-
     li {
-      display: inline-block;
-      padding:8px 12px;
+      padding: 8px 12px;
       border-radius: 4px 4px 0 0;
 
       &.selected {
-        background:#D6DED4;
+        background: adjust-color($theme-color, $lightness:38%, $saturation:2%);
       }
     }
   }
 }
-
 // Thumbnails
 .thumbs-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  padding: 16px;
 }
+
 .thumb-holder {
   height: 300px;
   margin-bottom: 5px;
   text-align: center;
   flex: 0 0 300px;
 }
+
 .thumb-text {
-  font-size:.8em;
+  font-size: 0.8em;
+
   %thumb-text-common {
     display: block;
     margin: 2px auto;
   }
+
   .title {
     @extend %thumb-text-common;
   }
+
   .author {
     @extend %thumb-text-common;
-    font-size:.8em;
+    font-size: 0.8em;
   }
+
   .cat {
     @extend %thumb-text-common;
-    font-size:.8em;
-    color: #738281;
+    font-size: 0.8em;
+    color: adjust-color($theme-color, $lightness:5%, $saturation:2%);
   }
+
   a {
     color: inherit;
     text-decoration: none;
   }
+
   a:hover {
     text-decoration: underline;
   }
 }
-
 // Flash messages
 #system-messages {
   // FIXME: styling: make the colors a little nicer for system messages
+  display: block;
+  padding-left: 0;
+  margin: 0;
   list-style-type: none;
-  padding-left:0;
 
   %msg-common {
-      margin:6px 0;
-      padding:8px;
-      border-radius: 4px;
-      box-shadow:0 3px 6px rgba(#000,.4);
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(#000,.4);
+    background-image: linear-gradient(to bottom,
+                      transparent,
+                      rgba(#000,.2));
+    text-shadow: 0 1px rgba(#222,.4);
   }
 
   li {
     &.msg-error {
       @extend %msg-common;
-      background: pink;
+      background-color: $msg-system-pink;
+      color: #fff;
     }
+
     &.msg-warning {
       @extend %msg-common;
-      background: yellow;
+      background-color: $msg-system-yellow;
     }
+
     &.msg-info {
       @extend %msg-common;
-      background: cyan;
+      background-color: $msg-system-cyan;
+      color: #fff;
     }
+
     &.msg-message {
       @extend %msg-common;
-      background: white;
+      background-color: $msg-system-white;
     }
+
     &.msg-success {
       @extend %msg-common;
-      background: lime;
+      background-color: $msg-system-lime;
+      color: #fff;
     }
   }
 }
 
 /* Browse UI */
-
 #browse {
   display: flex;
 }
+
 #browse-cats {
   display: inline-block;
-  width:12em;
+  width: 12em;
   vertical-align: top;
-  background: #CCD7CC;
-  border-right:1px solid #9FB1A3;
-  font-size:.8em;
-  line-height:1.8;
+  background: adjust-color($theme-color, $lightness:30%, $saturation:0%);
+  background-image: linear-gradient(to bottom,
+                    adjust-color($theme-color, $lightness:28%, $saturation:2%),
+                    adjust-color($theme-color, $lightness:20%, $saturation:2%));
+  border-right: 1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
+  border-left:1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
+  font-size: 0.8em;
+  line-height: 1.8;
+
   ul {
-    padding-left:0;
+    padding-left: 0;
     list-style-type: none;
+
     li {
-      padding-left:8px;
+      padding-left: 8px;
+
       &:hover {
         background-color: #bfcabf;
       }
+
       &.selected {
         font-weight: 700;
         color: #fff;
         background-color: #498091;
-        padding-left:4px;
+        padding-left: 4px;
       }
     }
+
     a {
       color: inherit;
       text-decoration: none;
-      width:100%;
-      display:block;
+      width: 100%;
+      display: block;
     }
   }
 }
+
 #browse-main {
   display: inline-block;
-  padding:40px 10px;
+  padding: 40px 10px;
   width: 100%;
+  border-right: 1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
 }
 
 /* Login and Register */
 
-//FIXME: styling+templates: clean this up and convert the form IDs into common classes
-#register, #login, #upload {
+.ui-common-form {
   form {
-    font-size:.8em;
+    font-size: 0.8em;
+
     input[type="text"],
     input[type="password"],
     input[type="email"] {
-      height:1.7em;
+      height: 1.7em;
     }
+
     legend {
-      font-size:1em;
-      padding:4px;
+      font-size: 1em;
+      padding: 4px;
     }
+
     label {
-      display:inline-block;
+      display: inline-block;
       text-align: right;
-      width:25%;
+      width: 25%;
       margin: 0 10px 20px 0;
       font-weight: 800;
       vertical-align: top;
     }
+
     label[for="agree_tos"] {
-      margin:0 0 10px 10px;
-      width:auto;
+      margin: 0 0 10px 10px;
+      width: auto;
       text-align: left;
     }
-    #agree_tos {
-      margin-left:25%;
+
+    #agree_tos,
+    #submit {
+      margin-left: 25%;
     }
+
     fieldset {
       background-color: rgba(#000,.05);
-      border:1px solid rgba(#000,.1);
-      margin-bottom:10px;
+      border: 1px solid rgba(#000,.1);
+      margin-bottom: 10px;
       padding: 10px;
     }
-    #username {
-      width:8em;
-    }
-    #dispname {
-      width:20em;
-    }
-    #password,
-    #confirm_password {
-      width:15em;
-    }
-    #email,
-    #confirm_email {
-      width:13em;
-    }
-    #submit {
-      // FIXME: styling: style the sign up button
-      background: green;
-      border:0;
-      border-radius: 5px;
-      color: #fff;
-      padding:6px 12px;
-      text-align: center;
-      margin-left:25%;
-    }
+
     #has_nsfw {
       display: inline-block;
       list-style-type: none;
@@ -397,26 +459,74 @@ footer {
         display: inline-block;
       }
     }
+
     #preview {
       display: block;
       margin: 12px auto;
       border: 1px solid grey;
-      padding:5px;
+      padding: 5px;
     }
+
     #description {
       width: 50%;
       height: 18em;
     }
+
     #title {
       font-weight: 700;
     }
-    // FIXME: styling+templates: generalize these classes
-    #ui-license-about:checked + label + #license-explain {
+
+    #username {
+      width: 8em;
+    }
+
+    #dispname {
+      width: 20em;
+    }
+
+    #confirm_password,
+    #password {
+      width: 15em;
+    }
+
+    #confirm_email,
+    #email {
+      width: 13em;
+    }
+  }
+}
+
+.ui-action-button {
+  background: green;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  padding: 6px 12px;
+  text-align: center;
+  width: auto;
+}
+
+.ui-expand-button {
+  display: none;
+
+  &:checked + label {
+    + .ui-expand-target {
       max-height: 99em;
       transition: max-height 1s ease-in-out;
     }
+  }
 
-    #ui-license-about + label + #license-explain {
+  + label {
+    // FIXME: styling: differentiate this from ui-action-button
+    background: green;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 6px 12px;
+    text-align: center;
+    width: auto !important;
+
+    + .ui-expand-target {
       max-height: 0;
       overflow-y: hidden;
       transition: max-height 1s cubic-bezier(0, 1, 0, 1);
@@ -424,29 +534,103 @@ footer {
   }
 }
 
+.ui-expand-target {
+  line-height: 1.7;
+  background-color: rgba(#fff,.4);
+  border-radius: 4px;
+}
 /* Art page */
-#artpage{
-  aside{
-    width:12%;
-    display:table-cell;
-    vertical-align: top;
-  }
-  #mainart{
+#artpage {
+  aside {
+    width: 12%;
     display: table-cell;
-    img{
+    vertical-align: top;
+    background-color: rgba(#000,.1);
+    border-radius: $page-roundness $page-roundness $page-roundness $page-roundness;
+    padding:8px;
+
+    ul{
+      margin:0 0 1.5em 0;
+      padding-left: 0;
+      list-style-type: none;
+      line-height: 1.5;
+      font-size: .9em;
+
+      li{
+        margin:.25em 0;
+      }
+    }
+
+    a{
+      color: inherit;
+    }
+  }
+
+  #mainart {
+    display: table-cell;
+
+    img {
       display: block;
       margin: 0 auto;
     }
   }
-  #artmeta{
-    width: 88%;
-    margin-left:12%;
-    #desc{
-      display:table-cell;
+
+  #artmeta {
+    width: 100%;
+    margin-top:32px;
+    display: table;
+
+    #desc {
+      display: table-cell;
+      background-color: rgba(black,.05);
+      padding: 0 16px;
     }
-    #details{
-      display:table-cell;
-      width: 15%;
+
+    #details {
+      display: table-cell;
+      width: 17em;
+      font-size: .9em;
+      border-left:2px solid rgba(#000,.2);
+      padding: 0 16px;
+      background-color: rgba(white,.2);
+
+      ul{
+        list-style-type: square;
+        padding-left: 1em;
+        margin:0;
+        line-height: 1.7;
+      }
     }
   }
+}
+/* User page */
+#userdetails {
+  display: flex;
+  justify-content: space-around;
+
+  .portion {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0.8em;
+
+    ul {
+      padding-left: 0;
+      list-style-type: none;
+      margin: 0;
+    }
+  }
+}
+
+#userinfo{
+  h2{
+    vertical-align: middle;
+    margin: 0;
+  }
+  p{
+    margin: 8px 0 8px 55px;
+  }
+}
+
+a{
+  color:inherit;
 }
