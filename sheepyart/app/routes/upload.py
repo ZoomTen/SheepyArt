@@ -65,10 +65,7 @@ class UploadForm(FlaskForm):
                            ],
                            choices=categories_list)
 
-    tags = StringField('Tags',
-                       [
-                           InputRequired('Please enter some tags')
-                       ])
+    tags = StringField('Tags')
 
     image = FileField('Image file',
                            [
