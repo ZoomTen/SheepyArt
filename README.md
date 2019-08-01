@@ -11,6 +11,11 @@ It's supposed to look like the 2008 layout, but even I don't remember
 what that looked like. It might end up looking like an amalgamation of
 2008 and 2010 dA. The VidLii of DeviantArt? nah.
 
+It doesn't do much right now. You can only register, login and upload stuff.
+That's it. Watch as your masterpiece floats away in the browse screen...
+because there's no next page yet. Will get to it eventually. Orientation's
+right around the corner.
+
 ## What it Looks like
 Not much right now. (this is not the default color scheme)
 ![SheepyArt](screenshot1251.jpg)
@@ -23,6 +28,8 @@ Not much right now. (this is not the default color scheme)
   * Configurable color scheme, just edit `$theme-color` in `assets/scss/main/main.scss`
 
 ## Missing from the Big Picture
+  * Comments
+  * Critiques
   * Collections, favorites and views
   * Trending tab (see above)
   * Search and tags
