@@ -38,6 +38,7 @@ Not much right now. (this is not the default color scheme)
   * Literature and journal/blogs.
   * User bio and other user info
   * Notifications, inbox
+  * Literally everything else
 
 ## Missing from the Small Picture
   * Logging in by e-mail address
