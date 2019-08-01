@@ -84,7 +84,7 @@ def do_login():
                         if target:
                             return redirect(target)
                         else:
-                            return redirect(url_for('browse.do_browse'))
+                            return redirect(url_for('userpage.view_userpage', username=user.username))
                     else:
                         flash('Login failed, check your password!', 'error')
 
