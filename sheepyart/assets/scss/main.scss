@@ -10,7 +10,7 @@ html {
   box-sizing: inherit;
 }
 // Variables
-$theme-color: #728776;
+$theme-color: #727687;
 
 // bootstrap colors
 $msg-system-pink: #DC3545;
@@ -496,7 +496,7 @@ section > .thumbs-container{
 }
 
 .ui-action-button {
-  background: green;
+  background: $theme-color;
   border: 0;
   border-radius: 5px;
   color: #fff;
@@ -517,7 +517,7 @@ section > .thumbs-container{
 
   + label {
     // FIXME: styling: differentiate this from ui-action-button
-    background: green;
+    background: $theme-color;
     border: 0;
     border-radius: 5px;
     color: #fff;
