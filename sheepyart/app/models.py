@@ -90,3 +90,5 @@ class Category(db.Model):
 
     def __repr__(self):
         return f"Category('{self.title}', '{self.parent_id}')"
+
+# FIXME: model: create license table. features: title, commercial_allowed, attrib_required, link(nullable)
