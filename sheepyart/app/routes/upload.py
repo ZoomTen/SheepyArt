@@ -31,6 +31,10 @@ from PIL import Image
 # Logging
 from sheepyart.sheepyart import app
 
+# Sanitizing
+# FIXME: upload: import app-wide sanitizer configs, if available
+from bleach import Cleaner
+
 upload = Blueprint('upload', __name__)
 
 upload_categories = Category.query.filter(Category.parent_id != None)
@@ -133,23 +137,29 @@ def do_upload():
         if form.validate_on_submit():
             by = (current_user.username, current_user.id)
 
+            # Sanitize some fields
+            scrub = Cleaner()
+            title = scrub.clean(form.title.data)
+            description = scrub.clean(form.description.data)
+            tags = scrub.clean(form.tags.data)
+
             if form.image.data:
                 image_file = upload_art_image(form.image.data)
-                uploaded_art = Art(title=form.title.data,
+                uploaded_art = Art(title=title,
                                    image=image_file[0],
                                    thumbnail=image_file[1],
                                    user_id=by[1],
-                                   description=form.description.data,
-                                   tags=form.tags.data,
+                                   description=description,
+                                   tags=tags,
                                    category=int(form.category.data),
                                    nsfw=int(form.has_nsfw.data),
                                    license=int(form.license.data)
                                    )
             else:
-                uploaded_art = Art(title=form.title.data,
+                uploaded_art = Art(title=title,
                                    user_id=by[1],
-                                   description=form.description.data,
-                                   tags=form.tags.data,
+                                   description=description,
+                                   tags=tags,
                                    category=int(form.category.data),
                                    nsfw=int(form.has_nsfw.data),
                                    license=int(form.license.data)
@@ -159,7 +169,7 @@ def do_upload():
             db.session.commit()
 
             # LOG: Image upload
-            app.logger.info(f"User '{by[0]}' (ID: '{by[1]}') uploaded '{form.title.data}', assigned ID {uploaded_art.id}")
+            app.logger.info(f"User {by[0]} (ID: {by[1]}) uploaded {form.title.data}, assigned ID {uploaded_art.id}")
 
             flash('Your art has been uploaded!', 'success')
             return redirect(url_for('art.view_art', art_id=uploaded_art.id))

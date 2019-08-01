@@ -17,6 +17,7 @@ wtforms-components = "*"
 python-dateutil = "*"
 flask-login = "*"
 pillow = "*"
+flask-bleach = "*"
 
 [requires]
 python_version = "3.7"

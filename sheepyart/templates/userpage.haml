@@ -5,7 +5,7 @@
     .main-heading
       %h2
         %img(src="{{ avatar }}" width=50 height=50)
-        {{ username }}
+        {{ username|e }}
     %main#userpage
       ; FIXME: template/userpage: populate this
       ; FIXME: template/userpage: add another table for user content

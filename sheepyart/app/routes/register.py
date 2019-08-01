@@ -8,7 +8,7 @@ from flask import flash, redirect, url_for, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.fields.html5 import EmailField, DateField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError, Regexp
 from wtforms_components import DateRange
 
 # Date input functions
@@ -28,6 +28,10 @@ hash = Bcrypt()
 # Logging
 from sheepyart.sheepyart import app
 
+# Sanitizing
+# FIXME: register: import app-wide sanitizer configs, if available
+from bleach import Cleaner
+
 register = Blueprint('register', __name__)
 
 class RegistrationForm(FlaskForm):
@@ -37,7 +41,9 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            [
                                InputRequired('Please enter a username'),
-                               Length(min=2, max=20)
+                               Length(min=2, max=20),
+                               Regexp(message='Use only letters, numbers, dashes and underscores! Also, no spaces.',
+                               regex=r'^[0-9A-Za-z\-_]+$')
                            ])
 
     password = PasswordField('Password',
@@ -121,9 +127,13 @@ def do_register():
     # run this if we're submitting stuff on the page
     if request.method == "POST":
         if form.validate_on_submit():
+            # Sanitize some fields
+            scrub = Cleaner()
+            username = scrub.clean(form.username.data)
+            dispname = scrub.clean(form.dispname.data)
             # Add the new user data
-            new_user = User(username=form.username.data,
-                            dispname=form.dispname.data,
+            new_user = User(username=username,
+                            dispname=dispname,
                             email=form.email.data,
                             password=hash.generate_password_hash(form.password.data),
                             dob=form.dob.data,

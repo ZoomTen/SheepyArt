@@ -3,14 +3,14 @@
 -block contents
   -if art
     .main-heading
-      %a(href="/user/{{ by.username }}")
+      %a(href="/user/{{ by.username|e }}")
         %img(src="{{ url_for('static', filename='avatar/'+by.avatar) }}" width=50 height=50)
       %h2#heading
-        {{ art.title }}
+        {{ art.title|e }}
       %p#by
         by
         %a(href="/user/{{ by.username }}")
-          {{ by.username }}
+          {{ by.username|e }}
       %p#category
         Category:
         -for i in cat:
@@ -34,14 +34,16 @@
             %li << Delete Art
         -else
           %ul
-            %li << More from {{by.username}}
+            %li << More from {{by.username|e}}
             %li
               %a(href="/user/{{ by.username }}")
-                See {{by.username}}'s profile
-            %li << See {{by.username}}'s prints
+                See {{by.username|e}}'s profile
+            %li << See {{by.username|e}}'s prints
+
       %section#mainart
         ; TODO: template/art: bigger thumbnails. related: upload.
         %img(src="{{ url_for('static', filename='thumbnail/'+art.thumbnail) }}" height=200)
+
       %section#artmeta
         #desc
           %p
@@ -68,7 +70,7 @@
           %p
             %strong << Other (TESTING)
             %ul
-              %li << Tags: {{ art.tags }}
+              %li << Tags: {{ art.tags|e }}
               %li << NSFW Rating: {{ art.nsfw }}
               %li << License: {{ art.license }}
           %p

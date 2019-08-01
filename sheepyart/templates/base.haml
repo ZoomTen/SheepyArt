@@ -14,7 +14,7 @@
       %a#heading-logo(href="/")
         %h1 << {{ site_name }}
       %form#search(method="get" action="/search")
-        %input#s-text(type="text" name="q", accesskey="s" placeholder="Search..." value="{{ query }}")
+        %input#s-text(type="text" name="q", accesskey="s" placeholder="Search..." value="{{ query|e }}")
         %select#s-cat(size="1" name="cat")
           -for cat in search_categories
             %option(value="{{cat}}") << {{search_categories[cat]}}
@@ -29,7 +29,7 @@
             %li
               Logged in as
               %a(href="/user/{{userauthed.username}}")
-                {{userauthed.username}}
+                {{userauthed.username|e}}
             %li
             ; FIXME: template/base: provide interfaces for user actions
               Notifications
@@ -58,7 +58,7 @@
         -if messages
           %ul#system-messages
             -for category, message in messages
-              %li(class="msg-{{category}}") << {{ message }}
+              %li(class="msg-{{category}}") << {{ message|e }}
       -block contents
 
     %footer

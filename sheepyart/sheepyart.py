@@ -18,6 +18,9 @@ from flask_scss import Scss
 # For the definition file
 import json
 
+# Sanitizer
+from flask_bleach import Bleach
+
 # ------------------------- Definitions -------------------------
 
 with open(path.join("sheepyart", "app", "definitions.json"),"r") as def_files:
@@ -59,3 +62,12 @@ Scss(app)
 logins = LoginManager(app)
 logins.login_view = 'login.do_login'
 logins.login_message_category = 'info'
+
+# Default sanitizer. Should there be a need for
+# custom sanitizers, routes should import their
+# own bleach modules
+# Clorox
+bleach = Bleach(app)
+
+# Sanitizer settings
+#app.config['BLEACH_ALLOWED_TAGS']
