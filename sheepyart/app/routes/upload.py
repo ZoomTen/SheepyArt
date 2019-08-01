@@ -120,7 +120,7 @@ def upload_art_image(form_art):
 
     form_art.save(finalpath)
 
-    # TODO: upload: make separate, bigger thumbnails. related: template/art.
+    # TODO: upload: make separate, bigger thumbnails. related: art.
     thumbsize = (150, 150)
     with Image.open(form_art) as orig:
         rgb = orig.convert('RGB')

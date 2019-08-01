@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     dob = db.Column(db.Date, nullable=False)
     joindate = db.Column(db.Date, nullable=False, default=datetime.utcnow)
-    # NOTE: model/user: should we need a table for genders and countries?
+    # NOTE: model/user: should I need a table for genders and countries?
     gender = db.Column(db.Integer, nullable=False)
     country = db.Column(db.Integer, nullable=False)
     # avatar is a static image link

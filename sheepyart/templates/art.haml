@@ -30,7 +30,7 @@
           %li
             %a(href="{{ url_for('static', filename='uploads/'+art.image) }}")
               Full View
-          ; XXX: template/art: implement favorites and sharing
+          ; XXX: art: implement favorites and sharing
           ; %li << Add to Favorites
           ; %li << Share
 
@@ -50,7 +50,7 @@
                 See {{by.username|e}}'s profile
 
       %section#mainart
-        ; TODO: template/art: bigger thumbnails. related: upload.
+        ; TODO: art: bigger thumbnails. related: upload.
         %img(src="{{ url_for('static', filename='thumbnail/'+art.thumbnail) }}" height=200)
 
       %section#artmeta

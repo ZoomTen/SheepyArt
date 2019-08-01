@@ -79,7 +79,7 @@
 
       {{ form.submit(class_="ui-action-button") }}
   %script
-    ; FIXME: template/upload: Handle "no file cases"
+    ; FIXME: template/upload: Handle "no file" cases
     | document.getElementById("image").onchange = function(){
     |     var read = new FileReader();
     |
