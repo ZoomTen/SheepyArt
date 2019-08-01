@@ -1,0 +1,86 @@
+-extends 'base.haml'
+
+-block contents
+  -if art
+    .main-heading
+      %a(href="/user/{{ by.username }}")
+        %img(src="{{ url_for('static', filename='avatar/'+by.avatar) }}" width=50 height=50)
+      %h2#heading
+        {{ art.title }}
+      %p#by
+        by
+        %a(href="/user/{{ by.username }}")
+          {{ by.username }}
+      %p#category
+        Category:
+        -for i in cat:
+          -if cat.index(i) == cat|length-1
+            {{ i.title }}
+          -else
+            {{ i.title }}
+            |/
+    %main#artpage
+      %aside
+        %ul
+          %li
+            %a(href="{{ url_for('static', filename='uploads/'+art.image) }}")
+              Full View
+          ; FIXME: template/art: implement favorites and sharing
+          %li << Add to Favorites
+          %li << Share
+        -if user == art.by
+          %ul
+            %li << Edit Art
+            %li << Delete Art
+        -else
+          %ul
+            %li << More from {{by.username}}
+            %li
+              %a(href="/user/{{ by.username }}")
+                See {{by.username}}'s profile
+            %li << See {{by.username}}'s prints
+      %section#mainart
+        ; TODO: template/art: bigger thumbnails. related: upload.
+        %img(src="{{ url_for('static', filename='thumbnail/'+art.thumbnail) }}" height=200)
+      %section#artmeta
+        #desc
+          %p
+            %strong << Artist's Comments
+          %p
+            {{ description }}
+        #details
+          %p
+            %strong << Details
+            %ul
+              ; FIXME: template/art: make functions for filesize, resolution, etc.
+              %li << Submitted: {{ published }}
+              %li << Filesize: {{ filesize }} bytes
+              %li << Resolution: ???x???
+              %li << Comments: ???
+              %li << Favorites: {{ art.favorites }}
+              %li << In <strong>???</strong> collections
+          %p
+            %strong << Views
+            %ul
+              %li << Total: {{ art.views }}
+              %li << Today: ???
+              %li << This week: ???
+          %p
+            %strong << Other (TESTING)
+            %ul
+              %li << Tags: {{ art.tags }}
+              %li << NSFW Rating: {{ art.nsfw }}
+              %li << License: {{ art.license }}
+          %p
+            %strong << Embed Code<br>
+            %input(value="> code here")
+            %br
+            %strong << Thumbnail Link<br>
+            %input(value="> thumbnail link here")
+
+  -else
+    .main-heading
+      %h2 << Art not found
+    %main#userpage
+      %p
+        The art you're looking for cannot be found. Sorry!

@@ -409,3 +409,30 @@ footer {
     }
   }
 }
+
+/* Art page */
+#artpage{
+  aside{
+    width:12%;
+    display:table-cell;
+    vertical-align: top;
+  }
+  #mainart{
+    display: table-cell;
+    img{
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  #artmeta{
+    width: 88%;
+    margin-left:12%;
+    #desc{
+      display:table-cell;
+    }
+    #details{
+      display:table-cell;
+      width: 15%;
+    }
+  }
+}

@@ -17,6 +17,9 @@ my commit history >_<
   * Database
   * Basic configuration through `definitions.json`
 
+## Todo
+  * Collections support
+
 ## Oddities
   * Importing global objects need to be done from `sheepyart.sheepyart`
   * Database located at `sheepyart/base.db`, definitions file located at `sheepyart/app/definitions.json`

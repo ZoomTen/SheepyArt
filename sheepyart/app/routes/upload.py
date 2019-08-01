@@ -114,6 +114,7 @@ def upload_art_image(form_art):
 
     form_art.save(finalpath)
 
+    # TODO: upload: make separate, bigger thumbnails. related: template/art.
     thumbsize = (150, 150)
     with Image.open(form_art) as orig:
         rgb = orig.convert('RGB')
@@ -158,11 +159,10 @@ def do_upload():
             db.session.commit()
 
             # LOG: Image upload
-            app.logger.info(f"User '{by[0]}' (ID: '{by[1]}') uploaded '{form.title.data}', assigned ID (insert ID)")
+            app.logger.info(f"User '{by[0]}' (ID: '{by[1]}') uploaded '{form.title.data}', assigned ID {uploaded_art.id}")
 
             flash('Your art has been uploaded!', 'success')
-            # FIXME: upload: redirect to art page
-            return redirect(url_for('browse.do_browse'))
+            return redirect(url_for('art.view_art', art_id=uploaded_art.id))
 
         for field, errors in form.errors.items():
             for err in errors:
