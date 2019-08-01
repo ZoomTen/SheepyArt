@@ -2,15 +2,56 @@
 
 -block contents
   -if username
-    .main-heading
-      %h2
-        %img(src="{{ avatar }}" width=50 height=50)
-        {{ username|e }}
+    .main-heading.tabbed-heading
+      #userinfo
+        %h2
+          %img(src="{{ avatar }}" width=50 height=50)
+          {{ dispname|e }}
+        %p
+          @{{ username|e }}
+      %ul#tabbing.is-menu
+        %li.selected
+          %a(href="#") << Profile
+        %li
+          %a(href="#") << Gallery
+        %li
+          %a(href="#") << Favorites
+        %li
+          %a(href="#") << Blog
     %main#userpage
-      ; FIXME: template/userpage: populate this
-      ; FIXME: template/userpage: add another table for user content
-      %p
-        Placeholder userpage content
+      %section#userdetails
+        .portion
+            ; XXX: userpage: implement missing info parts
+          %ul
+            ;%li << [Digital Art ???] / [Hobbyist ???] from [Unknown ???]
+            ;%li << last visited [9h ago ???]
+        .portion
+          %ul
+            %li << Member since <strong>{{ joindate }}</strong>
+            ;%li << Watching [???]
+            ;%li << Watched by [???]
+            ;%li << Ranked [???]
+        .portion
+          %ul
+            %li << <strong>{{ gallery_count }}</strong> submissions
+            ;%li << <strong>[???]</strong> comments
+            ;%li << <strong>[???]</strong> favorites
+      %section#usermain
+        .main-heading
+          %h2 << User Gallery
+        .thumbs-container
+          -for entry in gallery_snips
+            .thumb-holder
+              .thumb-image
+                %a(href="{{ entry['link'] }}")
+                  %img(height="150" src="{{ entry['thumb'] }}")
+              .thumb-text
+                %span.title
+                  %a(href="{{ entry['link'] }}") << {{ entry['title'] }}
+                %span.cat
+                  in
+                  %a(href="{{ entry['catlink'] }}") << {{ entry['catname'] }}
+
   -else
     .main-heading
       %h2 << User not found
