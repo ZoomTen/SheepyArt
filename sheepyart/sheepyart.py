@@ -22,15 +22,17 @@ import json
 from flask_bleach import Bleach
 
 # ------------------------- Definitions -------------------------
-
-with open(path.join("sheepyart", "app", "definitions.json"),"r") as def_files:
+with open(path.join("sheepyart", "app", "definitions.json"), "r") as def_files:
     # Load our JSON definition file as a dictionary that
     # we can use
     conf = json.load(def_files)
 
 db_file = conf["db_file"]
 
+
 # ------------------------- Control -------------------------
+
+
 class Hamlisk(Flask):
     "Flask, but with HAMLish"
     jinja_options = ImmutableDict(
@@ -38,6 +40,7 @@ class Hamlisk(Flask):
                     'jinja2.ext.with_',
                     'hamlish_jinja.HamlishExtension']
     )
+
     def __init__(self):
         Flask.__init__(self, __name__)
 

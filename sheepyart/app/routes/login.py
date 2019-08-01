@@ -9,10 +9,8 @@ from flask import flash, redirect, url_for, request
 
 # Form functions
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
-from wtforms.fields.html5 import EmailField, DateField
-from wtforms.validators import InputRequired, Length, Email, EqualTo
-from wtforms_components import DateRange
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import InputRequired, Length
 
 # User model
 from sheepyart.app.models import User
@@ -31,14 +29,12 @@ from sheepyart.sheepyart import app
 login = Blueprint('login', __name__)
 logout = Blueprint('logout', __name__)
 
-class SiteWideLoginForm(FlaskForm):
-    'SheepyArt site-wide login form object. has no validation.'
 
+class SiteWideLoginForm(FlaskForm):
+    'SheepyArt site-wide login form object. Validation handled by login form.'
     # User details
     username = StringField('Username')
-
     password = PasswordField('Password')
-
     submit = SubmitField('Login')
 
 class LoginForm(FlaskForm):
@@ -58,47 +54,53 @@ class LoginForm(FlaskForm):
     stay = BooleanField('Remember this login')
     submit = SubmitField('Login')
 
+
 @login.route('/login', methods=['GET', 'POST'])
 def do_login():
     form = LoginForm()
 
     if current_user.is_authenticated:
         return redirect(url_for('browse.do_browse'))
-    else:
-        if request.method == "POST":
-            if form.validate_on_submit():
-                # FIXME: login: add email input functionality
-                user = User.query.filter(func.lower(User.username) == func.lower(form.username.data)).first()
 
-                if user:
-                    check_pw = hash.check_password_hash(user.password, form.password.data)
-                    if check_pw:
-                        login_user(user, remember=form.stay.data)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # FIXME: login: add email input functionality
+            user = User.query.filter(func.lower(User.username)
+                                     == func.lower(form.username.data)).first()
 
-                        # LOG: User log in.
-                        app.logger.info(f"User '{user.username}' (ID:'{user.id}') has logged in.")
+            if user:
+                check_pw = hash.check_password_hash(user.password,
+                                                    form.password.data
+                                                    )
+                if check_pw:
+                    login_user(user, remember=form.stay.data)
 
-                        flash(f"Logged in as '{ form.username.data }'!", 'success')
+                    # LOG: User log in.
+                    app.logger.info(f"User {user.username} (ID:{user.id}) has logged in.")
 
-                        target = request.args.get('next')
-                        if target:
-                            return redirect(target)
-                        else:
-                            return redirect(url_for('userpage.view_userpage', username=user.username))
-                    else:
-                        flash('Login failed, check your password!', 'error')
+                    flash(f"Logged in as '{form.username.data}'!", 'success')
 
-                else:
-                    flash('Login failed, check your username!', 'error')
-                return render_template("login.haml", form=form)
+                    target = request.args.get('next')
+                    if target:
+                        return redirect(target)
 
-            for field, errors in form.errors.items():
-                for err in errors:
-                    flash(err, 'error')
+                    return redirect(url_for(
+                                            'userpage.view_userpage',
+                                            username=user.username
+                                            )
+                                   )
+                flash('Login failed, check your password!', 'error')
+            flash('Login failed, check your username!', 'error')
+
             return render_template("login.haml", form=form)
 
-        else:
-            return render_template("login.haml", form=form)
+        for field, errors in form.errors.items():
+            for err in errors:
+                flash(err, 'error')
+        return render_template("login.haml", form=form)
+
+    return render_template("login.haml", form=form)
+
 
 @logout.route('/logout', methods=['GET', 'POST'])
 def do_logout():
@@ -106,7 +108,7 @@ def do_logout():
     logout_user()
 
     # LOG: User log out.
-    app.logger.info(f"User '{logout_uname[0]}' (ID:'{logout_uname[1]}') has logged out.")
+    app.logger.info(f"User {logout_uname[0]} (ID:{logout_uname[1]}) has logged out.")
 
     flash('You have been successfully logged out.', 'info')
     return redirect(url_for('browse.do_browse'))

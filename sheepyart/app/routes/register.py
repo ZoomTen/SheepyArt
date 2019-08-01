@@ -43,7 +43,7 @@ class RegistrationForm(FlaskForm):
                                InputRequired('Please enter a username'),
                                Length(min=2, max=20),
                                Regexp(message='Use only letters, numbers, dashes and underscores! Also, no spaces.',
-                               regex=r'^[0-9A-Za-z\-_]+$')
+                                      regex=r'^[0-9A-Za-z\-_]+$')
                            ])
 
     password = PasswordField('Password',

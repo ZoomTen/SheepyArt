@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime
 from sheepyart.sheepyart import db, logins
 from flask_login import UserMixin
 
@@ -31,7 +31,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(128), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     dob = db.Column(db.Date, nullable=False)
-    # NOTE: model/user: have proper classification for gender and country?
+    # NOTE: model/user: should we need a table for genders and countries?
     gender = db.Column(db.Integer, nullable=False)
     country = db.Column(db.Integer, nullable=False)
     # avatar is a static image link
@@ -50,7 +50,8 @@ class Art(db.Model):
         thumbnail(String, 128)  -> relative to static/thumbnail/
         user_id(Integer)
         favorites(Integer)      -> requires user login to favorite
-        views(Integer)          -> should be updated every time the page is viewed BY unique IDs
+        views(Integer)          -> should be updated every time the page is
+                                   viewed BY unique IDs
         pubdate(DateTime)
         description(Text)       -> indexable
         tags(String, 256)       -> space separated
@@ -75,7 +76,7 @@ class Art(db.Model):
     license = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
-        return f"Art('{self.title}', '{self.image}', '{self.category}', '{self.favorites}', '{self.views}', '{self.pubdate}')"
+        return f"Art('{self.title}', '{self.image}', '{self.category}')"
 
 class Category(db.Model):
     '''

@@ -1,5 +1,5 @@
 '''
-    SheepyArt route definitions
+SheepyArt route definitions
 '''
 
 # Load global definitions
@@ -21,7 +21,10 @@ from flask_login import current_user
 
 # Register all search categories
 @app.context_processor
-def quack_all():
+def apply_global_variables():
+    '''
+    Apply all site-wide variables on template processing.
+    '''
     return dict(
         search_categories=conf["search_categories"],
         site_name=conf["site_name"],

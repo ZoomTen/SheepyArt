@@ -55,23 +55,27 @@ class UploadForm(FlaskForm):
 
     # User details
     title = StringField('Art Title',
-                           [
-                               InputRequired('Please enter a title')
-                           ])
+                        [
+                            InputRequired('Please enter a title')
+                        ])
+
     category = SelectField('Category',
                            validators=[
                                InputRequired('Please enter a category')
                            ],
                            choices=categories_list)
+
     tags = StringField('Tags',
-                           [
-                               InputRequired('Please enter some tags')
-                           ])
+                       [
+                           InputRequired('Please enter some tags')
+                       ])
+
     image = FileField('Image file',
                            [
                                FileRequired('Please choose an image file'),
                                FileAllowed(['jpg', 'png', 'gif'])
                            ])
+
     description = TextAreaField('Description or Contents')
 
     has_nsfw = RadioField(label='Mature Content?',
@@ -98,6 +102,7 @@ class UploadForm(FlaskForm):
                                 ('6', 'CC BY-SA 4.0'),
                                 ('7', 'Public Domain')
                            ])
+
     agree_tos = BooleanField('Agree to terms?',
                              validators=[
                                  InputRequired('You must agree to the terms.')
