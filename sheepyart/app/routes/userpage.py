@@ -8,6 +8,8 @@ from sqlalchemy import func
 # functions
 from sheepyart.app.common import make_user_gallery
 
+# Stuff
+from sheepyart.sheepyart import conf
 
 userpage = Blueprint('userpage', __name__)
 
@@ -21,6 +23,7 @@ def view_userpage(username):
         display_name = user.dispname
         image_file = url_for('static', filename='avatar/' + user.avatar)
 
+        gender = conf['genders'][str(user.gender)]
         joindate = user.joindate
 
         gallery_count = Art.query.filter_by(by=user).count()
@@ -31,6 +34,7 @@ def view_userpage(username):
                                username=escape(actual_username),
                                gallery_count=gallery_count,
                                gallery_snips=gallery_stuff,
+                               gender=gender,
                                joindate=joindate,
                                avatar=image_file
                                )

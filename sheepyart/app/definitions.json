@@ -18,6 +18,12 @@
     "Journals": [],
     "Scraps": []
   },
+  "genders":{
+    "0": "Non-identifying",
+    "1": "Other",
+    "2": "Male",
+    "3": "Female"
+  },
   "db_file": "base.db",
   "secret": "b1613a965683af63ca3f8673"
 }
