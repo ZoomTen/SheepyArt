@@ -1,3 +1,5 @@
+"""SheepyArt models / tables for the database"""
+
 from datetime import datetime
 from sheepyart.sheepyart import db, logins
 from flask_login import UserMixin
@@ -11,7 +13,8 @@ def load_user(uid):
 # ------------------------- Model -------------------------
 
 class User(db.Model, UserMixin):
-    '''
+    """User column.
+
     Required fields:
         username(String, 16, unique)
         dispname(String, 64)
@@ -25,7 +28,7 @@ class User(db.Model, UserMixin):
         joindate(Date)
     Other fields:
         art(db, Art)
-    '''
+    """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(16), unique=True, nullable=False)
     dispname = db.Column(db.String(64), nullable=False)
@@ -43,8 +46,10 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.avatar}')"
 
+
 class Art(db.Model):
-    '''
+    """Art column.
+
     Required fields:
         title(String, 128)
     Optional fields:
@@ -60,7 +65,7 @@ class Art(db.Model):
         category(Integer)       -> must point to a valid category
         nsfw(Integer)           -> must be between 0:none, 1:mild, 2:explicit
         license(Integer)
-    '''
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     # image is a static image link
@@ -78,20 +83,41 @@ class Art(db.Model):
     license = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
-        return f"Art('{self.title}', '{self.image}', '{self.category}')"
+        return f"Art('{self.title}', '{self.image}', cat:{self.category})"
+
 
 class Category(db.Model):
-    '''
+    """Category column.
+
     Required fields:
         title(String, 128)
     Optional fields:
         parent_id(Integer, nullable)
-    '''
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     parent_id = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return f"Category('{self.title}', '{self.parent_id}')"
+        return f"Category('{self.title}', parent:{self.parent_id})"
 
-# FIXME: model: create license table. features: title, commercial_allowed, attrib_required, link(nullable)
+
+# NOTE: models: this "licenses" table may or may not be here to stay.
+class License(db.Model):
+    """License column.
+
+    Required fields:
+        title(String, 128)
+    Optional fields:
+        commercial_allowed(Boolean, default=False)
+        attrib_required(Boolean, default=False)
+        link(String, 128, nullable)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128), nullable=False)
+    commercial_allowed = db.Column(db.Boolean, nullable=False, default=False)
+    attrib_required = db.Column(db.Boolean, nullable=False, default=False)
+    link = db.Column(db.String(128), nullable=True)
+
+    def __repr__(self):
+        return f"License('{self.title}', commercial:{self.commercial_allowed}, attrib:{self.attrib_required})"
