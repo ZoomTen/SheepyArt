@@ -2,7 +2,7 @@
 
 -block contents
   .main-heading
-    %h2 << Login
+    %h2#heading << Login
   %main#login
     %form(action="/login", method="post")
       {{ form.csrf_token }}

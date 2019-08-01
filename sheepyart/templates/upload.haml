@@ -2,7 +2,7 @@
 
 -block contents
   .main-heading
-    %h2 << Upload some Art
+    %h2#heading << Upload some Art
   %main#upload
     %form(action="/upload", method="post" enctype="multipart/form-data")
       {{ form.csrf_token }}

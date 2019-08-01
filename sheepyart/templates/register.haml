@@ -2,7 +2,7 @@
 
 -block contents
   .main-heading
-    %h2 << Register for {{site_name}}
+    %h2#heading << Register for {{site_name}}
   %main#register
     %form(action="/register", method="post")
       {{ form.csrf_token }}

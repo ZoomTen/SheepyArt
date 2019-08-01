@@ -169,16 +169,30 @@ footer {
   padding:16px 16px 0 0;
   background: #B3C4B0;
   color: #3B5A4A;
+  display: block;
+
+  #heading {
+    margin: 0;
+    padding:0 16px;
+    display: inline-block;
+  }
+
+  #by{
+    display:inline-block;
+  }
+}
+
+.tabbed-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  h2 {
+  #heading {
     margin: 0;
     padding:0 16px;
   }
 
-  ul.tabbing {
+  #tabbing {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
