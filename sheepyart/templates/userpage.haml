@@ -1,23 +1,6 @@
--extends 'base.haml'
-
+-extends '_userheading.haml'
 -block contents
   -if username
-    .main-heading.tabbed-heading
-      #userinfo
-        %h2
-          %img(src="{{ avatar }}" width=50 height=50)
-          {{ dispname|e }}
-        %p
-          @{{ username|e }}
-      %ul#tabbing.is-menu
-        %li.selected
-          %a(href="#") << Profile
-        %li
-          %a(href="#") << Gallery
-        %li
-          %a(href="#") << Favorites
-        %li
-          %a(href="#") << Blog
     %main#userpage
       %section#userdetails
         .portion

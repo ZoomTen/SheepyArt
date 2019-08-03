@@ -43,10 +43,11 @@
         -else
           %strong << More
           %ul
-            ; XXX: template/art: "more from" will link to the gallery page, needs implementing.
-            ; %li << More from {{by.username|e}}
             %li
-              %a(href="/user/{{ by.username|e }}")
+              %a(href="{{ url_for('gallery.view_gallery', username=by.username|e) }}")
+                More from {{by.username|e}}
+            %li
+              %a(href="{{ url_for('userpage.view_userpage', username=by.username|e) }}")
                 See {{by.username|e}}'s profile
 
       %section#mainart

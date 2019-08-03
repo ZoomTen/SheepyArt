@@ -14,6 +14,7 @@ from sheepyart.app.routes.userpage import userpage
 from sheepyart.app.routes.upload import upload
 from sheepyart.app.routes.art import art
 from sheepyart.app.routes.preview import preview
+from sheepyart.app.routes.gallery import gallery
 
 # Load login data
 from flask_login import current_user
@@ -48,6 +49,8 @@ app.register_blueprint(userpage)
 app.register_blueprint(upload)
 app.register_blueprint(art)
 app.register_blueprint(preview)
+app.register_blueprint(gallery)
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('_404.haml'), 404

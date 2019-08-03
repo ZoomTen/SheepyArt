@@ -64,6 +64,8 @@
           %ul#system-messages
             -for category, message in messages
               %li(class="msg-{{category}}") << {{ message|e }}
+
+      -block heading
       -block contents
 
     %footer

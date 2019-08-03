@@ -1,0 +1,19 @@
+-extends 'base.haml'
+-block heading
+  -if username
+    .main-heading.tabbed-heading
+      #userinfo
+        %h2
+          %img(src="{{ avatar }}" width=50 height=50)
+          {{ dispname|e }}
+        %p
+          @{{ username|e }}
+      %ul#tabbing.is-menu
+        %li(class="{{ ui_tab_selected[0] }}")
+          %a(href="{{ url_for('userpage.view_userpage', username=username|e) }}") << Profile
+        %li(class="{{ ui_tab_selected[1] }}")
+          %a(href="{{ url_for('gallery.view_gallery', username=username|e) }}") << Gallery
+        %li(class="{{ ui_tab_selected[2] }}")
+          %a(href="#") << Favorites
+        %li(class="{{ ui_tab_selected[3] }}")
+          %a(href="#") << Blog
