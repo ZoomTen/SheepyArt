@@ -18,6 +18,9 @@ from sheepyart.app.routes.preview import preview
 # Load login data
 from flask_login import current_user
 
+# Handlers
+from flask import render_template
+
 # ------------------------- View: register endpoints -------------------------
 
 # Register all search categories
@@ -45,3 +48,6 @@ app.register_blueprint(userpage)
 app.register_blueprint(upload)
 app.register_blueprint(art)
 app.register_blueprint(preview)
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('_404.haml'), 404
