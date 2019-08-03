@@ -14,6 +14,11 @@
               %span.cat
                 in
                 %a(href="{{ entry['catlink'] }}") << {{ entry['catname'] }}
+      .pagination
+        -if prevpage
+          %a.prev(href='{{ prevpage }}') << Previous Page
+        -if nextpage
+          %a.next(href='{{ nextpage }}') << Next Page
 
   -else
     .main-heading

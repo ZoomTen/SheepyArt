@@ -31,7 +31,7 @@ def parse_markdown(input):
     return scrub.clean(convert)
 
 
-def make_user_gallery(user, num_entries=0, sort_new=False):
+def make_user_gallery(user, num_entries=0, sort_new=False, offset=0):
     """Makes a user gallery.
 
     This is a processor for `make_gallery` which takes a User
@@ -49,6 +49,7 @@ def make_user_gallery(user, num_entries=0, sort_new=False):
                         AssertionError.
         sort_new(Bool): Whether or not to sort by the newest art
                         in the collection.
+        offset(Integer): Offset entries by x entries.
 
     Returns:
         A List, see make_gallery.
@@ -56,10 +57,10 @@ def make_user_gallery(user, num_entries=0, sort_new=False):
     art = Art.query.filter_by(by=user)
 
     return make_gallery(art=art, num_entries=num_entries,
-                        sort_new=sort_new)
+                        sort_new=sort_new, offset=offset)
 
 
-def make_category_gallery(category, num_entries=0, sort_new=False):
+def make_category_gallery(category, user=None, num_entries=0, sort_new=False, offset=0):
     """Makes a category gallery.
 
     This is a processor for `make_gallery` which takes a Category
@@ -70,6 +71,8 @@ def make_category_gallery(category, num_entries=0, sort_new=False):
         category(Category): A Category object from which to extract art entries.
                     This can be None, if you wish to extract art from all
                     categories.
+        user(User): If specified, this will return art entries of a specific
+                    category from a specific user.
         num_entries(Int): The number of entries to generate. This defaults
                         to 0, for showing all entries from the user. A value
                         of 1 will show the oldest/newest entries, depending
@@ -78,21 +81,24 @@ def make_category_gallery(category, num_entries=0, sort_new=False):
                         AssertionError.
         sort_new(Bool): Whether or not to sort by the newest art
                         in the collection.
+        offset(Integer): Offset entries by x entries.
 
     Returns:
         A List, see make_gallery.
     """
-    if category is None:
-        # NOTE: common: what is this
-        art = Art.query.filter_by()
+    if category:
+        if user:
+            art = Art.query.filter_by(category=category.id, by=user)
+        else:
+            art = Art.query.filter_by(category=category.id)
     else:
-        art = Art.query.filter_by(category=category.id)
+        art = Art.query.filter_by()
 
     return make_gallery(art=art, num_entries=num_entries,
-                        sort_new=sort_new)
+                        sort_new=sort_new, offset=offset)
 
 
-def make_gallery(art, num_entries=0, sort_new=False):
+def make_gallery(art, num_entries=0, sort_new=False, offset=0):
     """Makes gallery entries, sorted by oldest or newest.
 
     This fetches n art entries (n=num_entries) from
@@ -109,6 +115,7 @@ def make_gallery(art, num_entries=0, sort_new=False):
                         AssertionError.
         sort_new(Bool): Whether or not to sort by the newest art
                         in the collection.
+        offset(Integer): Offset entries by x entries.
 
     Returns:
         A List, containing Dict mappings with the following format:
@@ -131,14 +138,14 @@ def make_gallery(art, num_entries=0, sort_new=False):
     # NOTE: common: ticky tacky I'm on the keyboard
     if sort_new:
         if num_entries > 0:
-            entries = art.order_by(Art.pubdate.desc()).limit(num_entries).all()
+            entries = art.order_by(Art.pubdate.desc()).limit(num_entries).offset(offset).all()
         else:
-            entries = art.order_by(Art.pubdate.desc()).all()
+            entries = art.order_by(Art.pubdate.desc()).offset(offset).all()
     else:
         if num_entries > 0:
-            entries = art.limit(num_entries).all()
+            entries = art.limit(num_entries).offset(offset).all()
         else:
-            entries = art.all()
+            entries = art.offset(offset).all()
 
     gallery = []
     for entry in entries:
