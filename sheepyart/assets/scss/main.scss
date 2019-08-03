@@ -409,13 +409,32 @@ section > .thumbs-container{
 /* Login and Register */
 
 .ui-common-form {
+  .form-remark{
+    display: block;
+    opacity: .7;
+    margin-left: 25%;
+    margin-top:.5em;
+    padding-left: 1.3em;
+    font-size: .9em;
+    width: 20em;
+  }
+
   form {
     font-size: 0.8em;
 
     input[type="text"],
     input[type="password"],
-    input[type="email"] {
-      height: 1.7em;
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+      height: 1.8em;
+      border:1px solid rgba(#000,.3);
+      border-radius: 4px;
+    }
+
+    textarea{
+      padding:4px;
     }
 
     legend {

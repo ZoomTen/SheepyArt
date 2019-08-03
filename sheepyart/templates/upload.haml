@@ -25,8 +25,11 @@
         %br
         {{ form.description.label }}
         {{ form.description }}
+        %span.form-remark
+          ; FIXME: upload: make a markdown explanation page
+          You can use <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown</a> here.
         %button.ui-action-button#preview-button(type='button')
-          Preview
+          Preview Text
       %fieldset
         %legend << Preview contents
         %section#preview-contents

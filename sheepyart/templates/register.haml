@@ -9,22 +9,28 @@
       %fieldset
         %legend << User Details
         {{ form.username.label }}
-        {{ form.username }}
+        {{ form.username(placeholder="SheepyArt") }}
+        %span.form-remark
+          Use only letters, numbers, dashes and underscores! Also, no spaces.
         %br
         {{ form.dispname.label }}
-        {{ form.dispname }}
+        {{ form.dispname(placeholder="SheepyArt Studios") }}
         %br
         {{ form.password.label }}
-        {{ form.password }}
+        {{ form.password(placeholder="8-12 characters...") }}
         %br
         {{ form.confirm_password.label }}
         {{ form.confirm_password }}
+        %span.form-remark
+          Your password should be 8 characters or more.
+          Try not to use the same password as your other
+          accounts.
         %br
         {{ form.email.label }}
-        {{ form.email }}
+        {{ form.email(placeholder="abc@example.com") }}
         %br
         {{ form.confirm_email.label }}
-        {{ form.confirm_email }}
+        {{ form.confirm_email(placeholder="abc@example.com") }}
 
       %fieldset
         %legend << Personal Details
@@ -33,6 +39,10 @@
         %br
         {{ form.dob.label }}
         {{ form.dob }}
+        %span.form-remark
+          If the browser's built-in date selector doesn't show up,
+          input your birth date as a 4-digit year, then a 2-digit month,
+          followed by a 2-digit day, separated with dashes.
         %br
         {{ form.country.label }}
         {{ form.country }}
