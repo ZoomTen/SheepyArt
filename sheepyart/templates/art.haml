@@ -14,13 +14,8 @@
       %p#category
         Category:
         -for i in cat:
-          -if cat.index(i) == cat|length-1
-            ; child category
-            ; XXX: template/art: implement category linking
-            %a(href="#") << {{ i.title }}
-          -else
-            ; root category
-            %a(href="#") << {{ i.title }}
+          %a(href="{{ url_for('browse.do_browse') + '?cat=' + i.id|e }}") << {{ i.title }}
+          -if cat.index(i) != cat|length-1
             |/
 
     %main#artpage
@@ -63,7 +58,7 @@
           %p
             %strong << Details
             %ul
-              ; FIXME: art: make functions for filesize, resolution, etc.
+              ; FIXME: art: make functions for comments, favorites
               %li << Submitted: {{ published }}
               %li << Filesize: {{ filesize }}
               %li << Resolution: {{ resolution[0] }}x{{ resolution[1] }}

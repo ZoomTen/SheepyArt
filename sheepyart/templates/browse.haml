@@ -4,7 +4,7 @@
   .tabbed-heading.main-heading
     %h2#heading << Browse
     %ul#tabbing.is-menu
-      ; XXX: browse: implement trending function
+      ; TODO: browse: implement trending function
       ;%li
       ;  %a(href="#") << Trending
       %li.selected
@@ -12,30 +12,17 @@
 
   #browse
     %nav#browse-cats
-      ; XXX: template/browse: Replace these categories with a loop over the category database once the browse function is expanded.
       %ul
-        %li.selected
-          %a(href="#") << All Categories
-        %li
-          %a(href="#") << (Currently nonfunctional)
-        ;%li
-        ;  %a(href="#") << Traditional
-        ;%li
-        ;  %a(href="#") << Digital
-        ;%li
-        ;  %a(href="#") << Photo
-        ;%li
-        ;  %a(href="#") << Literature
-        ;%li
-        ;  %a(href="#") << Crafts
-        ;%li
-        ;  %a(href="#") << App Designs
-        ;%li.has-divide
-        ;  %a(href="#") << Refsheets
-        ;%li
-        ;  %a(href="#") << Meta
-        ;%li
-        ;  %a(href="#") << Scraps
+        -if catnum == 0
+          %li.selected
+            %a(href="{{ url_for( 'browse.do_browse' ) + '?cat=0' }}") << All Categories
+        -else
+          %li
+            %a(href="{{ url_for( 'browse.do_browse' ) + '?cat=0' }}") << All Categories
+        -for category in categories
+          ; TODO: template/browse: print subcategories
+          %li(class="{{ category[1] }}")
+            %a(href="{{ url_for( 'browse.do_browse' ) + '?cat=' + category[0].id|e }}") << {{ category[0].title }}
 
     %main#browse-main
       .thumbs-container
@@ -54,7 +41,7 @@
                 in
                 %a(href="{{ entry['catlink'] }}") << {{ entry['catname'] }}
 
-      ; XXX: browse: implement pagination.
+      ; TODO: browse: implement pagination.
       ;.controls
       ;  %p
       ;    Previous Page

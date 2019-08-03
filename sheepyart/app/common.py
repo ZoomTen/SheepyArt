@@ -86,11 +86,24 @@ def make_category_gallery(category, user=None, num_entries=0, sort_new=False, of
     Returns:
         A List, see make_gallery.
     """
+    # XXX: common: this probably isn't good
     if category:
-        if user:
-            art = Art.query.filter_by(category=category.id, by=user)
+        if category.parent_id is None:
+            catlist = Category.query.filter_by(parent_id=category.id).all()
+            if user:
+                art = Art.query.filter_by(category=category.id, by=user)
+                for cat in catlist:
+                    art = art.union(Art.query.filter_by(category=cat.id,
+                                                        by=user))
+            else:
+                art = Art.query.filter_by(category=category.id)
+                for cat in catlist:
+                    art = art.union(Art.query.filter_by(category=cat.id))
         else:
-            art = Art.query.filter_by(category=category.id)
+            if user:
+                art = Art.query.filter_by(category=category.id, by=user)
+            else:
+                art = Art.query.filter_by(category=category.id)
     else:
         art = Art.query.filter_by()
 
@@ -157,7 +170,6 @@ def make_gallery(art, num_entries=0, sort_new=False, offset=0):
         else:
             catname = f"{cat.title}"
 
-        # FIXME: common: catlink is supposed to be the link to category. needs implementing.
         gallery.append(
                         {
                             "title": escape(entry.title),
@@ -168,7 +180,7 @@ def make_gallery(art, num_entries=0, sort_new=False, offset=0):
                                              + entry.thumbnail),
                             "catid": cat.id,
                             "catname": catname,
-                            "catlink": "#",
+                            "catlink": url_for('browse.do_browse') + f"?cat={entry.category}",
                             "byname": escape(entry.by.username),
                             "bylink": url_for('userpage.view_userpage',
                                                username=escape(entry.by.username)
