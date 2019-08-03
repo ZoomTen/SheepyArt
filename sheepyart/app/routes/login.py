@@ -104,11 +104,13 @@ def do_login():
 
 @logout.route('/logout', methods=['GET', 'POST'])
 def do_logout():
-    logout_uname = (current_user.username, current_user.id)
-    logout_user()
+    print(current_user)
+    if current_user.is_authenticated:
+        logout_uname = (current_user.username, current_user.id)
+        logout_user()
 
-    # LOG: User log out.
-    app.logger.info(f"User {logout_uname[0]} (ID:{logout_uname[1]}) has logged out.")
+        # LOG: User log out.
+        app.logger.info(f"User {logout_uname[0]} (ID:{logout_uname[1]}) has logged out.")
 
-    flash('You have been successfully logged out.', 'info')
+        flash('You have been successfully logged out.', 'info')
     return redirect(url_for('browse.do_browse'))
