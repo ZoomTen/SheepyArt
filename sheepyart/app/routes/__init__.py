@@ -13,6 +13,7 @@ from sheepyart.app.routes.login import login, logout, SiteWideLoginForm
 from sheepyart.app.routes.userpage import userpage
 from sheepyart.app.routes.upload import upload
 from sheepyart.app.routes.art import art
+from sheepyart.app.routes.preview import preview
 
 # Load login data
 from flask_login import current_user
@@ -33,6 +34,7 @@ def apply_global_variables():
         globallogin=SiteWideLoginForm(),
     )
 
+
 # Register all routes
 app.register_blueprint(browse)
 app.register_blueprint(search)
@@ -42,3 +44,4 @@ app.register_blueprint(logout)
 app.register_blueprint(userpage)
 app.register_blueprint(upload)
 app.register_blueprint(art)
+app.register_blueprint(preview)

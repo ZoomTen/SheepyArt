@@ -25,7 +25,14 @@
         %br
         {{ form.description.label }}
         {{ form.description }}
-        %br
+        %button.ui-action-button#preview-button(type='button')
+          Preview
+      %fieldset
+        %legend << Preview contents
+        %section#preview-contents
+          Your preview here
+      %fieldset
+        %legend << Other
         {{ form.has_nsfw.label }}
         {{ form.has_nsfw }}
         %br
@@ -88,4 +95,20 @@
     |     };
     |
     |     read.readAsDataURL(this.files[0]);
+    | }
+    | document.getElementById("preview-button").onclick = function(){
+    |   var xhr = new XMLHttpRequest();
+    |   var description = document.getElementById("description").value
+    |   var preview_element = document.getElementById("preview-contents");
+    |
+    |   xhr.open('POST', '{{ url_for('preview.make_preview') }}', true);
+    |   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    |
+    |   xhr.onreadystatechange = function(){
+    |      if (this.readyState == 4 && this.status == 200){
+    |       preview_element.innerHTML = this.responseText;
+    |      }
+    |   }
+    |
+    |   xhr.send('content=' + encodeURI(description))
     | }

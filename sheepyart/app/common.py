@@ -3,6 +3,34 @@
 from sheepyart.app.models import Art, Category, User
 from flask import escape, url_for
 
+# Sanitizing
+from sheepyart.sheepyart import scrub
+
+# Markdown parsing
+import markdown
+from mdx_gfm import GithubFlavoredMarkdownExtension
+
+
+def parse_markdown(input):
+    """Parses a Markdown input.
+
+    This wraps around Python Markdown, converting the Markdown string
+    to HTML and sanitizes it. The Markdown flavor used in this app is
+    GFM (GitHub's markdown), and the sanitization depends on the settings
+    specified in sheepyart.py.
+
+    Args:
+        input(String): A Markdown-formatted string
+
+    Returns:
+        An HTML-formatted String that has already been sanitized.
+    """
+    convert = markdown.markdown(input,
+                                extensions=[GithubFlavoredMarkdownExtension()]
+                                )
+    return scrub.clean(convert)
+
+
 def make_user_gallery(user, num_entries=0, sort_new=False):
     """Makes a user gallery.
 

@@ -11,9 +11,8 @@ from sheepyart.app.models import Art, Category
 from datetime import datetime as dt
 from os import path
 
-# Sanitizing
-# FIXME: art: import app-wide sanitizer configs, if available
-from bleach import Cleaner
+# Markdown tingz
+from sheepyart.app.common import parse_markdown
 
 art = Blueprint('art', __name__)
 
@@ -27,9 +26,7 @@ def view_art(art_id):
 
         published = dt.strftime(art_view.pubdate, '%B %-d, %Y (UTC)')
 
-        # NOTE: upload: this can use markdown. also provide a preview.
-        scrub = Cleaner()
-        description = scrub.clean(art_view.description)
+        description = parse_markdown(art_view.description)
 
         # FIXME: art: humanize file sizes
         filesize = path.getsize(path.join(app.root_path,

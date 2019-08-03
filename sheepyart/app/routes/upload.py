@@ -32,8 +32,7 @@ from PIL import Image
 from sheepyart.sheepyart import app
 
 # Sanitizing
-# FIXME: upload: import app-wide sanitizer configs, if available
-from bleach import Cleaner
+from sheepyart.sheepyart import scrub
 
 upload = Blueprint('upload', __name__)
 
@@ -140,10 +139,9 @@ def do_upload():
             by = (current_user.username, current_user.id)
 
             # Sanitize some fields
-            scrub = Cleaner()
             title = scrub.clean(form.title.data)
-            description = scrub.clean(form.description.data)
             tags = scrub.clean(form.tags.data)
+            description = scrub.clean(form.description.data)
 
             if form.image.data:
                 image_file = upload_art_image(form.image.data)

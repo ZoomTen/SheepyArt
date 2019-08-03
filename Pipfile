@@ -18,6 +18,7 @@ python-dateutil = "*"
 flask-login = "*"
 pillow = "*"
 flask-bleach = "*"
+py-gfm = "*"
 
 [requires]
 python_version = "3.7"

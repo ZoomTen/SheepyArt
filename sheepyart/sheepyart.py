@@ -66,11 +66,17 @@ logins = LoginManager(app)
 logins.login_view = 'login.do_login'
 logins.login_message_category = 'info'
 
+# Sanitizer settings
+app.config['BLEACH_ALLOWED_TAGS'] = ['a', 'abbr', 'acronym', 'b', 'blockquote',
+                                    'code', 'em', 'i', 'li', 'ol', 'strong',
+                                    'ul', 'p', 'h1', 'h2', 'h3', 'h4', 'h5',
+                                    'h6', 'pre', 'small', 'table', 'thead',
+                                    'tbody', 'tfoot', 'th', 'td', 'tr'
+                                     ]
+app.config['BLEACH_STRIP_MARKUP'] = True
+
 # Default sanitizer. Should there be a need for
 # custom sanitizers, routes should import their
 # own bleach modules
 # Clorox
-bleach = Bleach(app)
-
-# Sanitizer settings
-#app.config['BLEACH_ALLOWED_TAGS']
+scrub = Bleach(app)
