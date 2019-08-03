@@ -3,7 +3,7 @@
 -block contents
   -if art
     .main-heading
-      %a(href="/user/{{ by.username|e }}")
+      %a(href="/user/{{ by.username|e }}", style="text-decoration:none;")
         %img(src="{{ url_for('static', filename='avatar/'+by.avatar) }}" width=50 height=50)
       %h2#heading
         {{ art.title|e }}
