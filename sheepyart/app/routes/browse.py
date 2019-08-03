@@ -7,7 +7,8 @@ browse = Blueprint('browse', __name__)
 
 @browse.route('/', methods=['GET'])
 def do_browse():
-    gallery = make_category_gallery(None, 10, True)
+    gallery = make_category_gallery(category=None, num_entries=10,
+                                    sort_new=True)
 
     return render_template("browse.haml",
                            gallery_snips=gallery
