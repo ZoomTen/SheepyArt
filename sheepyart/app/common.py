@@ -50,6 +50,8 @@ def make_user_gallery(user, num_entries=0, sort_new=False):
         sort_new(Bool): Whether or not to sort by the newest art
                         in the collection.
 
+    Returns:
+        A List, see make_gallery.
     """
     art = Art.query.filter_by(by=user)
 
@@ -77,6 +79,8 @@ def make_category_gallery(category, num_entries=0, sort_new=False):
         sort_new(Bool): Whether or not to sort by the newest art
                         in the collection.
 
+    Returns:
+        A List, see make_gallery.
     """
     if category is None:
         # NOTE: common: what is this

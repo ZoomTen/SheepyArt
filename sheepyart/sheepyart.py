@@ -54,6 +54,7 @@ app.jinja_env.hamlish_enable_div_shortcut = True
 # App stuff
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_file
 app.config['SECRET_KEY'] = conf["secret"]
+# app.config['SQLALCHEMY_ECHO'] = True
 
 # Make db
 db = SQLAlchemy(app)
