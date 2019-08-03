@@ -19,6 +19,7 @@ flask-login = "*"
 pillow = "*"
 flask-bleach = "*"
 py-gfm = "*"
+humanize = "*"
 
 [requires]
 python_version = "3.7"

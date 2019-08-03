@@ -14,6 +14,12 @@ from os import path
 # Markdown tingz
 from sheepyart.app.common import parse_markdown
 
+# Humanization
+from humanize import naturalsize
+
+# Resolution
+from PIL import Image
+
 art = Blueprint('art', __name__)
 
 
@@ -29,9 +35,12 @@ def view_art(art_id):
         description = parse_markdown(art_view.description)
 
         # FIXME: art: humanize file sizes
-        filesize = path.getsize(path.join(app.root_path,
-                                          'static', 'uploads', art_view.image)
-                                )
+        filesize = 0
+        resolution = (0,0)
+        imgfile = path.join(app.root_path, 'static', 'uploads', art_view.image)
+        if path.isfile(imgfile):
+            filesize = naturalsize(path.getsize(imgfile))
+            resolution = Image.open(imgfile).size
 
         cat = Category.query.get(art_view.category)
         if cat.parent_id is not None:
@@ -40,6 +49,7 @@ def view_art(art_id):
             return render_template('art.haml', art=art_view, by=by,
                                    published=published, filesize=filesize,
                                    description=description,
+                                   resolution=resolution,
                                    user=current_user,
                                    cat=(par_cat, cat)
                                    )
@@ -48,6 +58,7 @@ def view_art(art_id):
                                published=published,
                                filesize=filesize, description=description,
                                user=current_user,
+                               resolution=resolution,
                                cat=(cat)
                                )
     return render_template('art.haml')
