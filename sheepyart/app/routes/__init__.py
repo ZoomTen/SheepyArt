@@ -51,6 +51,19 @@ app.register_blueprint(art)
 app.register_blueprint(preview)
 app.register_blueprint(gallery)
 
+# Error handlers
+
+
+@app.errorhandler(403)
+def forbidden(e):
+    return render_template('_404.haml'), 403
+
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('_404.haml'), 404
+
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template('_404.haml'), 405
