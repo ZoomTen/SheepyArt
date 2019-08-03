@@ -6,7 +6,7 @@ if __name__ == "__main__":
     from logging.handlers import RotatingFileHandler
 
     # set up logger
-    # FIXME: logger: add dates to the logs config
+    # TODO: logger: add dates to the logs config
     handler = RotatingFileHandler('sheepyart.log', maxBytes=10000, backupCount=1)
     app.logger.addHandler(handler)
 

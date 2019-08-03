@@ -34,7 +34,6 @@ def view_art(art_id):
 
         description = parse_markdown(art_view.description)
 
-        # FIXME: art: humanize file sizes
         filesize = 0
         resolution = (0,0)
         imgfile = path.join(app.root_path, 'static', 'uploads', art_view.image)

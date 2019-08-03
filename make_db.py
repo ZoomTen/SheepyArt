@@ -8,7 +8,7 @@ from datetime import date
 
 # ------------------------- Run application -------------------------
 if __name__ == "__main__":
-    # FIXME: init: figure out how to do this automatically.
+    # XXX: init: figure out how to do this automatically.
 
     # create database if it doesn't exist
     from os import path
@@ -18,8 +18,8 @@ if __name__ == "__main__":
     db.create_all()
     print('Database automatically created.')
 
-    # FIXME: database: figure out a way to sync up the database when the definitions file is changed.
-    # FIXME: database: figure out migration stuff
+    # XXX: database: figure out a way to sync up the database when the definitions file is changed.
+    # XXX: database: figure out migration stuff
     listing = conf["categories"]
 
     # add parent categories
