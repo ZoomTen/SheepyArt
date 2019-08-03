@@ -10,6 +10,6 @@
       {{ form.username }}
       %br
       {{ form.password.label }}
-      {{ form.password }}
+      {{ form.password(autocomplete="off") }}
       %br
       {{ form.submit(class_="ui-action-button") }}

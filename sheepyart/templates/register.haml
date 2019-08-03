@@ -17,10 +17,10 @@
         {{ form.dispname(placeholder="SheepyArt Studios") }}
         %br
         {{ form.password.label }}
-        {{ form.password(placeholder="8-12 characters...") }}
+        {{ form.password(placeholder="8-12 characters...", autocomplete="off") }}
         %br
         {{ form.confirm_password.label }}
-        {{ form.confirm_password }}
+        {{ form.confirm_password(autocomplete="off") }}
         %span.form-remark
           Your password should be 8 characters or more.
           Try not to use the same password as your other

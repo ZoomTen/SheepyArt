@@ -81,3 +81,12 @@ app.config['BLEACH_STRIP_MARKUP'] = True
 # own bleach modules
 # Clorox
 scrub = Bleach(app)
+
+
+# TODO: sheepyart: use flask-talisman instead for these
+@app.after_request
+def set_headers(response):
+    response.headers['X-Frame-Options'] = 'sameorigin'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response
