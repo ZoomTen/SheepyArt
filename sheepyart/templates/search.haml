@@ -5,17 +5,18 @@
   .main-heading
     %h2#heading << Search Art
   %main
-    -for entry in list
-      .thumb-holder
-        .thumb-image
-          %a(href="{{ entry['link'] }}")
-            %img(height="150" src="{{ entry['thumb'] }}")
-        .thumb-text
-          %span.title
-            %a(href="{{ entry['link'] }}") << {{ entry['title'] }}
-          %span.cat
-            in
-            %a(href="{{ entry['catlink'] }}") << {{ entry['catname'] }}
+    .thumbs-container
+      -for entry in list
+        .thumb-holder
+          .thumb-image
+            %a(href="{{ entry['link'] }}")
+              %img(height="150" src="{{ entry['thumb'] }}")
+          .thumb-text
+            %span.title
+              %a(href="{{ entry['link'] }}") << {{ entry['title'] }}
+            %span.cat
+              in
+              %a(href="{{ entry['catlink'] }}") << {{ entry['catname'] }}
     .pagination
       -if prevpage
         %a.prev(href='{{ prevpage }}') << Previous Page
