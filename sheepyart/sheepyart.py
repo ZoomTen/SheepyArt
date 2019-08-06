@@ -26,6 +26,9 @@ import json
 # Sanitizer
 from flask_bleach import Bleach
 
+# Search
+from flask_msearch import Search
+
 # ------------------------- Definitions -------------------------
 with open(path.join("sheepyart", "app", "definitions.json"), "r") as def_files:
     # Load our JSON definition file as a dictionary that
@@ -59,7 +62,12 @@ app.jinja_env.hamlish_enable_div_shortcut = True
 
 # App stuff
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + path.join(base, db_file)
+
 app.config['SECRET_KEY'] = conf["secret"]
+
+app.config['MSEARCH_INDEX_NAME'] = 'sheepyart_search'
+app.config['MSEARCH_BACKEND'] = 'whoosh'
+
 # app.config['SQLALCHEMY_ECHO'] = True
 
 # Make db
@@ -92,6 +100,9 @@ app.config['BLEACH_STRIP_MARKUP'] = True
 # own bleach modules
 # Clorox
 scrub = Bleach(app)
+
+# Search functions
+search = Search(app)
 
 
 # TODO: sheepyart: use flask-talisman instead for these

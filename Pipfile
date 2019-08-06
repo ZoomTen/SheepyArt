@@ -22,6 +22,8 @@ py-gfm = "*"
 humanize = "*"
 flask-migrate = "*"
 flask-script = "*"
+flask-msearch = "*"
+whoosh = "*"
 
 [requires]
 python_version = "3.7"

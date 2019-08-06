@@ -66,6 +66,7 @@ class Art(db.Model):
         nsfw(Integer)           -> must be between 0:none, 1:mild, 2:explicit
         license(Integer)
     """
+    __searchable__ = ['title', 'description', 'tags']
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     # image is a static image link

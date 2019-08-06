@@ -34,6 +34,9 @@ from PIL import Image
 # Logging
 from sheepyart.sheepyart import app
 
+# Search update
+from sheepyart.sheepyart import search
+
 # Sanitizing
 from sheepyart.sheepyart import scrub
 
@@ -170,6 +173,8 @@ def do_upload():
 
             db.session.add(uploaded_art)
             db.session.commit()
+            # FIXME: upload: Potentially slow? (search updating)
+            search.update_index(Art)
 
             # LOG: Image upload
             app.logger.info(f"User {by[0]} (ID: {by[1]}) uploaded {form.title.data}, assigned ID {uploaded_art.id}")
@@ -206,7 +211,10 @@ def do_edit(art_id):
                     art.category=int(form.category.data)
                     art.nsfw=int(form.has_nsfw.data)
                     art.license=int(form.license.data)
+
                     db.session.commit()
+                    # FIXME: upload/edit: Potentially slow? (search updating)
+                    search.update_index(Art)
 
                     # LOG: Image update
                     app.logger.info(f"{art.title} (ID:{art.id}) has been updated by {current_user.username} (ID:{current_user.id}).")
