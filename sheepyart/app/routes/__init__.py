@@ -15,6 +15,7 @@ from sheepyart.app.routes.upload import upload
 from sheepyart.app.routes.art import art
 from sheepyart.app.routes.preview import preview
 from sheepyart.app.routes.gallery import gallery
+from sheepyart.app.routes.delete import delete
 
 # Load login data
 from flask_login import current_user
@@ -50,6 +51,7 @@ app.register_blueprint(upload)
 app.register_blueprint(art)
 app.register_blueprint(preview)
 app.register_blueprint(gallery)
+app.register_blueprint(delete)
 
 # Error handlers
 

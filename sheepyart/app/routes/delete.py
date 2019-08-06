@@ -1,0 +1,29 @@
+# Base
+from flask import Blueprint
+from flask import render_template, request, redirect, flash, url_for, Response
+from flask_login import login_required, current_user
+
+from sheepyart.sheepyart import db
+from sheepyart.app.models import Art
+
+delete = Blueprint('delete', __name__)
+
+
+@delete.route('/delete', methods=['POST'])
+@login_required
+def delete_art():
+    # Check if the owner of the art is the same
+    art_target = request.form.get('art')
+    art = Art.query.get(art_target)
+
+    if art:
+        if (art.by == current_user):
+            try:
+                db.session.delete(art)
+                db.session.commit()
+            except:
+                # NOTE: delete: is hardcoding responses a good idea?
+                return Response(status=500)
+            return redirect(url_for('userpage.view_userpage',
+                                    username=current_user.username))
+    return Response(status=403)
