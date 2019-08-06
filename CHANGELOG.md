@@ -6,6 +6,7 @@
 * **art:** cheaply fix weird underline bug on art page 5440f38
 * **browse:** incorrect parameters passed fcd5993
 * **login:** undefined user bug on logout 255ef6e
+* **search:** inconsistent thumbnail gridding 75cb1a6
 * **security:** disable autocomplete and add request headers dc670c9
 * **style:** some browsers don't display input properly? d8110a7
 * **style:** some gapless gallery pictures e52dda0
