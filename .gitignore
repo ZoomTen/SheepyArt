@@ -8,3 +8,4 @@ base.db
 __pycache__/
 sheepyart.log*
 migrations
+sheepyart_search
