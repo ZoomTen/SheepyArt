@@ -18,42 +18,48 @@ right around the corner.
 
 ## What it Looks like
 Not much right now. (this is not the default color scheme)
-![SheepyArt](screenshot1251.jpg)
+![SheepyArt](screenshot1275.jpg)
 
 ## Working Features
   * Basic user authentication (registration, login, logout)
-  * Basic image upload and thumbnailing
+  * Image upload and thumbnailing
   * User gallery and global gallery
   * Basic configuration through `definitions.json`
   * Configurable color scheme, just edit `$theme-color` in `assets/scss/main/main.scss`
+  * Basic search support (tags included)
+  * Browsing categories and seeking by offset
+  * Editing and deleting art
+  * Markdown support
 
 ## Missing from the Big Picture
   * Comments
   * Critiques
   * Collections, favorites and views
-  * Trending tab (see above)
-  * Search and tags
-  * Browsing categories and seeking by offset
-  * Edit and delete art
+  * Trending tab
   * Literature and journal/blogs.
   * User bio and other user info
+  * Avatar and user settings
   * Notifications, inbox
   * Literally everything else
 
 ## Missing from the Small Picture
   * Logging in by e-mail address
   * Country selection and inclusion on userpage
-  * User gallery
-  * Markdown support
+  * Subcategory display on the sidebar
+  * Tags looking like hashtags, each being a separate link to the search query
 
 ## Oddities
   * Importing global objects need to be done from `sheepyart.sheepyart`
-  * Database located at `sheepyart/base.db`, definitions file located at `sheepyart/app/definitions.json`
-  * The logs are located at rootdir/`sheepyart.log`
+  * Database located at `rootdir/sheepyart/base.db`, definitions file located at `rootdir/sheepyart/app/definitions.json`
+  * The logs are located at `rootdir/sheepyart.log`
+  * Search indexes located at `rootdir/sheepyart_search`
+  * Migration is in `rootdir/migrations`
 
 ## Known Bugs
   * Upload doesn't handle no-file-selected cases yet
-  * Will need to check user input sanitizing (use a global config?)
+  * Seach function might be slow? (might affect art uploads)
+  * Manually uploading the art file when editing an entry, regardless of intent
+  * Possible unhandled errors and conditions
 
 ## What to install first
 Core dependencies
@@ -72,6 +78,6 @@ PIL dependencies
   * Access the application by going to `http://localhost:8000` once
     it is running.
 
-## Migration
+## Migrations
   * Run `pipenv run python migrate.py db migrate` to update the database schemas.
   * Run `pipenv run python migrate.py db upgrate` to migrate the database.
