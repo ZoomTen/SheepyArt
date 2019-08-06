@@ -1,5 +1,9 @@
+"""SheepyArt Upload forms and page.
+
+This also handles the edit page as well."""
+
 # Base
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, Response
 from flask import flash, request, redirect, url_for
 from flask_login import login_required, current_user
 
@@ -179,3 +183,41 @@ def do_upload():
         return render_template("upload.haml", form=form)
     else:
         return render_template("upload.haml", form=form)
+
+
+@upload.route('/edit/<art_id>', methods=['GET', 'POST'])
+@login_required
+def do_edit(art_id):
+    art = Art.query.get(art_id)
+
+    if art:
+        if (art.by == current_user):
+            # FIXME: upload/edit: The image file doesn't load even after explicitly specified.
+            form = UploadForm(obj=art)
+            if request.method == "POST":
+                if form.validate_on_submit():
+                    if form.image.data:
+                        image_file = upload_art_image(form.image.data)
+                        art.image = image_file[0]
+                        art.thumbnail = image_file[1]
+                    art.title = scrub.clean(form.title.data)
+                    art.tags = scrub.clean(form.tags.data)
+                    art.description = scrub.clean(form.description.data)
+                    art.category=int(form.category.data)
+                    art.nsfw=int(form.has_nsfw.data)
+                    art.license=int(form.license.data)
+                    db.session.commit()
+
+                    # LOG: Image update
+                    app.logger.info(f"{art.title} (ID:{art.id}) has been updated by {current_user.username} (ID:{current_user.id}).")
+
+                    flash('Your art has been updated!', 'success')
+                    return redirect(url_for('art.view_art', art_id=art.id))
+
+                for field, errors in form.errors.items():
+                    for err in errors:
+                        flash(err, 'error')
+                return render_template("edit.haml", form=form)
+            else:
+                return render_template("edit.haml", form=form, art=art)
+    return Response(status=403)

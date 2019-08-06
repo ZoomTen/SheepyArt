@@ -33,7 +33,8 @@
           ; XXX: template/art: implement art editing and deleting. can use upload forms for that.
           %strong << Edit
           %ul
-            %li << Edit Art (non-functional)
+            %li
+              %a(href='{{ url_for("upload.do_edit", art_id=art.id) }}') << Edit Art
             %li
               %a#deletthis(href='javascript:void(0);') << Delete Art
         -else

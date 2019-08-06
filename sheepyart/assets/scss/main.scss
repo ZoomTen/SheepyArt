@@ -662,3 +662,10 @@ section > .thumbs-container{
 a{
   color:inherit;
 }
+
+.ui-form-required:after{
+  content:"*";
+  color:red;
+  vertical-align: super;
+  font-size: .8em;
+}
