@@ -5,6 +5,7 @@
 from os import path
 
 # Base app
+# TODO: sheepyart: Try using Quart+Flask
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,6 +15,10 @@ from flask_login import LoginManager
 # Haml + Sass support
 from werkzeug import ImmutableDict
 from flask_scss import Scss
+
+# Migration
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 # For the definition file
 import json
@@ -29,6 +34,7 @@ with open(path.join("sheepyart", "app", "definitions.json"), "r") as def_files:
 
 db_file = conf["db_file"]
 
+base = path.abspath(path.dirname(__file__))
 
 # ------------------------- Control -------------------------
 
@@ -52,12 +58,17 @@ app.jinja_env.hamlish_mode = 'indented'
 app.jinja_env.hamlish_enable_div_shortcut = True
 
 # App stuff
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_file
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + path.join(base, db_file)
 app.config['SECRET_KEY'] = conf["secret"]
 # app.config['SQLALCHEMY_ECHO'] = True
 
 # Make db
 db = SQLAlchemy(app)
+
+# Migration
+migration = Migrate(app, db)
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 # Compile SCSS
 Scss(app)

@@ -36,16 +36,5 @@ if __name__ == "__main__":
             parent_cat_id = parent_ids[category]
             db.session.add(Category(title=subcats, parent_id=parent_cat_id))
 
-    # COMBAK: init: remove the test user upon database initialization
-    db.session.add(User(username="test",
-                        dispname="Testy McTestinson",
-                        email="abc@ismypasswo.rd",
-                        password=Bcrypt().generate_password_hash("abc"),
-                        dob=date(2000,1,1),
-                        gender=0,
-                        country=62
-                        )
-                  )
-
     db.session.commit()
     print('Defaults added to database.')

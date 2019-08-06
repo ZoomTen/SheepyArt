@@ -7,3 +7,4 @@ Pipfile.lock
 base.db
 __pycache__/
 sheepyart.log*
+migrations

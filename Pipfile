@@ -20,6 +20,8 @@ pillow = "*"
 flask-bleach = "*"
 py-gfm = "*"
 humanize = "*"
+flask-migrate = "*"
+flask-script = "*"
 
 [requires]
 python_version = "3.7"

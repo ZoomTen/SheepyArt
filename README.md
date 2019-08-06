@@ -71,3 +71,7 @@ PIL dependencies
   * Then `pipenv run python main.py`.
   * Access the application by going to `http://localhost:8000` once
     it is running.
+
+## Migration
+  * Run `pipenv run python migrate.py db migrate` to update the database schemas.
+  * Run `pipenv run python migrate.py db upgrate` to migrate the database.
