@@ -3,7 +3,7 @@
 This also handles the edit page as well."""
 
 # Base
-from flask import Blueprint, render_template, Response
+from flask import Blueprint, render_template, abort
 from flask import flash, request, redirect, url_for
 from flask_login import login_required, current_user
 
@@ -220,4 +220,4 @@ def do_edit(art_id):
                 return render_template("edit.haml", form=form)
             else:
                 return render_template("edit.haml", form=form, art=art)
-    return Response(status=403)
+    abort(403)

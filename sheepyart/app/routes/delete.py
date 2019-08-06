@@ -1,6 +1,6 @@
 # Base
 from flask import Blueprint
-from flask import render_template, request, redirect, flash, url_for, Response
+from flask import render_template, request, redirect, flash, url_for, abort
 from flask_login import login_required, current_user
 
 from sheepyart.sheepyart import db
@@ -22,8 +22,7 @@ def delete_art():
                 db.session.delete(art)
                 db.session.commit()
             except:
-                # NOTE: delete: is hardcoding responses a good idea?
-                return Response(status=500)
+                abort(500)
             return redirect(url_for('userpage.view_userpage',
                                     username=current_user.username))
-    return Response(status=403)
+    abort(403)
