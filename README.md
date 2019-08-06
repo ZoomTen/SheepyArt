@@ -17,7 +17,7 @@ because there's no next page yet. Will get to it eventually. Orientation's
 right around the corner.
 
 ## What it Looks like
-Not much right now. (this is not the default color scheme)
+Not much right now.
 ![SheepyArt](screenshot1275.jpg)
 
 ## Working Features
