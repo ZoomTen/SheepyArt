@@ -126,11 +126,64 @@ class View(db.Model):
     bound to be a disaster pretty quickly, it tracks date and time at least.
 
     Required fields:
-        art(Integer)
+        art_id(Integer)
     """
     id = db.Column(db.Integer, primary_key=True)
     art_id = db.Column(db.Integer, db.ForeignKey('art.id'), nullable=False)
     time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     def __repr__(self):
-        return f"Viewed({self.art_id} at {self.time})"
+        return f"View({self.art_id} at {self.time})"
+
+
+class Favorites(db.Model):
+    """Favorites table.
+
+    Required fields:
+        art_id(Integer)
+        user_id(Integer)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    art_id = db.Column(db.Integer, db.ForeignKey('art.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Favorites({self.art_id} by {self.user_id})"
+
+
+class CollectionData(db.Model):
+    """Collections data table.
+
+    This contains art IDs and the collections they belong to.
+    The `collection_id` points to collection info located in
+    CollectionMeta.
+
+    Required fields:
+        art_id(Integer)
+        collection_id(Integer)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    art_id = db.Column(db.Integer, db.ForeignKey('art.id'), nullable=False)
+    collection_id = db.Column(db.Integer, db.ForeignKey('collection_meta.id'), nullable=False)
+
+    def __repr__(self):
+        return f"CollectionData({self.art_id} in {self.collection_id})"
+
+
+class CollectionMeta(db.Model):
+    """Collections meta/info table.
+
+    This contains the information for a collection, like the
+    title and description of the collection.
+
+    Required fields:
+        title(String, 128)
+    Optional fields:
+        description(Text)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128), nullable=False)
+    description = db.Column(db.Text, nullable=False, default='')
+
+    def __repr__(self):
+        return f"CollectionMeta({self.id}, '{self.title}')"
