@@ -4,8 +4,8 @@ from flask import render_template
 from flask_login import current_user
 
 # Database entries
-from sheepyart.sheepyart import app
-from sheepyart.app.models import Art, Category
+from sheepyart.sheepyart import app, db
+from sheepyart.app.models import Art, Category, View
 
 # Date conversion
 from datetime import datetime as dt
@@ -28,6 +28,15 @@ def view_art(art_id):
     art_view = Art.query.get(art_id)
 
     if art_view:
+        # FIXME: art: viewing in this way is likely going to be a disaster
+        isviewed_data = View(art_id=art_view.id)
+        try:
+            db.session.add(isviewed_data)
+            db.session.commit()
+        except:
+            pass
+        viewcount = View.query.filter_by(art_id=art_view.id).count()
+        #
         by = art_view.by
 
         published = dt.strftime(art_view.pubdate, '%B %-d, %Y (UTC)')
@@ -50,6 +59,7 @@ def view_art(art_id):
                                    description=description,
                                    resolution=resolution,
                                    user=current_user,
+                                   viewcount=viewcount,
                                    cat=(par_cat, cat)
                                    )
 
@@ -58,6 +68,7 @@ def view_art(art_id):
                                filesize=filesize, description=description,
                                user=current_user,
                                resolution=resolution,
+                               viewcount=viewcount,
                                cat=(cat)
                                )
     return render_template('art.haml')

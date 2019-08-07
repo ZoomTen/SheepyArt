@@ -13,7 +13,7 @@ def load_user(uid):
 # ------------------------- Model -------------------------
 
 class User(db.Model, UserMixin):
-    """User column.
+    """User table.
 
     Required fields:
         username(String, 16, unique)
@@ -48,7 +48,7 @@ class User(db.Model, UserMixin):
 
 
 class Art(db.Model):
-    """Art column.
+    """Art table.
 
     Required fields:
         title(String, 128)
@@ -56,9 +56,6 @@ class Art(db.Model):
         image(String, 128)      -> relative to static/uploads/
         thumbnail(String, 128)  -> relative to static/thumbnail/
         user_id(Integer)
-        favorites(Integer)      -> requires user login to favorite
-        views(Integer)          -> should be updated every time the page is
-                                   viewed BY unique IDs
         pubdate(DateTime)
         description(Text)       -> indexable
         tags(String, 256)       -> space separated
@@ -74,8 +71,6 @@ class Art(db.Model):
     # thumbnail is a static image link, default='default.jpg'
     thumbnail = db.Column(db.String(128), nullable=False, default='thumb.jpg')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    favorites = db.Column(db.Integer, nullable=False, default=0)
-    views = db.Column(db.Integer, nullable=False, default=0)
     pubdate = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.Text, nullable=False, default='')
     tags = db.Column(db.String(256), nullable=False, default='')
@@ -88,7 +83,7 @@ class Art(db.Model):
 
 
 class Category(db.Model):
-    """Category column.
+    """Category table.
 
     Required fields:
         title(String, 128)
@@ -105,7 +100,7 @@ class Category(db.Model):
 
 # NOTE: models: this "licenses" table may or may not be here to stay.
 class License(db.Model):
-    """License column.
+    """License table.
 
     Required fields:
         title(String, 128)
@@ -122,3 +117,20 @@ class License(db.Model):
 
     def __repr__(self):
         return f"License('{self.title}', commercial:{self.commercial_allowed}, attrib:{self.attrib_required})"
+
+
+class View(db.Model):
+    """Post view table.
+
+    Although there's a dedicated view column on the art table and this is
+    bound to be a disaster pretty quickly, it tracks date and time at least.
+
+    Required fields:
+        art(Integer)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    art_id = db.Column(db.Integer, db.ForeignKey('art.id'), nullable=False)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"Viewed({self.art_id} at {self.time})"
