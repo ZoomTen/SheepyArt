@@ -24,6 +24,7 @@ flask-migrate = "*"
 flask-script = "*"
 flask-msearch = "*"
 whoosh = "*"
+blinker = "*"
 
 [requires]
 python_version = "3.7"
