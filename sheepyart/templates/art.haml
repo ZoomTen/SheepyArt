@@ -116,7 +116,6 @@
           |   }
           |
         -if favorited
-          ; FIXME: template/art: Implement remove from favorites
           | document.getElementById('rmfav').onclick = function(){
           |   var xhr = new XMLHttpRequest();
           |   var addfav = confirm('Remove from favorites?')
@@ -127,9 +126,9 @@
           |    }
           |
           |     if (addfav){
-          |       //xhr.open('POST', '{{ url_for('collection.user_add_favorite') }}', true);
-          |       //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-          |       //xhr.send('art=' + encodeURI({{art.id}}))
+          |       xhr.open('POST', '{{ url_for('collection.user_rm_favorite') }}', true);
+          |       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          |       xhr.send('art=' + encodeURI({{art.id}}))
           |     }
           |
           |   }
