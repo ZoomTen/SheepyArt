@@ -73,6 +73,7 @@ PIL dependencies
 
 ## Run
   * Run `pipenv install`
+  * Run the migration thing below, to initalize the database.
   * Then `pipenv run python make_db.py`.
   * Then `pipenv run python main.py`.
   * Access the application by going to `http://localhost:8000` once
