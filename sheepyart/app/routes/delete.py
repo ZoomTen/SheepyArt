@@ -13,8 +13,10 @@ delete = Blueprint('delete', __name__)
 @login_required
 def delete_art():
     # Check if the owner of the art is the same
+    art = None
     art_target = request.form.get('art')
-    art = Art.query.get(art_target)
+    if art_target:
+        art = Art.query.get(art_target)
 
     if art:
         if (art.by == current_user):
