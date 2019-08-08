@@ -64,9 +64,10 @@ def do_login():
 
     if request.method == "POST":
         if form.validate_on_submit():
-            # FIXME: login: add email input functionality
             user = User.query.filter(func.lower(User.username)
-                                     == func.lower(form.username.data)).first()
+                                     == func.lower(form.username.data)).first()\
+                    or User.query.filter(func.lower(User.email)
+                                        == func.lower(form.username.data)).first()
 
             if user:
                 check_pw = hash.check_password_hash(user.password,
@@ -78,7 +79,7 @@ def do_login():
                     # LOG: User log in.
                     app.logger.info(f"User {user.username} (ID:{user.id}) has logged in.")
 
-                    flash(f"Logged in as '{form.username.data}'!", 'success')
+                    flash(f"Logged in as {user.username}!", 'success')
 
                     target = request.args.get('next')
                     if target:
