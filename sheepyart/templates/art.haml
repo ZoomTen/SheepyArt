@@ -37,7 +37,6 @@
             %a#share(href='javascript:void(0);') << Share
 
         -if user == art.by
-          ; XXX: template/art: implement art editing and deleting. can use upload forms for that.
           %strong << Edit
           %ul
             %li
@@ -101,8 +100,8 @@
           |
           |     xhr.onload = function(){
           |       if (this.status == 200){
-          |         window.location.href = xhr.responseURL;
-          |        alert("Successfully deleted. You'll be redirected to your user page.");
+          |         alert("Successfully deleted. You'll be redirected to your user page.");
+          |         window.location.href = '{{ url_for('userpage.view_userpage', username=art.by.username) }}';
           |      }
           |      else {
           |        alert("Can't delete the art.");
@@ -110,9 +109,8 @@
           |    }
           |
           |     if (delet){
-          |      xhr.open('POST', '{{ url_for('delete.delete_art') }}', true);
-          |       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-          |       xhr.send('art=' + encodeURI({{art.id}}))
+          |       xhr.open('DELETE', '{{ url_for('art.view_art', art_id=art.id) }}', true);
+          |       xhr.send()
           |     }
           |
           |   }
