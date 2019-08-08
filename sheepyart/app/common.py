@@ -148,7 +148,6 @@ def make_gallery(art, num_entries=0, sort_new=False, offset=0):
     """
     assert num_entries >= 0, "num_entries cannot be negative!"
 
-    # NOTE: common: ticky tacky I'm on the keyboard
     if sort_new:
         if num_entries > 0:
             entries = art.order_by(Art.pubdate.desc()).limit(num_entries).offset(offset).all()

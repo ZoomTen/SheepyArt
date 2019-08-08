@@ -1,6 +1,7 @@
 '''
 SheepyArt route definitions
 '''
+# TODO: routes: make JSON responses and consider better AJAX support
 
 # Load global definitions
 from sheepyart.sheepyart import app, conf

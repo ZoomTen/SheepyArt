@@ -18,8 +18,7 @@ if __name__ == "__main__":
     db.create_all()
     print('Database automatically created.')
 
-    # XXX: database: figure out a way to sync up the database when the definitions file is changed.
-    # XXX: database: figure out migration stuff
+    # XXX: database: figure out making the migration stuff work
     listing = conf["categories"]
 
     # add parent categories
