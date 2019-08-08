@@ -25,9 +25,16 @@
           %li
             %a(href="{{ url_for('static', filename='uploads/'+art.image) }}")
               Full View
-          ; XXX: art: implement favorites and sharing
-          ; %li << Add to Favorites
-          ; %li << Share
+          ; XXX: art: implement sharing
+          -if user.is_authenticated
+            -if favorited
+              %li
+                %a#rmfav(href='javascript:void(0);') << Remove from Favorites
+            -else
+              %li
+                %a#addfav(href='javascript:void(0);') << Add to Favorites
+          %li
+            %a#share(href='javascript:void(0);') << Share
 
         -if user == art.by
           ; XXX: template/art: implement art editing and deleting. can use upload forms for that.
@@ -60,13 +67,13 @@
           %p
             %strong << Details
             %ul
-              ; FIXME: art: make functions for comments, favorites
+              ; FIXME: art: make functions for comments
               %li << Submitted: {{ published }}
               %li << Filesize: {{ filesize }}
               %li << Resolution: {{ resolution[0] }}x{{ resolution[1] }}
               ; %li << Comments: ???
-              ; %li << Favorites: {{ favorites }}
-              ; %li << In <strong>???</strong> collections
+              %li << Favorites: {{ favorites_count }}
+              %li << In <strong>{{ collection_count }}</strong> collections
           %p
            %strong << Views
            %ul
@@ -86,27 +93,65 @@
           ;   %strong << Thumbnail Link<br>
           ;   %input(value="> thumbnail link here")
     %script
-      | document.getElementById('deletthis').onclick = function(){
-      |   var xhr = new XMLHttpRequest();
-      |   var delet = confirm('Are you sure you want to delete this?')
-      |
-      |     xhr.onload = function(){
-      |       if (this.status == 200){
-      |         window.location.href = xhr.responseURL;
-      |        alert("Successfully deleted. You'll be redirected to your user page.");
-      |      }
-      |      else {
-      |        alert("Can't delete the art.");
-      |      }
-      |    }
-      |
-      |     if (delet){
-      |      xhr.open('POST', '{{ url_for('delete.delete_art') }}', true);
-      |       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      |       xhr.send('art=' + encodeURI({{art.id}}))
-      |     }
-      |
-      |   }
+      -if user.is_authenticated
+        -if user == art.by
+          | document.getElementById('deletthis').onclick = function(){
+          |   var xhr = new XMLHttpRequest();
+          |   var delet = confirm('Are you sure you want to delete this?')
+          |
+          |     xhr.onload = function(){
+          |       if (this.status == 200){
+          |         window.location.href = xhr.responseURL;
+          |        alert("Successfully deleted. You'll be redirected to your user page.");
+          |      }
+          |      else {
+          |        alert("Can't delete the art.");
+          |      }
+          |    }
+          |
+          |     if (delet){
+          |      xhr.open('POST', '{{ url_for('delete.delete_art') }}', true);
+          |       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          |       xhr.send('art=' + encodeURI({{art.id}}))
+          |     }
+          |
+          |   }
+          |
+        -if favorited
+          ; FIXME: template/art: Implement remove from favorites
+          | document.getElementById('rmfav').onclick = function(){
+          |   var xhr = new XMLHttpRequest();
+          |   var addfav = confirm('Remove from favorites?')
+          |
+          |     xhr.onload = function(){
+          |       alert(this.responseText)
+          |       location.reload(true)
+          |    }
+          |
+          |     if (addfav){
+          |       //xhr.open('POST', '{{ url_for('collection.user_add_favorite') }}', true);
+          |       //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          |       //xhr.send('art=' + encodeURI({{art.id}}))
+          |     }
+          |
+          |   }
+        -else
+          | document.getElementById('addfav').onclick = function(){
+          |   var xhr = new XMLHttpRequest();
+          |   var addfav = confirm('Add to favorites?')
+          |
+          |     xhr.onload = function(){
+          |       alert(this.responseText)
+          |       location.reload(true)
+          |    }
+          |
+          |     if (addfav){
+          |       xhr.open('POST', '{{ url_for('collection.user_add_favorite') }}', true);
+          |       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+          |       xhr.send('art=' + encodeURI({{art.id}}))
+          |     }
+          |
+          |   }
 
   -else
     .main-heading

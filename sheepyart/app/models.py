@@ -136,27 +136,12 @@ class View(db.Model):
         return f"View({self.art_id} at {self.time})"
 
 
-class Favorites(db.Model):
-    """Favorites table.
-
-    Required fields:
-        art_id(Integer)
-        user_id(Integer)
-    """
-    id = db.Column(db.Integer, primary_key=True)
-    art_id = db.Column(db.Integer, db.ForeignKey('art.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Favorites({self.art_id} by {self.user_id})"
-
-
 class CollectionData(db.Model):
     """Collections data table.
 
     This contains art IDs and the collections they belong to.
     The `collection_id` points to collection info located in
-    CollectionMeta.
+    CollectionMeta. The favorites table is also a collection.
 
     Required fields:
         art_id(Integer)
@@ -174,16 +159,22 @@ class CollectionMeta(db.Model):
     """Collections meta/info table.
 
     This contains the information for a collection, like the
-    title and description of the collection.
+    title and description of the collection. This also contains
+    who owns the collection.
 
     Required fields:
         title(String, 128)
+        user_id(Integer)
+        use_as_favorites(Boolean) -> whether or not to use as the collection
+                                    used when the user favorites something
     Optional fields:
         description(Text)
     """
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(128), nullable=False)
+    title = db.Column(db.String(128), nullable=False, default='')
     description = db.Column(db.Text, nullable=False, default='')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    use_as_favorites = db.Column(db.Boolean, default=0)
 
     def __repr__(self):
-        return f"CollectionMeta({self.id}, '{self.title}')"
+        return f"CollectionMeta({self.id}, '{self.title}' belongs to {self.user_id})"

@@ -17,7 +17,7 @@ from dateutil.relativedelta import relativedelta
 
 # Database entries
 from sheepyart.sheepyart import db
-from sheepyart.app.models import User
+from sheepyart.app.models import User, CollectionMeta
 
 # Database functions
 from sqlalchemy import func
@@ -140,6 +140,13 @@ def do_register():
                             gender=int(form.gender.data),
                             country=int(form.country.data))
             db.session.add(new_user)
+            db.session.flush()
+
+            # Add default favorites collection
+            user_faves = CollectionMeta(title='Favorites',
+                                        user_id=new_user.id,
+                                        use_as_favorites=True)
+            db.session.add(user_faves)
 
             # Catch some errors
             try:

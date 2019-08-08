@@ -5,7 +5,7 @@ from flask_login import current_user
 
 # Database entries
 from sheepyart.sheepyart import app, db
-from sheepyart.app.models import Art, Category, View
+from sheepyart.app.models import Art, Category, View, CollectionData, CollectionMeta
 
 # Date conversion
 from datetime import datetime as dt
@@ -43,6 +43,21 @@ def view_art(art_id):
 
         description = parse_markdown(art_view.description)
 
+        in_collections = CollectionData.query.filter_by(art_id=art_id)
+        favorites_count = 0
+
+        for collection in in_collections.all():
+            if CollectionMeta.query.get(collection.collection_id).use_as_favorites is True:
+                favorites_count += 1
+
+        collection_count = in_collections.count() - favorites_count
+
+        favorited = None
+        if current_user.is_authenticated:
+            favstable = CollectionMeta.query.filter_by(user_id=current_user.id, use_as_favorites=True).first()
+            if favstable:
+                favorited = CollectionData.query.filter_by(art_id=art_id,collection_id=favstable.id).first()
+
         filesize = 0
         resolution = (0,0)
         imgfile = path.join(app.root_path, 'static', 'uploads', art_view.image)
@@ -60,6 +75,9 @@ def view_art(art_id):
                                    resolution=resolution,
                                    user=current_user,
                                    viewcount=viewcount,
+                                   favorited=favorited,
+                                   favorites_count=favorites_count,
+                                   collection_count=collection_count,
                                    cat=(par_cat, cat)
                                    )
 
@@ -69,6 +87,9 @@ def view_art(art_id):
                                user=current_user,
                                resolution=resolution,
                                viewcount=viewcount,
+                               favorited=favorited,
+                               favorites_count=favorites_count,
+                               collection_count=collection_count,
                                cat=(cat)
                                )
     return render_template('art.haml')
