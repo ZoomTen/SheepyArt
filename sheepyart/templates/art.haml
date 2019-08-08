@@ -91,6 +91,15 @@
           ;   %br
           ;   %strong << Thumbnail Link<br>
           ;   %input(value="> thumbnail link here")
+
+      ; FIXME: art: make this a modal form
+      ;%section#share
+      ;  %h2 << Share
+      ;  %ul#sharebuttons
+      ;    %li << Twitter
+      ;    %li << Reddit
+      ;    %li << Facebook
+      ;    %li << Tumblr
     %script
       -if user.is_authenticated
         -if user == art.by
