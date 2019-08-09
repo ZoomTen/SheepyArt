@@ -29,6 +29,9 @@ from flask_bleach import Bleach
 # Search
 from flask_msearch import Search
 
+# URL quote
+from urllib.parse import quote_plus
+
 # ------------------------- Definitions -------------------------
 with open(path.join("sheepyart", "app", "definitions.json"), "r") as def_files:
     # Load our JSON definition file as a dictionary that
@@ -68,7 +71,10 @@ app.config['SECRET_KEY'] = conf["secret"]
 app.config['MSEARCH_INDEX_NAME'] = 'sheepyart_search'
 app.config['MSEARCH_BACKEND'] = 'whoosh'
 
-# app.config['SQLALCHEMY_ECHO'] = True
+#app.config['SQLALCHEMY_ECHO'] = True
+
+# Custom filters
+app.jinja_env.filters['quote'] = lambda x: quote_plus(x)
 
 # Make db
 db = SQLAlchemy(app)

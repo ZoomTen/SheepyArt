@@ -92,14 +92,16 @@
           ;   %strong << Thumbnail Link<br>
           ;   %input(value="> thumbnail link here")
 
-      ; FIXME: art: make this a modal form
-      ;%section#share
-      ;  %h2 << Share
-      ;  %ul#sharebuttons
-      ;    %li << Twitter
-      ;    %li << Reddit
-      ;    %li << Facebook
-      ;    %li << Tumblr
+      ; FIXME: WIP: art: make the share buttons look like buttons
+      %section#share
+        %h2 << Share
+        %ul#sharebuttons
+          %li
+            %a(href='http://twitter.com/share?text={{ ("\"" + art.title + "\" by " + by.username)|quote }}&url={{(app_abs_path + request.path)|quote }}') << Twitter
+          %li
+            %a(href='http://reddit.com/submit?url={{ (app_abs_path + request.path)|quote }}') << Reddit
+          %li
+            %a(href='http://www.facebook.com/sharer.php?u={{ (app_abs_path + request.path)|quote }}') << Facebook
     %script
       -if user.is_authenticated
         -if user == art.by

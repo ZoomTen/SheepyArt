@@ -39,6 +39,8 @@ def apply_global_variables():
         tagline=conf["tagline"],
         userauthed=current_user,
         globallogin=SiteWideLoginForm(),
+        # NOTE: routes: make sure to set absolute root url when deploying
+        app_abs_path='http://localhost:8000'
     )
 
 
