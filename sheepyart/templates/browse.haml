@@ -25,6 +25,9 @@
             %a(href="{{ url_for( 'browse.do_browse' ) + '?cat=' + category[0].id|e }}") << {{ category[0].title }}
 
     %main#browse-main
+      %span
+        %small
+          <b>Newest</b> entries in the last <b>forever</b> (fixme)
       .thumbs-container
         -for entry in gallery_snips
           .thumb-holder
