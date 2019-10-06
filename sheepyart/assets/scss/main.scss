@@ -401,7 +401,7 @@ section > .thumbs-container{
 
 #browse-main {
   display: inline-block;
-  padding: 40px 10px;
+  //padding: 40px 10px;
   width: 100%;
   border-right: 1px solid adjust-color($theme-color, $lightness:10%, $saturation:2%);
 }
@@ -539,6 +539,7 @@ section > .thumbs-container{
 
   &:checked + label {
     + .ui-expand-target {
+      display: block;
       max-height: 99em;
       transition: max-height 1s ease-in-out;
     }
