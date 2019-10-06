@@ -20,12 +20,31 @@ from humanize import naturalsize
 # Resolution
 from PIL import Image
 
+# Comment form
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField, SubmitField
+from wtforms.validators import InputRequired
+
+# Sanitizing
+# FIXME: register: import app-wide sanitizer configs, if available
+from bleach import Cleaner
+
 art = Blueprint('art', __name__)
 
+class CommentForm(FlaskForm):
+    'SheepyArt comments form object.'
+
+    comment = TextAreaField('Comment',
+                           [
+                               InputRequired('Input required')
+                           ])
+
+    submit = SubmitField('Comment')
 
 @art.route('/art/<art_id>', methods=['GET'])
 def view_art(art_id):
     art_view = Art.query.get(art_id)
+    comment_form = CommentForm()
 
     if art_view:
         # FIXME: art: viewing in this way is likely going to be a disaster
@@ -78,7 +97,8 @@ def view_art(art_id):
                                    favorited=favorited,
                                    favorites_count=favorites_count,
                                    collection_count=collection_count,
-                                   cat=(par_cat, cat)
+                                   cat=(par_cat, cat),
+                                   comment_form=comment_form
                                    )
 
         return render_template('art.haml', art=art_view, by=by,
@@ -90,6 +110,7 @@ def view_art(art_id):
                                favorited=favorited,
                                favorites_count=favorites_count,
                                collection_count=collection_count,
-                               cat=(cat)
+                               cat=(cat),
+                               comment_form=comment_form
                                )
     return render_template('art.haml')

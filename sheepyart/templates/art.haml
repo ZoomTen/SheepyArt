@@ -102,6 +102,37 @@
             %a(href='http://reddit.com/submit?url={{ (app_abs_path + request.path)|quote }}') << Reddit
           %li
             %a(href='http://www.facebook.com/sharer.php?u={{ (app_abs_path + request.path)|quote }}') << Facebook
+      ; FIXME: WIP: comments: replace these placeholders
+      %section#comments
+        %h2
+          Comments
+        -if user.is_authenticated
+          %p << Leave a comment
+          %form(action="/register", method="post")
+            {{ comment_form.csrf_token }}
+            {{ comment_form.comment.label }}
+            {{ comment_form.comment}}
+            {{ comment_form.submit}}
+        %ul.comment-thread
+          %li
+            Comment Example 1
+          %li
+            Comment Example 2
+            %ul.comment-thread
+              %li
+                Comment Example 2.1
+              %li
+                Comment Example 2.2
+                %ul.comment-thread
+                  %li
+                    Comment Example 2.2.1
+                  %li
+                    Comment Example 2.2.2
+              %li
+                Comment Example 2.3
+          %li
+            Comment Example 3
+
     %script
       -if user.is_authenticated
         -if user == art.by

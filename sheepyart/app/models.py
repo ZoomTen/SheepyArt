@@ -178,3 +178,27 @@ class CollectionMeta(db.Model):
 
     def __repr__(self):
         return f"CollectionMeta({self.id}, '{self.title}' belongs to {self.user_id})"
+
+class Comment(db.Model):
+    """Comment table.
+
+    Required fields:
+        user_id(Integer)
+        reply_to(Integer)
+        text(Text)
+        depth(Integer)
+        art_id(Integer)
+    Automatic fields:
+        id(Integer)
+        time(DateTime)
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    art_id = db.Column(db.Integer, db.ForeignKey('art.id'), nullable=False)
+    reply_to = db.Column(db.Integer, nullable=False, default=0)
+    depth = db.Column(db.Integer, default=0)
+    text = db.Column(db.Text, nullable=False, default='')
+    time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"Comment({self.id}, by: '{self.user_id}')"
