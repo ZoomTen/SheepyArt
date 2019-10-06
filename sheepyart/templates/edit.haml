@@ -105,7 +105,7 @@
     |   var preview_element = document.getElementById("preview-contents");
     |
     |   xhr.open('POST', '{{ url_for('preview.make_preview') }}', true);
-    |   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    |   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     |
     |   xhr.onreadystatechange = function(){
     |      if (this.readyState == 4 && this.status == 200){
