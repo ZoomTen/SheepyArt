@@ -80,5 +80,6 @@ PIL dependencies
     it is running.
 
 ## Migrations
+  * Run `pipenv run python migrate.py db init` to create the folders.
   * Run `pipenv run python migrate.py db migrate` to update the database schemas.
-  * Run `pipenv run python migrate.py db upgrate` to migrate the database.
+  * Run `pipenv run python migrate.py db upgrade` to migrate the database.
