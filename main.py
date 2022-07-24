@@ -1,5 +1,5 @@
 from sheepyart.sheepyart import app
-
+import sys
 
 # ------------------------- Run application -------------------------
 if __name__ == "__main__":
@@ -10,4 +10,9 @@ if __name__ == "__main__":
     handler = RotatingFileHandler('sheepyart.log', maxBytes=10000, backupCount=1)
     app.logger.addHandler(handler)
 
-    app.run(port='8000', host='0.0.0.0', debug=True)
+    PORT=8000
+
+    if len(sys.argv) > 1:
+        PORT = int(sys.argv[1])
+
+    app.run(port=PORT, host='0.0.0.0', debug=True)
