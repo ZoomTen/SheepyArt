@@ -78,6 +78,7 @@ PIL dependencies
   * Then `pipenv run python main.py`.
   * Access the application by going to `http://localhost:8000` once
     it is running.
+  * You can also do `pipenv run python main.py 9000` to run the application on port 9000 instead of 8000.
 
 ## Migrations
   * Run `pipenv run python migrate.py db init` to create the folders.
