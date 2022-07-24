@@ -14,7 +14,6 @@ from flask_login import LoginManager
 
 # Haml + Sass support
 from werkzeug import ImmutableDict
-from flask_scss import Scss
 
 # Migration
 from flask_script import Manager
@@ -83,9 +82,6 @@ db = SQLAlchemy(app)
 migration = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
-
-# Compile SCSS
-Scss(app)
 
 # Login manager
 logins = LoginManager(app)
